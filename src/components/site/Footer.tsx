@@ -22,7 +22,7 @@ export function Footer() {
         <div className="absolute -top-px h-px w-1/3 animate-marquee bg-gradient-to-r from-transparent via-white to-transparent" />
       </div>
 
-      <div className="mx-auto max-w-7xl px-6 py-20">
+      <div className="mx-auto w-[85vw] px-6 py-20">
         <div className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4">
             <div className="flex items-center gap-2.5">

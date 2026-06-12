@@ -23,7 +23,7 @@ export function Nav() {
         scrolled ? "py-3 backdrop-blur-xl bg-black/40 border-b border-white/5" : "py-6 bg-transparent"
       }`}
     >
-      <div className="mx-auto max-w-7xl px-6 flex items-center justify-between">
+      <div className="mx-auto w-[85vw] px-6 flex items-center justify-between">
         <a href="#top" className="flex items-center gap-2.5 group">
           <span className="relative h-7 w-7 rounded-full bg-chrome grid place-items-center shadow-[inset_0_0_8px_rgba(0,0,0,0.4)]">
             <span className="h-2 w-2 rounded-full bg-[#050505]" />

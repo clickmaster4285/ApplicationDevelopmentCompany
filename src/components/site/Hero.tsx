@@ -60,7 +60,7 @@ export function Hero() {
       <div className="pointer-events-none absolute inset-0 opacity-[0.05] [background-image:repeating-linear-gradient(180deg,#fff_0_1px,transparent_1px_3px)]" />
 
       {/* Copy - Left aligned */}
-      <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-start justify-center px-6 pt-44 pb-32 min-h-screen">
+      <div className="relative z-10 mx-auto flex w-[85vw] flex-col items-start justify-center px-6 pt-44 pb-32 min-h-screen">
 
 
   <h1

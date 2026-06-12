@@ -132,7 +132,7 @@ function Capsule({ s, i }: { s: typeof services[number]; i: number }) {
 export function Services() {
   return (
     <section id="services" className="relative py-32 md:py-40">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto w-[85vw] px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-20">
           <div>
             <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">— Capabilities</div>

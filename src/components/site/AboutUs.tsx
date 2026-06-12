@@ -105,7 +105,7 @@ export function About() {
   
   return (
     <section id="about" className="relative py-32 md:py-40">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto w-[85vw] px-6">
         {/* Header on left, video on right */}
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Left side - Header and content */}

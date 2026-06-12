@@ -111,7 +111,7 @@ export function Stats() {
 
   return (
     <section ref={ref} className="relative py-32 md:py-44 overflow-hidden">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto w-[85vw] px-6">
         <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">— In Numbers</div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-y-20 gap-x-12">
           {stats.map((s, idx) => (

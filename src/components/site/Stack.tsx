@@ -35,7 +35,7 @@ export function Stack() {
 
   return (
     <section id="stack" className="relative py-32 md:py-44 overflow-hidden border-t border-white/5">
-      <div className="mx-auto max-w-7xl px-6">
+      <div className="mx-auto w-[85vw] px-6">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           <div>
             <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">— Technology</div>

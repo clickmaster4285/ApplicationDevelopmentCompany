@@ -47,7 +47,7 @@ export default function SpiralGallery() {
       
           
 
-          <div className="mx-auto max-w-7xl px-6 pt-32 pb-10">
+          <div className="mx-auto w-[85vw] px-6 pt-32 pb-10">
         <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5"> Scalable Architecture</div>
       <h2 className="text-white text-5xl md:text-7xl font-medium tracking-[-0.03em] leading-[1.02] max-w-3xl">
             Our Process, Engineered for Scale
