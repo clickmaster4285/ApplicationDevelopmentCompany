@@ -56,129 +56,64 @@ const tunnelIcons = stages.flatMap((stage, sIdx) =>
 
 function TunnelScene({ progressRef }: { progressRef: React.MutableRefObject<number> }) {
   const tunnel = useRef<THREE.Group>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera>(null);
-  
-  useFrame(({ camera, clock }) => {
+  const camera = useRef<THREE.PerspectiveCamera>(null);
+  useFrame(({ camera: cam, clock }) => {
     const p = progressRef.current;
     // Move camera through tunnel
-    camera.position.z = 6 - p * 55;
-    camera.position.x = Math.sin(clock.elapsedTime * 0.15) * 0.2;
-    camera.position.y = Math.cos(clock.elapsedTime * 0.2) * 0.15;
-    camera.lookAt(0, 0, camera.position.z - 1);
-    
+    cam.position.z = 6 - p * 60;
+    cam.rotation.z = Math.sin(clock.elapsedTime * 0.2) * 0.04;
     if (tunnel.current) {
-      tunnel.current.rotation.z += 0.003;
-      tunnel.current.rotation.y = Math.sin(clock.elapsedTime * 0.1) * 0.1;
+      tunnel.current.rotation.z += 0.0008;
     }
   });
 
   // Tunnel ring geometry
-  const ringCount = 45;
-  
+  const ringCount = 40;
   return (
     <>
-      <color attach="background" args={[0x020210]} />
-      <fog attach="fog" args={[0x020210, 8, 45]} />
-      
-      {/* Enhanced lighting */}
-      <ambientLight intensity={0.25} />
-      <directionalLight position={[2, 3, 4]} intensity={0.8} color="#e8eef5" />
-      <directionalLight position={[-2, 1, -3]} intensity={0.5} color="#8a9bb5" />
-      <pointLight position={[0, 2, 0]} intensity={0.6} color="#ffffff" />
-      <pointLight position={[0, 0, 10]} intensity={1.2} color="#c0d0e8" distance={20} />
-      <pointLight position={[0, 0, -15]} intensity={0.8} color="#5a6e8a" distance={25} />
-      
+      <color attach="background" args={[0x050505]} />
+      <fog attach="fog" args={[0x050505, 4, 30]} />
+      <ambientLight intensity={0.2} />
+      <pointLight position={[0, 0, 5]} intensity={1.2} color="#ffffff" />
+      <pointLight position={[0, 0, -20]} intensity={1.5} color="#e8edf2" />
       <group ref={tunnel}>
-        {/* Main tunnel rings */}
         {Array.from({ length: ringCount }).map((_, i) => {
-          const z = -i * 2.4;
-          const ringColor = i % 5 === 0 ? "#d0d8e8" : "#8a9bb5";
-          const emissiveIntensity = i % 8 === 0 ? 0.15 : 0.05;
-          
+          const z = -i * 2.5;
           return (
-            <mesh key={`ring-${i}`} position={[0, 0, z]} rotation={[0, 0, (i * Math.PI) / 16]}>
-              <torusGeometry args={[3.0, 0.045, 24, 96]} />
-              <meshStandardMaterial 
-                color={ringColor} 
-                metalness={0.92} 
-                roughness={0.22} 
-                emissive={i % 4 === 0 ? "#4a6080" : "#1a2030"}
-                emissiveIntensity={emissiveIntensity}
-              />
+            <mesh key={i} position={[0, 0, z]} rotation={[0, 0, (i * Math.PI) / 12]}>
+              <torusGeometry args={[3.2, 0.04, 16, 64]} />
             </mesh>
           );
         })}
-        
-        {/* Inner glow rings */}
-        {Array.from({ length: 15 }).map((_, i) => {
-          const z = -i * 7;
-          return (
-            <mesh key={`glow-${i}`} position={[0, 0, z]} rotation={[0, 0, 0]}>
-              <torusGeometry args={[2.85, 0.012, 16, 120]} />
-              <meshStandardMaterial color="#a0c0e8" emissive="#6080b0" emissiveIntensity={0.3} transparent opacity={0.6} />
-            </mesh>
-          );
-        })}
-        
-        {/* Outer cylinder ambience */}
-        <mesh position={[0, 0, -52]} rotation={[0, 0, 0]}>
-          <cylinderGeometry args={[3.5, 3.5, 115, 48, 1, true]} />
+        {/* Outer cylinder for ambience */}
+        <mesh position={[0, 0, -50]} rotation={[0, 0, 0]}>
+          <cylinderGeometry args={[3.4, 3.4, 110, 32, 1, true]} />
           <meshStandardMaterial
-            color="#080c18"
-            metalness={0.7}
-            roughness={0.4}
+            color="#0a0a0a"
+            metalness={0.6}
+            roughness={0.5}
             side={THREE.BackSide}
-            emissive="#050810"
-            emissiveIntensity={0.3}
+            emissive="#050505"
           />
         </mesh>
-        
-        {/* Additional rail wires */}
-        {[-1.8, 1.8].map((xOffset, idx) => (
-          Array.from({ length: 30 }).map((_, i) => {
-            const z = -i * 3.5;
-            return (
-              <mesh key={`rail-${idx}-${i}`} position={[xOffset, 0, z]}>
-                <sphereGeometry args={[0.035, 6, 6]} />
-                <meshStandardMaterial color="#b8c8e0" emissive="#4060a0" emissiveIntensity={0.2} />
-              </mesh>
-            );
-          })
-        ))}
-        
-        {/* Floating tool icons */}
+        {/* Floating tool icons (per-stage) */}
         {tunnelIcons.map(({ Icon, position, rot }, i) => (
           <group key={`icon-${i}`} position={position} rotation={[0, 0, rot]}>
             <Html
               center
               transform
               sprite
-              distanceFactor={2.2}
+              distanceFactor={2.4}
               style={{ pointerEvents: "none" }}
-              zIndexRange={[1, 0]}
             >
-              <div className="flex items-center justify-center w-11 h-11 rounded-xl border border-white/20 bg-black/50 backdrop-blur-md shadow-[0_0_20px_rgba(100,150,220,0.3)] transition-all duration-300 hover:scale-105">
-                <Icon size={20} strokeWidth={1.5} className="text-white/90" />
+              <div className="flex items-center justify-center w-12 h-12 rounded-xl border border-white/15 bg-black/40 backdrop-blur-md shadow-[0_0_24px_rgba(232,237,242,0.18)]">
+                <Icon size={22} strokeWidth={1.5} className="text-white/90" />
               </div>
             </Html>
           </group>
         ))}
       </group>
-      
-      {/* Star particles for depth */}
-      {Array.from({ length: 800 }).map((_, i) => {
-        const x = (Math.random() - 0.5) * 30;
-        const y = (Math.random() - 0.5) * 20;
-        const z = (Math.random() - 0.5) * 80 - 40;
-        return (
-          <mesh key={`star-${i}`} position={[x, y, z]}>
-            <sphereGeometry args={[0.02, 4, 4]} />
-            <meshStandardMaterial color="#e0e8ff" emissive="#6080c0" emissiveIntensity={0.4} />
-          </mesh>
-        );
-      })}
-      
-      <Environment preset="night" />
+      <Environment preset="studio" />
     </>
   );
 }

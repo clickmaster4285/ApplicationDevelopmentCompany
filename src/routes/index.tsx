@@ -14,6 +14,7 @@ import { Footer } from "@/components/site/Footer";
 import { Cursor } from "@/components/site/Cursor";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { About } from "@/components/site/AboutUs";
+import SpiralGallery from "@/components/site/SpiralGallery";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -48,12 +49,15 @@ function Index() {
       <Marquee />
       <About />
       <Services />
+<SpiralGallery/>
+
+      <Stack />
       
-      <Tunnel />
+      {/* <Tunnel /> */}
       <Projects />
       <Stats />
       <WhyUs />
-      <Stack />
+     
       <FAQ />
       <CTA />
       <Footer />
