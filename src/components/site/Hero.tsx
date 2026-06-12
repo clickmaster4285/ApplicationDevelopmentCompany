@@ -63,25 +63,21 @@ export function Hero() {
       <div className="relative z-10 mx-auto flex max-w-7xl flex-col items-start justify-center px-6 pt-44 pb-32 min-h-screen">
 
 
-     <h1
+  <h1
   ref={headlineRef}
-  className="mt-8 font-display text-[clamp(2.2rem,6.5vw,6.5rem)] leading-[0.95] tracking-[-0.04em] font-semibold text-white"
+  className="mt-8 font-display text-[clamp(2.2rem,6.5vw,6.5rem)] leading-[0.95] tracking-[-0.04em] font-semibold font-['Fraunces'] italic text-white"
 >
+
   <span className="block overflow-hidden" data-word="We engineer">
     We engineer software
   </span>
 
   <span className="block overflow-hidden text-white/95" data-word="software that">
-            that feels {" "}
-      <span
-  className="font-[Fraunces] italic text-zinc-300 drop-shadow-[0_0_18px_rgba(255,255,255,0.25)] blur-[0.2px]"
-  data-word="inevitable."
->
-  inevitable.
-</span>  
+    that feels{" "}
+    <span className="italic text-white drop-shadow-[0_0_18px_rgba(255,255,255,0.25)]" data-word="inevitable.">
+      inevitable.
+    </span>
   </span>
-
-
 </h1>
 
       <p

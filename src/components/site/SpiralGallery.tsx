@@ -3,24 +3,34 @@ import {
   type GalleryItem,
 } from "@/components/ui/circular-gallery"; 
 
+import p1 from "@/assets/p1.jpeg"
+
+import p2 from "@/assets/p2.jpeg"
+import p3 from "@/assets/p3.jpeg"
+
+import p4 from "@/assets/p4.jpeg"
+
+
+import p5 from "@/assets/p5.jpeg"
+
 
 const galleryItems: GalleryItem[] = [
-  { image: "https://picsum.photos/seed/1/800/600?grayscale", text: "Bridge" },
+  { image: p3, text: "Bridge" },
   {
-    image: "https://picsum.photos/seed/2/800/600?grayscale",
+    image:p4,
     text: "Desk Setup",
   },
   {
-    image: "https://picsum.photos/seed/3/800/600?grayscale",
+    image: p5,
     text: "Waterfall",
   },
   {
-    image: "https://picsum.photos/seed/4/800/600?grayscale",
+    image: p1,
     text: "Strawberries",
   },
 
   {
-    image: "https://picsum.photos/seed/10/800/600?grayscale",
+    image:p2 ,
     text: "Good Boy",
   },
 

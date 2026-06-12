@@ -70,8 +70,8 @@ export function Footer() {
           <div className="lg:col-span-3">
             <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-5">Contact</div>
             <p className="text-sm text-white/65 leading-relaxed">
-              hello@clickmasters.dev<br />
-              +1 (415) 555-0188<br />
+              sales@clickmastersdigitalmarketing.com<br />
+              +44 7988 576086<br />
               San Francisco · Remote
             </p>
             <div className="mt-8 flex gap-3">

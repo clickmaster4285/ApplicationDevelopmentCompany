@@ -15,6 +15,7 @@ import { Cursor } from "@/components/site/Cursor";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
 import { About } from "@/components/site/AboutUs";
 import SpiralGallery from "@/components/site/SpiralGallery";
+import { ShuffleCards } from "@/components/site/Testimonial";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -58,6 +59,7 @@ function Index() {
       <Stats />
       <WhyUs />
      
+      <ShuffleCards/>
       <FAQ />
       <CTA />
       <Footer />
