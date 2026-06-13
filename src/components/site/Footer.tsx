@@ -1,3 +1,5 @@
+import logo from "@/assets/logo-white.webp";
+
 const cols = [
   {
     title: "Services",
@@ -25,14 +27,19 @@ export function Footer() {
       <div className="mx-auto w-[85vw] px-6 py-20">
         <div className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4">
-            <div className="flex items-center gap-2.5">
-              <span className="h-7 w-7 rounded-full bg-chrome grid place-items-center">
-                <span className="h-2 w-2 rounded-full bg-[#050505]" />
-              </span>
-              <span className="text-sm tracking-[0.18em] uppercase text-chrome font-semibold">
-                ClickMasters
-              </span>
-            </div>
+
+
+
+          <div className="flex items-center">
+  <img
+    src={logo}
+    alt="ClickMasters"
+    className="h-12 w-auto object-contain"
+  />
+</div>
+
+
+
             <p className="mt-6 text-white/55 max-w-sm leading-relaxed text-sm">
               ClickMasters Application Development — a modern software studio
               engineering mobile, web and SaaS products for ambitious teams.

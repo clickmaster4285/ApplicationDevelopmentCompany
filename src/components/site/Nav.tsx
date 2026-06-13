@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-
+import logo from "@/assets/logo-white.webp";
 const links = [
   { label: "Services", href: "#services" },
   { label: "Process", href: "#process" },
@@ -24,12 +24,17 @@ export function Nav() {
       }`}
     >
       <div className="mx-auto w-[85vw] px-6 flex items-center justify-between">
-        <a href="#top" className="flex items-center gap-2.5 group">
-          <span className="relative h-7 w-7 rounded-full bg-chrome grid place-items-center shadow-[inset_0_0_8px_rgba(0,0,0,0.4)]">
-            <span className="h-2 w-2 rounded-full bg-[#050505]" />
-          </span>
-          <span className="text-sm tracking-[0.18em] uppercase text-chrome font-semibold">ClickMasters</span>
-        </a>
+
+
+     <a href="#top" className="flex items-center">
+  <img
+    src={logo}
+    alt="ClickMasters"
+    className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+  />
+</a>
+
+
         <nav className="hidden md:flex items-center gap-1">
           {links.map((l) => (
             <a

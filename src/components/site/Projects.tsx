@@ -9,18 +9,18 @@ import Sapien from '@/assets/sapien.jpeg';
 gsap.registerPlugin(ScrollTrigger);
 
 const projects = [
-  { name: "Helix Health", category: "Healthcare App", desc: "A patient-first telehealth platform redefining care delivery for 1.2M users.", metric: "+412% engagement", hue: "#1a2630", image: Helix },
+  { name: "HMS", category: "Healthcare App", desc: "A patient-first telehealth platform redefining care delivery for 1.2M users.", metric: "+412% engagement", hue: "#1a2630", image: Helix },
 
-  { name: "Atelier", category: "E-Commerce Mobile App", desc: "Boutique commerce experience with cinematic product storytelling.", metric: "5.2× conversion", hue: "#1a1818", image: Atelier },
+  { name: "Luxora", category: "E-Commerce Mobile App", desc: "Boutique commerce experience with cinematic product storytelling.", metric: "5.2× conversion", hue: "#1a1818", image: Atelier },
 
   
-  { name: "Lumen Capital", category: "Fintech Platform", desc: "Institutional trading and portfolio analytics with sub-second responsiveness.", metric: "$3.8B AUM", hue: "#1f1f24", image: Lumen },
+  { name: "Auto Motive", category: "Fintech Platform", desc: "Institutional trading and portfolio analytics with sub-second responsiveness.", metric: "$3.8B AUM", hue: "#1f1f24", image: Lumen },
 
 
 
 
 
-  { name: "Sapien", category: "Education Platform", desc: "Adaptive learning for ambitious learners across 27 countries.", metric: "98% retention", hue: "#161e1c", image: Sapien },
+  { name: "NexusEdu", category: "Education Platform", desc: "Adaptive learning for ambitious learners across 27 countries.", metric: "98% retention", hue: "#161e1c", image: Sapien },
 ];
 
 function ProjectCard({ p, i }: { p: typeof projects[number]; i: number }) {

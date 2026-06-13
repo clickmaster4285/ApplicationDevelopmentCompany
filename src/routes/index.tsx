@@ -17,6 +17,11 @@ import { About } from "@/components/site/AboutUs";
 import SpiralGallery from "@/components/site/SpiralGallery";
 import { ShuffleCards } from "@/components/site/Testimonial";
 
+
+
+import favicon from "@/assets/logo-app.png";
+
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -34,6 +39,13 @@ export const Route = createFileRoute("/")({
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+    ],
+     links: [
+      {
+        rel: "icon",
+        type: "image/png",
+        href: favicon,
+      },
     ],
   }),
   component: Index,
