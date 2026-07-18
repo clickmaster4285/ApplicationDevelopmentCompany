@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     google: "gNfCYQJTRuy2Ot2iF5ME4PmBagxr1Z1rHWzO1_ptOvc",
   },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -40,6 +41,9 @@ export default function RootLayout({
         <link rel="icon" href="/logo.png" sizes="any" />
         <link rel="apple-touch-icon" href="/logo.png" />
         <meta name="theme-color" content="#000000" />
+        
+        {/* Google Site Verification */}
+        <meta name="google-site-verification" content="gNfCYQJTRuy2Ot2iF5ME4PmBagxr1Z1rHWzO1_ptOvc" />
 
         {/* Google Tag Manager */}
         <Script id="gtm-script" strategy="afterInteractive">
