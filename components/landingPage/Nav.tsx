@@ -26,6 +26,9 @@ const getNavItems = () => {
   const costPages = allPages.cost?.pages || [];
   const resourcesPages = allPages.resources?.pages || [];
   const aboutPages = allPages.about?.pages || [];
+  const blogsPages = allPages.blogs?.pages || [];
+  const caseStudiesPages = allPages.caseStudies?.pages || [];
+  const ebooksPages = allPages.ebooks?.pages || [];
 
   return {
     services: servicesPages.map(page => ({
@@ -72,6 +75,18 @@ const getNavItems = () => {
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
+    blogs: blogsPages.map(page => ({
+      label: getCleanLabel(page.meta.title),
+      href: page.url,
+    })),
+    caseStudies: caseStudiesPages.map(page => ({
+      label: getCleanLabel(page.meta.title),
+      href: page.url,
+    })),
+    ebooks: ebooksPages.map(page => ({
+      label: getCleanLabel(page.meta.title),
+      href: page.url,
+    })),
   };
 };
 
@@ -87,6 +102,12 @@ const getMainNav = () => {
       seeAll: "/services",
     },
     {
+      label: "About",
+      href: "/about",
+      items: navItems.about, // Show ALL about
+      seeAll: "/about",
+    },
+    {
       label: "Solutions",
       href: "/solutions",
       items: navItems.solutions, // Show ALL solutions
@@ -99,47 +120,59 @@ const getMainNav = () => {
       seeAll: "/industries",
     },
     {
-      label: "Technologies",
-      href: "/technologies",
-      items: navItems.technologies, // Show ALL technologies
-      seeAll: "/technologies",
-    },
-    {
-      label: "Platforms",
-      href: "/platforms",
-      items: navItems.platforms, // Show ALL platforms
-      seeAll: "/platforms",
-    },
-    {
-      label: "Frameworks",
-      href: "/frameworks",
-      items: navItems.frameworks, // Show ALL frameworks
-      seeAll: "/frameworks",
-    },
-    {
-      label: "Locations",
-      href: "/locations",
-      items: navItems.locations, // Show ALL locations
-      seeAll: "/locations",
-    },
-    {
-      label: "Compare",
-      href: "/compare",
-      items: navItems.compare, // Show ALL compare
-      seeAll: "/compare",
-    },
-    {
       label: "Resources",
       href: "/resources",
       items: navItems.resources, // Show ALL resources
       seeAll: "/resources",
     },
     {
-      label: "About",
-      href: "/about",
-      items: navItems.about, // Show ALL about
-      seeAll: "/about",
+      label: "Blogs",
+      href: "/blog",
+      items: navItems.blogs, // Show ALL blogs
+      seeAll: "/blog",
     },
+    {
+      label: "Case Studies",
+      href: "/case-studies",
+      items: navItems.caseStudies, // Show ALL case studies
+      seeAll: "/case-studies",
+    },
+    {
+      label: "Ebooks",
+      href: "/ebooks",
+      items: navItems.ebooks, // Show ALL ebooks
+      seeAll: "/ebooks",
+    },
+    // {
+    //   label: "Technologies",
+    //   href: "/technologies",
+    //   items: navItems.technologies, // Show ALL technologies
+    //   seeAll: "/technologies",
+    // },
+    // {
+    //   label: "Platforms",
+    //   href: "/platforms",
+    //   items: navItems.platforms, // Show ALL platforms
+    //   seeAll: "/platforms",
+    // },
+    // {
+    //   label: "Frameworks",
+    //   href: "/frameworks",
+    //   items: navItems.frameworks, // Show ALL frameworks
+    //   seeAll: "/frameworks",
+    // },
+    {
+      label: "Locations",
+      href: "/locations",
+      items: navItems.locations, // Show ALL locations
+      seeAll: "/locations",
+    },
+    // {
+    //   label: "Compare",
+    //   href: "/compare",
+    //   items: navItems.compare, // Show ALL compare
+    //   seeAll: "/compare",
+    // },
   ];
 };
 
