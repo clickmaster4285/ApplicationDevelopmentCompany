@@ -55,7 +55,7 @@ export const compareData: CompareData = {
   generatedAt: "2026-07-28T10:29:45.828916",
   pages: [
     {
-      url: "/compare/",
+      url: "/compare/technology-comparisons",
       meta: {
         title: "Technology Comparisons: Honest 2026 Comparison | Clickmasters",
         description:

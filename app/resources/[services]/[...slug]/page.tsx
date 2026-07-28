@@ -1,4 +1,5 @@
-// app/resources/[slug]/page.tsx
+// app/resources/[services]/[...slug]/page.tsx
+
 import resourcesData from "@/content/resources";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
@@ -14,26 +15,40 @@ import {
 
 // Generate static params
 export async function generateStaticParams() {
-  return resourcesData.pages.map((page: any) => ({
-    slug: page.url
+  return resourcesData.pages.map((page: any) => {
+    // Get the path segments after "resources/"
+    const pathWithoutResources = page.url
       .replace(/^\/+|\/+$/g, "") // Remove leading/trailing slashes
-      .replace("resources/", ""), // Remove the resources/ prefix
-  }));
+      .replace("resources/", ""); // Remove the resources/ prefix
+    
+    const segments = pathWithoutResources.split("/").filter(Boolean);
+    
+    // For URL: /resources/ai-development/ai-agents-vs-rpa
+    // segments = ["ai-development", "ai-agents-vs-rpa"]
+    
+    return {
+      services: segments[0] || "",  // "ai-development"
+      slug: segments.slice(1) || [], // ["ai-agents-vs-rpa"] (must be array for catch-all)
+    };
+  });
 }
 
 // Generate metadata
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ services: string; slug: string[] }>;
 }): Promise<Metadata> {
-  const { slug } = await params;
+  const { services, slug } = await params;
 
+  // Join the segments back to match the URL pattern
+  const fullSlug = `${services}/${slug.join("/")}`;
+  
   const pageData = resourcesData.pages.find((page: any) => {
     const cleanUrl = page.url
       .replace(/^\/+|\/+$/g, "")
       .replace("resources/", "");
-    return cleanUrl === slug;
+    return cleanUrl === fullSlug;
   });
 
   if (!pageData) {
@@ -67,15 +82,18 @@ export async function generateMetadata({
 export default async function ResourcesPage({
   params,
 }: {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ services: string; slug: string[] }>;
 }) {
-  const { slug } = await params;
+  const { services, slug } = await params;
+
+  // Join the segments back to match the URL pattern
+  const fullSlug = `${services}/${slug.join("/")}`;
 
   const pageData = resourcesData.pages.find((page: any) => {
     const cleanUrl = page.url
       .replace(/^\/+|\/+$/g, "")
       .replace("resources/", "");
-    return cleanUrl === slug;
+    return cleanUrl === fullSlug;
   });
 
   if (!pageData) {
