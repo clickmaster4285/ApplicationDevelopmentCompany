@@ -1,5 +1,5 @@
 // app/ebooks/[slug]/page.tsx
-import ebooksData from "@/content/ebooks";
+import ebooksData from "@/content/eboos";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import {
@@ -83,7 +83,7 @@ export default async function EbookPage({
 
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-white/20">
-      <HeroHeader pageData={pageData} type="eBook" />
+      <HeroHeader pageData={pageData} type="Eboos" />
       <MainContent pageData={pageData} />
       <FAQSection pageData={pageData} />
       <CTASection pageData={pageData} />

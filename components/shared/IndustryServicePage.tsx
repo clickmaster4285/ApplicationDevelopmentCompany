@@ -217,7 +217,7 @@ export function HeroHeader({
     | "Platform"
     | "Blog"
     | "Case Study"
-    | "Ebook";
+    | "Eboos";
 }) {
   const iconMap: Record<string, React.ReactElement> = {
     Service: <Zap className="h-5 w-5" />,
@@ -233,7 +233,7 @@ export function HeroHeader({
     Platform: <Sparkles className="h-5 w-5" />,
     Blog: <Sparkles className="h-5 w-5" />,
     "Case Study": <Check className="h-5 w-5" />,
-    Ebook: <Sparkles className="h-5 w-5" />,
+    Eboos: <Sparkles className="h-5 w-5" />,
   };
 
   // Strip markdown bold/italic markers, links, and leading dashes so this

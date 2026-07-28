@@ -7,7 +7,7 @@ import blogsData from "./blogs";
 import caseStudiesData from "./case-studies";
 import compareData from "./compare";
 import costData from "./cost";
-import ebooksData from "./ebooks";
+import ebooksData from "./eboos";
 import frameworksData from "./frameworks";
 import homeData from "./home";
 import industriesData from "./industries";
