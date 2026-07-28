@@ -8,7 +8,13 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement> {
   strength?: number;
 }
 
-export function MagneticButton({ children, variant = "chrome", strength = 0.35, className = "", ...rest }: Props) {
+export function MagneticButton({
+  children,
+  variant = "chrome",
+  strength = 0.35,
+  className = "",
+  ...rest
+}: Props) {
   const ref = useRef<HTMLButtonElement>(null);
 
   const onMove = (e: React.MouseEvent) => {
@@ -34,7 +40,9 @@ export function MagneticButton({ children, variant = "chrome", strength = 0.35, 
   return (
     <span onMouseMove={onMove} onMouseLeave={onLeave} className="inline-block">
       <button ref={ref} className={`${base} ${styles} ${className}`} {...rest}>
-        <span className="relative z-10 flex items-center gap-2">{children}</span>
+        <span className="relative z-10 flex items-center gap-2">
+          {children}
+        </span>
       </button>
     </span>
   );

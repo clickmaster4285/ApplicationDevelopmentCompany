@@ -6,15 +6,21 @@ export function Cursor() {
   const dot = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    let x = 0, y = 0, rx = 0, ry = 0;
+    let x = 0,
+      y = 0,
+      rx = 0,
+      ry = 0;
     const move = (e: MouseEvent) => {
-      x = e.clientX; y = e.clientY;
-      if (dot.current) dot.current.style.transform = `translate(${x}px, ${y}px)`;
+      x = e.clientX;
+      y = e.clientY;
+      if (dot.current)
+        dot.current.style.transform = `translate(${x}px, ${y}px)`;
     };
     const loop = () => {
       rx += (x - rx) * 0.12;
       ry += (y - ry) * 0.12;
-      if (ring.current) ring.current.style.transform = `translate(${rx}px, ${ry}px)`;
+      if (ring.current)
+        ring.current.style.transform = `translate(${rx}px, ${ry}px)`;
       raf = requestAnimationFrame(loop);
     };
     let raf = requestAnimationFrame(loop);

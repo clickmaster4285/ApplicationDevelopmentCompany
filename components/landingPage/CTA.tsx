@@ -34,10 +34,13 @@ export function CTA() {
           Ready to build your <br /> next application?
         </h2>
         <p className="mt-8 max-w-xl mx-auto text-white/55 text-lg leading-relaxed">
-          Partner with ClickMasters and transform your vision into a scalable digital product.
+          Partner with ClickMasters and transform your vision into a scalable
+          digital product.
         </p>
         <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
-          <MagneticButton variant="chrome">Book a Consultation →</MagneticButton>
+          <MagneticButton variant="chrome">
+            Book a Consultation →
+          </MagneticButton>
           <MagneticButton variant="ghost">Get a Free Quote</MagneticButton>
         </div>
       </div>

@@ -1,7 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const publicDir = path.join(__dirname, 'public');
+const publicDir = path.join(__dirname, "public");
 
 function walk(dir) {
   let out = [];
@@ -14,9 +14,8 @@ function walk(dir) {
 }
 
 const files = walk(publicDir)
-  .filter(f => f.toLowerCase().endsWith('.mp4'))
-  .map(f => path.relative(publicDir, f).replace(/\\/g,'/'));
+  .filter((f) => f.toLowerCase().endsWith(".mp4"))
+  .map((f) => path.relative(publicDir, f).replace(/\\/g, "/"));
 
-console.log('MP4 files in public/:');
-console.log(files.join('\n'));
-
+console.log("MP4 files in public/:");
+console.log(files.join("\n"));

@@ -18,7 +18,9 @@ export function Marquee() {
       <div className="flex w-max animate-marquee items-center gap-14">
         {doubled.map((t, i) => (
           <div key={i} className="flex items-center gap-14">
-            <span className="text-2xl md:text-3xl font-light tracking-tight text-white/75">{t}</span>
+            <span className="text-2xl md:text-3xl font-light tracking-tight text-white/75">
+              {t}
+            </span>
             <span className="h-2 w-2 rotate-45 bg-chrome opacity-70" />
           </div>
         ))}

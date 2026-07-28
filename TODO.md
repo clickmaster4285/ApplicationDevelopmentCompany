@@ -5,6 +5,4 @@
 
 - [x] Updated Projects video URLs to `"/video/*.mp4"`.
 
-
 - [ ] If videos still don’t play: check browser DevTools Network for 404s and Console for autoplay errors.
-
