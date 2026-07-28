@@ -1,19 +1,19 @@
 // Auto-generated master index
-// Generated: 2026-07-27T11:17:31.590075
+// Generated: 2026-07-28T10:29:45.998245
 // Total categories: 12
 
-import aboutData from "./about.js";
-import compareData from "./compare.js";
-import costData from "./cost.js";
-import frameworksData from "./frameworks.js";
-import homeData from "./home.js";
-import industriesData from "./industries.js";
-import locationsData from "./locations.js";
-import platformsData from "./platforms.js";
-import resourcesData from "./resources.js";
-import servicesData from "./services.js";
-import solutionsData from "./solutions.js";
-import technologiesData from "./technologies.js";
+import aboutData from "./about";
+import compareData from "./compare";
+import costData from "./cost";
+import frameworksData from "./frameworks";
+import homeData from "./home";
+import industriesData from "./industries";
+import locationsData from "./locations";
+import platformsData from "./platforms";
+import resourcesData from "./resources";
+import servicesData from "./services";
+import solutionsData from "./solutions";
+import technologiesData from "./technologies";
 
 export interface AllPagesData {
   [key: string]: {

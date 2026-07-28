@@ -63,9 +63,7 @@ const ExpandOnHover = ({ items }: Props) => {
                   <h3 className="text-4xl md:text-5xl font-semibold mb-3">
                     {item.title}
                   </h3>
-                  <p className="text-lg text-white/80 max-w-md">
-                    {item.desc}
-                  </p>
+                  <p className="text-lg text-white/80 max-w-md">{item.desc}</p>
                 </div>
 
                 {/* Inactive Label */}

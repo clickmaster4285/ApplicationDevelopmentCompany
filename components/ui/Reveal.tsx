@@ -11,7 +11,12 @@ type Props = {
  * Lightweight scroll reveal using IntersectionObserver + GSAP if available.
  * Falls back gracefully to CSS transition.
  */
-export function Reveal({ children, className = "", delay = 0, as = "div" }: Props) {
+export function Reveal({
+  children,
+  className = "",
+  delay = 0,
+  as = "div",
+}: Props) {
   const ref = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
@@ -39,7 +44,7 @@ export function Reveal({ children, className = "", delay = 0, as = "div" }: Prop
             }
           });
         },
-        { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+        { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
       );
       observer.observe(el);
     })();

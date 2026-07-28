@@ -24,7 +24,11 @@ export function TravelRouteCard({
     >
       {imageUrl ? (
         <div className="aspect-[4/3] overflow-hidden">
-          <img src={imageUrl} alt={title} className="h-full w-full object-cover" />
+          <img
+            src={imageUrl}
+            alt={title}
+            className="h-full w-full object-cover"
+          />
         </div>
       ) : null}
       <div className="space-y-3 p-6">

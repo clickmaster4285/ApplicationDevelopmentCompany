@@ -69,10 +69,10 @@ export default function RootLayout({
           />
         </noscript>
 
-       <div>
-         <Nav />
-         {children}
-           <Footer />
+        <div>
+          <Nav />
+          {children}
+          <Footer />
         </div>
       </body>
     </html>

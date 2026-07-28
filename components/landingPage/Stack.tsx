@@ -3,22 +3,86 @@
 import { useEffect, useRef } from "react";
 
 const techs = [
-  { name: "React", angle: 0, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg" },
-  { name: "Next.js", angle: 30, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg" },
-  { name: "Node.js", angle: 60, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg" },
-  { name: "TypeScript", angle: 90, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" },
-  { name: "Flutter", angle: 120, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/flutter/flutter-original.svg" },
-  { name: "Firebase", angle: 150, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/firebase/firebase-original.svg" },
-  { name: "Tailwind CSS", angle: 180, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-original.svg" },
-  { name: "Prisma", angle: 210, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/prisma/prisma-original.svg" },
-  { name: "GraphQL", angle: 240, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/graphql/graphql-plain.svg" },
-  { name: "Docker", angle: 270, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg" },
-  { name: "PostgreSQL", angle: 300, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg" },
-  { name: "MongoDB", angle: 330, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg" },
-  { name: "Vue.js", angle: 360, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-original.svg" },
-  { name: "Angular", angle: 390, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-original.svg" },
-  { name: "Python", angle: 420, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" },
-  { name: "Kubernetes", angle: 450, icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg" },
+  {
+    name: "React",
+    angle: 0,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/react/react-original.svg",
+  },
+  {
+    name: "Next.js",
+    angle: 30,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/nextjs/nextjs-original.svg",
+  },
+  {
+    name: "Node.js",
+    angle: 60,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/nodejs/nodejs-original.svg",
+  },
+  {
+    name: "TypeScript",
+    angle: 90,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg",
+  },
+  {
+    name: "Flutter",
+    angle: 120,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/flutter/flutter-original.svg",
+  },
+  {
+    name: "Firebase",
+    angle: 150,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/firebase/firebase-original.svg",
+  },
+  {
+    name: "Tailwind CSS",
+    angle: 180,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/tailwindcss/tailwindcss-original.svg",
+  },
+  {
+    name: "Prisma",
+    angle: 210,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/prisma/prisma-original.svg",
+  },
+  {
+    name: "GraphQL",
+    angle: 240,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/graphql/graphql-plain.svg",
+  },
+  {
+    name: "Docker",
+    angle: 270,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/docker/docker-original.svg",
+  },
+  {
+    name: "PostgreSQL",
+    angle: 300,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/postgresql/postgresql-original.svg",
+  },
+  {
+    name: "MongoDB",
+    angle: 330,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/mongodb/mongodb-original.svg",
+  },
+  {
+    name: "Vue.js",
+    angle: 360,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/vuejs/vuejs-original.svg",
+  },
+  {
+    name: "Angular",
+    angle: 390,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/angularjs/angularjs-original.svg",
+  },
+  {
+    name: "Python",
+    angle: 420,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg",
+  },
+  {
+    name: "Kubernetes",
+    angle: 450,
+    icon: "https://raw.githubusercontent.com/devicons/devicon/master/icons/kubernetes/kubernetes-plain.svg",
+  },
 ];
 
 export function Stack() {
@@ -36,18 +100,23 @@ export function Stack() {
   }, []);
 
   return (
-    <section id="stack" className="relative py-32 md:py-44 overflow-hidden border-t border-white/5">
+    <section
+      id="stack"
+      className="relative py-32 md:py-44 overflow-hidden border-t border-white/5"
+    >
       <div className="mx-auto w-[85vw] px-6">
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           <div>
-            <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">— Technology</div>
+            <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
+              — Technology
+            </div>
             <h2 className="text-chrome text-5xl md:text-7xl font-medium tracking-[-0.03em] leading-[1.02]">
               A neural network of modern tools.
             </h2>
             <p className="mt-8 text-white/55 max-w-md leading-relaxed">
-              We choose technologies the way an architect chooses materials — for
-              durability, expressiveness, and the way they age. Every stack decision
-              is engineered, never trend-driven.
+              We choose technologies the way an architect chooses materials —
+              for durability, expressiveness, and the way they age. Every stack
+              decision is engineered, never trend-driven.
             </p>
           </div>
           <div className="relative aspect-square w-full max-w-xl mx-auto">
@@ -73,11 +142,13 @@ export function Stack() {
                     style={{ left: `${x}%`, top: `${y}%` }}
                   >
                     <div className="relative h-16 w-16 rounded-full border border-white/15 bg-black/40 grid place-items-center transition-all duration-500 group-hover:scale-110">
-                      <img 
-                        src={t.icon} 
-                        alt={t.name} 
+                      <img
+                        src={t.icon}
+                        alt={t.name}
                         className="w-8 h-8 object-contain"
-                        style={{ filter: t.name === "Next.js" ? "invert(1)" : "none" }}
+                        style={{
+                          filter: t.name === "Next.js" ? "invert(1)" : "none",
+                        }}
                       />
                     </div>
                     {/* Tooltip */}
@@ -91,13 +162,25 @@ export function Stack() {
               })}
             </div>
             {/* Connection SVG */}
-            <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 100 100">
+            <svg
+              className="absolute inset-0 w-full h-full pointer-events-none"
+              viewBox="0 0 100 100"
+            >
               {techs.map((t) => {
                 const rad = (t.angle * Math.PI) / 180;
                 const x = 50 + 42 * Math.cos(rad);
                 const y = 50 + 42 * Math.sin(rad);
                 return (
-                  <line key={t.name} x1="50" y1="50" x2={x} y2={y} stroke="#c9cdd2" strokeWidth="0.12" opacity="0.25" />
+                  <line
+                    key={t.name}
+                    x1="50"
+                    y1="50"
+                    x2={x}
+                    y2={y}
+                    stroke="#c9cdd2"
+                    strokeWidth="0.12"
+                    opacity="0.25"
+                  />
                 );
               })}
             </svg>

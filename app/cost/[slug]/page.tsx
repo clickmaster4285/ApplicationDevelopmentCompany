@@ -1,47 +1,43 @@
 // app/cost/[slug]/page.tsx
-import costData from '@/content/cost';
-import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
+import costData from "@/content/cost";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 import {
-  HeroHeader,
-  MainContent,
   FAQSection,
   CTASection,
   StructuredData,
   FAQSchema,
   extractFAQs,
-  cleanPageContent,
-  type PageData,
-  type FAQ,
-} from '@/components/shared/IndustryServicePage';
+  MainContent,
+  HeroHeader,
+} from "@/components/shared/IndustryServicePage";
 
 // Generate static params
 export async function generateStaticParams() {
-  const params = costData.pages.map((page) => {
-    const slug = page.url
-      .replace(/^\/+/, '')
-      .replace(/\/+$/, '')
-      .replace('cost/', '');
-    return { slug };
-  });
-  return params;
+  return costData.pages.map((page: any) => ({
+    slug: page.url
+      .replace(/^\/+|\/+$/g, "") // Remove leading/trailing slashes
+      .replace("cost/", ""), // Remove the cost/ prefix
+  }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+// Generate metadata
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
-  
-  const pageData = costData.pages.find(page => {
-    const pageSlug = page.url
-      .replace(/^\/+/, '')
-      .replace(/\/+$/, '')
-      .replace('cost/', '');
-    return pageSlug === slug;
+
+  const pageData = costData.pages.find((page: any) => {
+    const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("cost/", "");
+    return cleanUrl === slug;
   });
 
   if (!pageData) {
     return {
-      title: 'Industry Not Found',
-      description: 'The requested industry page could not be found.',
+      title: "Cost Guide Not Found",
+      description: "The requested cost guide page could not be found.",
     };
   }
 
@@ -52,37 +48,44 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: pageData.meta.title,
       description: pageData.meta.description,
       url: `https://clickmasters.com${pageData.url}`,
-      type: 'website',
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pageData.meta.title,
+      description: pageData.meta.description,
+    },
+    alternates: {
+      canonical: `https://clickmasters.com${pageData.url}`,
     },
   };
 }
 
-export default async function CostPage({ params }: { params: Promise<{ slug: string }> }) {
+// Main page component
+export default async function CostPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
-  
-  const pageData = costData.pages.find(page => {
-    const pageSlug = page.url
-      .replace(/^\/+/, '')
-      .replace(/\/+$/, '')
-      .replace('cost/', '');
-    return pageSlug === slug;
+
+  const pageData = costData.pages.find((page: any) => {
+    const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("cost/", "");
+    return cleanUrl === slug;
   });
 
   if (!pageData) {
     notFound();
   }
 
-  // Clean content
-  const cleaned = cleanPageContent(pageData.content);
-  
-  // Extract FAQs
-  const faqs = extractFAQs(cleaned);
+  // Extract FAQs directly from pageData
+  const faqs = extractFAQs(pageData);
 
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-white/20">
-      <HeroHeader pageData={pageData} type="Industry" />
-      <MainContent content={cleaned} />
-      {faqs.length > 0 && <FAQSection faqs={faqs} />}
+      <HeroHeader pageData={pageData} type="Cost" />
+      <MainContent pageData={pageData} />
+      <FAQSection pageData={pageData} />
       <CTASection pageData={pageData} />
       <StructuredData pageData={pageData} />
       <FAQSchema faqs={faqs} />

@@ -9,11 +9,11 @@ const aboutVideo = "/images/about.mp4";
 // Counter component for stats
 function Counter({ to, suffix }: { to: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
-  
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         el,
@@ -31,13 +31,13 @@ function Counter({ to, suffix }: { to: number; suffix: string }) {
           onUpdate: function () {
             el.innerText = Math.floor(Number(el.innerText)).toString();
           },
-        }
+        },
       );
     });
-    
+
     return () => ctx.revert();
   }, [to]);
-  
+
   return (
     <>
       <span ref={ref}>0</span>
@@ -47,13 +47,21 @@ function Counter({ to, suffix }: { to: number; suffix: string }) {
 }
 
 // Reveal animation wrapper
-function Reveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+function Reveal({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: React.ReactNode;
+  delay?: number;
+  className?: string;
+}) {
   const ref = useRef<HTMLDivElement>(null);
-  
+
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         el,
@@ -69,13 +77,13 @@ function Reveal({ children, delay = 0, className = "" }: { children: React.React
             start: "top 85%",
             toggleActions: "play none none reverse",
           },
-        }
+        },
       );
     });
-    
+
     return () => ctx.revert();
   }, [delay]);
-  
+
   return (
     <div ref={ref} className={className} style={{ opacity: 0 }}>
       {children}
@@ -85,11 +93,11 @@ function Reveal({ children, delay = 0, className = "" }: { children: React.React
 
 export function About() {
   const videoRef = useRef<HTMLVideoElement>(null);
-  
+
   useEffect(() => {
     const el = videoRef.current;
     if (!el) return;
-    
+
     const ctx = gsap.context(() => {
       gsap.to(el, {
         yPercent: -8,
@@ -102,10 +110,10 @@ export function About() {
         },
       });
     });
-    
+
     return () => ctx.revert();
   }, []);
-  
+
   return (
     <section id="about" className="relative py-32 md:py-40">
       <div className="mx-auto w-[85vw] px-6">
@@ -117,16 +125,20 @@ export function About() {
               — About ClickMasters
             </div>
             <h2 className="text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] mb-8">
-           We turn ideas into {" "}
+              We turn ideas into{" "}
               <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-               production-ready apps.
+                production-ready apps.
               </span>
             </h2>
-            
+
             <p className="text-white/55 text-lg leading-relaxed">
-       ClickMasters is an application development studio for founders, product leaders, and enterprises who want apps that don’t just look good but perform, scale, and convert. We bring strategy, design, engineering, and operations together under one roof to turn ideas into production-ready products.
+              ClickMasters is an application development studio for founders,
+              product leaders, and enterprises who want apps that don’t just
+              look good but perform, scale, and convert. We bring strategy,
+              design, engineering, and operations together under one roof to
+              turn ideas into production-ready products.
             </p>
-            
+
             {/* Stats grid - no cards */}
             <div className="mt-12 grid grid-cols-2 gap-8">
               {[
@@ -146,7 +158,7 @@ export function About() {
               ))}
             </div>
           </div>
-          
+
           {/* Right side - Video (appears on top on mobile) */}
           <div className="relative h-[480px] lg:h-[560px] rounded-3xl overflow-hidden order-first lg:order-last mt-12">
             <video
@@ -161,7 +173,7 @@ export function About() {
             />
             {/* Minimal gradient overlays for text readability */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-            
+
             {/* Bottom left badge */}
             <div className="absolute bottom-6 left-6 right-6 flex items-center justify-between">
               <div className="text-[10px] uppercase tracking-[0.3em] text-white/60">

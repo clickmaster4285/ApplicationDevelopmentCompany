@@ -3,7 +3,14 @@ const logo = "/images/logo-white.webp";
 const cols = [
   {
     title: "Services",
-    links: ["Mobile Apps", "Web Apps", "UI/UX Design", "SaaS", "API Integration", "Maintenance"],
+    links: [
+      "Mobile Apps",
+      "Web Apps",
+      "UI/UX Design",
+      "SaaS",
+      "API Integration",
+      "Maintenance",
+    ],
   },
   {
     title: "Company",
@@ -27,25 +34,22 @@ export function Footer() {
       <div className="mx-auto w-[85vw] px-6 py-20">
         <div className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-4">
-
-
-
-          <div className="flex items-center">
-  <img
-    src={logo}
-    alt="ClickMasters"
-    className="h-12 w-auto object-contain"
-  />
-</div>
-
-
+            <div className="flex items-center">
+              <img
+                src={logo}
+                alt="ClickMasters"
+                className="h-12 w-auto object-contain"
+              />
+            </div>
 
             <p className="mt-6 text-white/55 max-w-sm leading-relaxed text-sm">
               ClickMasters Application Development — a modern software studio
               engineering mobile, web and SaaS products for ambitious teams.
             </p>
             <div className="mt-8">
-              <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-3">Newsletter</div>
+              <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-3">
+                Newsletter
+              </div>
               <form className="flex items-center gap-2 max-w-sm">
                 <input
                   type="email"
@@ -61,11 +65,16 @@ export function Footer() {
           <div className="lg:col-span-5 grid grid-cols-3 gap-8">
             {cols.map((c) => (
               <div key={c.title}>
-                <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-5">{c.title}</div>
+                <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-5">
+                  {c.title}
+                </div>
                 <ul className="space-y-3">
                   {c.links.map((l) => (
                     <li key={l}>
-                      <a href="#" className="text-sm text-white/65 hover:text-white transition-colors">
+                      <a
+                        href="#"
+                        className="text-sm text-white/65 hover:text-white transition-colors"
+                      >
                         {l}
                       </a>
                     </li>
@@ -75,10 +84,14 @@ export function Footer() {
             ))}
           </div>
           <div className="lg:col-span-3">
-            <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-5">Contact</div>
+            <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-5">
+              Contact
+            </div>
             <p className="text-sm text-white/65 leading-relaxed">
-              sales@clickmastersdigitalmarketing.com<br />
-              +44 7988 576086<br />
+              sales@clickmastersdigitalmarketing.com
+              <br />
+              +44 7988 576086
+              <br />
               San Francisco · Remote
             </p>
             <div className="mt-8 flex gap-3">
@@ -96,11 +109,20 @@ export function Footer() {
         </div>
 
         <div className="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-white/40">
-          <div>© {new Date().getFullYear()} ClickMasters Application Development. All rights reserved.</div>
+          <div>
+            © {new Date().getFullYear()} ClickMasters Application Development.
+            All rights reserved.
+          </div>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-white/70">Privacy</a>
-            <a href="#" className="hover:text-white/70">Terms</a>
-            <a href="#" className="hover:text-white/70">Security</a>
+            <a href="#" className="hover:text-white/70">
+              Privacy
+            </a>
+            <a href="#" className="hover:text-white/70">
+              Terms
+            </a>
+            <a href="#" className="hover:text-white/70">
+              Security
+            </a>
           </div>
         </div>
       </div>

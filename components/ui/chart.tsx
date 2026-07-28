@@ -1,7 +1,10 @@
 import * as React from "react";
 import * as RechartsPrimitive from "recharts";
 import type { TooltipContentProps, LegendProps } from "recharts";
-import type { NameType, ValueType } from "recharts/types/component/DefaultTooltipContent";
+import type {
+  NameType,
+  ValueType,
+} from "recharts/types/component/DefaultTooltipContent";
 
 import { cn } from "@/lib/utils";
 
@@ -60,7 +63,7 @@ const ChartContainer = React.forwardRef<
         ref={ref}
         className={cn(
           "flex aspect-video justify-center text-xs [&_.recharts-cartesian-axis-tick_text]:fill-muted-foreground [&_.recharts-cartesian-grid_line[stroke='#ccc']]:stroke-border/50 [&_.recharts-surface]:outline-none",
-          className
+          className,
         )}
         {...props}
       >
@@ -76,15 +79,9 @@ ChartContainer.displayName = "Chart";
 
 /* -------------------- STYLE -------------------- */
 
-const ChartStyle = ({
-  id,
-  config,
-}: {
-  id: string;
-  config: ChartConfig;
-}) => {
+const ChartStyle = ({ id, config }: { id: string; config: ChartConfig }) => {
   const colorConfig = Object.entries(config).filter(
-    ([, c]) => c.theme || c.color
+    ([, c]) => c.theme || c.color,
   );
 
   if (!colorConfig.length) return null;
@@ -106,7 +103,7 @@ ${colorConfig
   })
   .join("\n")}
 }
-`
+`,
           )
           .join("\n"),
       }}
@@ -143,7 +140,7 @@ const ChartTooltipContent = React.forwardRef<
       formatter,
       color,
     },
-    ref
+    ref,
   ) => {
     const { config } = useChart();
 
@@ -154,7 +151,7 @@ const ChartTooltipContent = React.forwardRef<
         ref={ref}
         className={cn(
           "grid min-w-[8rem] gap-1.5 rounded-lg border border-border/50 bg-background px-2.5 py-1.5 text-xs shadow-xl",
-          className
+          className,
         )}
       >
         {!hideLabel && (
@@ -167,8 +164,7 @@ const ChartTooltipContent = React.forwardRef<
 
         <div className="grid gap-1.5">
           {(payload as any[]).map((item, index) => {
-            const indicatorColor =
-              color || item.payload?.fill || item.color;
+            const indicatorColor = color || item.payload?.fill || item.color;
 
             return (
               <div key={index} className="flex items-center gap-2">
@@ -180,13 +176,11 @@ const ChartTooltipContent = React.forwardRef<
                 )}
 
                 <div className="flex w-full justify-between">
-                  <span className="text-muted-foreground">
-                    {item.name}
-                  </span>
+                  <span className="text-muted-foreground">{item.name}</span>
 
                   <span className="font-mono tabular-nums">
                     {formatter
-                      ? formatter(item.value, item.name, item, index, payload)  // ← Fixed: 5 arguments
+                      ? formatter(item.value, item.name, item, index, payload) // ← Fixed: 5 arguments
                       : item.value}
                   </span>
                 </div>
@@ -196,7 +190,7 @@ const ChartTooltipContent = React.forwardRef<
         </div>
       </div>
     );
-  }
+  },
 );
 
 ChartTooltipContent.displayName = "ChartTooltip";
@@ -210,7 +204,7 @@ const ChartLegend = RechartsPrimitive.Legend;
 const ChartLegendContent = React.forwardRef<
   HTMLDivElement,
   React.ComponentProps<"div"> & {
-    payload?: RechartsPrimitive.LegendPayload[];  // Use the proper type
+    payload?: RechartsPrimitive.LegendPayload[]; // Use the proper type
     verticalAlign?: "top" | "middle" | "bottom";
     hideIcon?: boolean;
     nameKey?: string;
@@ -226,11 +220,9 @@ const ChartLegendContent = React.forwardRef<
       className={cn(
         "flex items-center justify-center gap-4",
         verticalAlign === "top" ? "pb-3" : "pt-3",
-        className
+        className,
       )}
-    >
-     
-    </div>
+    ></div>
   );
 });
 

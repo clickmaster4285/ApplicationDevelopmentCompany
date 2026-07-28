@@ -1,215 +1,432 @@
-// app/components/shared/PageContent.tsx
-import React from 'react';
-import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-import { Check, Boxes } from 'lucide-react';
+"use client";
 
-// ---------- Parse markdown into sections ----------
-type Card = { title: string; body: string };
-type Section = {
-  slug?: string;
-  label: string;   // short chip label from title (e.g. "GBP")
-  title: string;
-  intro: string;   // markdown paragraph(s) under the H2, before first H3
-  cards: Card[];   // each H3 + following prose
-  raw: string;     // fallback markdown if no H3s
-};
+import { motion } from "framer-motion";
+import { Check, ArrowUpRight } from "lucide-react";
+import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
-function slugFromTitle(t: string) {
-  return t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-}
+export function PageContent({
+  content,
+  pageData,
+}: {
+  content?: string;
+  pageData?: { content?: string; [key: string]: any };
+}) {
+  const rawContent = content || pageData?.content || "";
 
-function shortLabel(t: string) {
-  // "Google Business Profile Optimization..." -> "GBP"
-  const caps = t.match(/\b[A-Z]{2,}\b/g);
-  if (caps?.length) return caps[0];
-  const words = t.split(/\s+/).filter(Boolean).slice(0, 2);
-  return words.map((w) => w[0]).join('').toUpperCase();
-}
+  const contentWithoutHeader = rawContent
+    .replace(/^# .+\n/, "")
+    .replace(/^(.+?)(?=\n\n|$)/, "");
 
-function parseSections(content: string): Section[] {
-  const lines = content.split('\n');
-  const sections: Section[] = [];
-  let current: Section | null = null;
-  let currentCard: Card | null = null;
-  let mode: 'intro' | 'card' = 'intro';
-
-  const flushCard = () => {
-    if (current && currentCard) {
-      currentCard.body = currentCard.body.trim();
-      current.cards.push(currentCard);
-      currentCard = null;
-    }
-  };
-  const flushSection = () => {
-    flushCard();
-    if (current) {
-      current.intro = current.intro.trim();
-      current.raw = current.raw.trim();
-      sections.push(current);
-    }
+  const cleanHeading = (text: string) => {
+    const cleanText = text.replace(/\[#\w+\]\s*/, "");
+    return cleanText.replace(/^(SOLUTION|TECH|PAGE)\s+\d+\s+[—\-]\s*/, "");
   };
 
-  for (const line of lines) {
-    const h2 = line.match(/^##\s+(.*)/);
-    const h3 = line.match(/^###\s+(.*)/);
-    if (h2) {
-      flushSection();
-      const rawTitle = h2[1].replace(/\[#\w+\]\s*/, '').trim();
-      const anchor = h2[1].match(/\[#(\w+)\]/)?.[1];
-      current = {
-        slug: anchor ?? slugFromTitle(rawTitle),
-        label: shortLabel(rawTitle),
-        title: rawTitle,
-        intro: '',
-        cards: [],
-        raw: '',
+  const extractId = (text: string) => {
+    const anchorMatch = text.match(/\[#(\w+)\]/);
+    return anchorMatch ? anchorMatch[1] : undefined;
+  };
+
+  const rawSections = contentWithoutHeader
+    .split(/(?=^## )/m)
+    .filter(Boolean)
+    .map((section) => section.trim());
+
+  const sections = rawSections
+    .map((section) => {
+      const lines = section.split("\n");
+      const titleLine = lines[0] || "";
+      const title = cleanHeading(titleLine.replace(/^##\s*/, "").trim());
+      let description = lines.slice(1).join("\n").trim();
+
+      const faqMatch = description.match(/\n\*\*[^*]+\?\*\*/);
+
+      if (faqMatch && faqMatch.index !== undefined) {
+        description = description.slice(0, faqMatch.index).trim();
+      }
+
+      const isFaq =
+        /^faq$/i.test(title) || /frequently asked questions/i.test(title);
+      const raw = `${lines[0]}\n${description}`;
+      return {
+        raw,
+        title,
+        description,
+        isFaq,
       };
-      mode = 'intro';
-      continue;
-    }
-    if (h3 && current) {
-      flushCard();
-      const rawTitle = h3[1].replace(/\[#\w+\]\s*/, '').trim();
-      currentCard = { title: rawTitle, body: '' };
-      mode = 'card';
-      continue;
-    }
-    if (!current) continue;
-    current.raw += line + '\n';
-    if (mode === 'intro') current.intro += line + '\n';
-    else if (currentCard) currentCard.body += line + '\n';
-  }
-  flushSection();
-  return sections.filter((s) => /PAGE/i.test(s.title) === false);
-}
+    })
+    .filter((s) => s.title && s.description && !s.isFaq);
 
-// ---------- Small markdown renderer for prose inside cards/intros ----------
-function Prose({ children, muted = true }: { children: string; muted?: boolean }) {
-  return (
-    <ReactMarkdown
-      remarkPlugins={[remarkGfm]}
-      components={{
-        p: ({ children }) => (
-          <p className={`mb-3 last:mb-0 text-[14.5px] leading-[1.65] ${muted ? 'text-white/55' : 'text-white/75'}`}>
-            {children}
-          </p>
-        ),
-        strong: ({ children }) => <strong className="font-medium text-white/90">{children}</strong>,
-        a: ({ href, children }) => {
-          const cls = 'text-white underline decoration-white/30 underline-offset-4 hover:decoration-white';
-          if (href?.startsWith('/')) return <Link href={href} className={cls}>{children}</Link>;
-          return <a href={href} className={cls} target={href?.startsWith('http') ? '_blank' : undefined} rel="noopener noreferrer">{children}</a>;
-        },
-        ul: ({ children }) => <ul className="mb-3 space-y-1.5">{children}</ul>,
-        li: ({ children }) => (
-          <li className="flex gap-2 text-[14px] text-white/60">
-            <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-white/30" />
-            <span>{children}</span>
-          </li>
-        ),
-        code: ({ children }) => (
-          <code className="rounded bg-white/10 px-1.5 py-0.5 font-mono text-[0.85em] text-white/85">{children}</code>
-        ),
-      }}
-    >
-      {children}
-    </ReactMarkdown>
-  );
-}
+  const parseSectionBody = (raw: string) => {
+    const body = raw.replace(/^##[^\n]*\n?/, "").trim();
+    const lines = body.split("\n");
+    const introLines: string[] = [];
+    const items: string[] = [];
+    let inList = false;
 
-// ---------- Card ----------
-function FeatureCard({ title, body }: Card) {
-  return (
-    <article className="group rounded-2xl border border-white/[0.07] bg-white/[0.025] p-6 transition-colors hover:border-white/[0.14] hover:bg-white/[0.04]">
-      <header className="mb-3 flex items-start gap-3">
-        <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-rose-500/15 ring-1 ring-rose-400/40">
-          <Check className="h-3 w-3 text-rose-300" strokeWidth={3} />
-        </span>
-        <h3 className="font-serif text-[19px] font-medium leading-snug tracking-[-0.01em] text-white/95">
-          {title}
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (/^[-*]\s+/.test(trimmed) || /^\d+\.\s+/.test(trimmed)) {
+        inList = true;
+        items.push(trimmed.replace(/^[-*]\s+/, "").replace(/^\d+\.\s+/, ""));
+      } else if (trimmed) {
+        if (!inList) introLines.push(trimmed);
+      }
+    }
+
+    return { intro: introLines.join("\n\n"), items };
+  };
+
+  const headingComponents = {
+    h2: ({ children, ...props }: any) => {
+      const text = String(children);
+      const id = extractId(text);
+      const cleanText = cleanHeading(text);
+      return (
+        <h2
+          id={id}
+          className="font-display text-white text-xl md:text-2xl font-medium leading-[1.05] tracking-[-0.02em] mb-4"
+          {...props}
+        >
+          {cleanText}
+        </h2>
+      );
+    },
+    h3: ({ children, ...props }: any) => {
+      const text = String(children);
+      const id = extractId(text);
+      const cleanText = cleanHeading(text);
+      return (
+        <h3
+          id={id}
+          className="font-display text-white text-lg md:text-xl font-medium tracking-[-0.02em] mb-3 mt-6"
+          {...props}
+        >
+          {cleanText}
         </h3>
-      </header>
-      <div className="pl-8">
-        <Prose>{body}</Prose>
-      </div>
-    </article>
-  );
-}
+      );
+    },
+    h4: ({ children, ...props }: any) => {
+      const text = String(children);
+      const id = extractId(text);
+      const cleanText = cleanHeading(text);
+      return (
+        <h4
+          id={id}
+          className="font-display text-white text-base md:text-lg font-medium tracking-[-0.02em] mb-2 mt-5"
+          {...props}
+        >
+          {cleanText}
+        </h4>
+      );
+    },
+  };
 
-// ---------- Section header (left / right column) ----------
-function SectionHeader({ section, index }: { section: Section; index: number }) {
-  const num = String(index + 1).padStart(2, '0');
-  return (
-    <div id={section.slug} className="scroll-mt-24">
-      <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5">
-        <Boxes className="h-3.5 w-3.5 text-white/60" strokeWidth={2} />
-        <span className="font-mono text-[10.5px] uppercase tracking-[0.24em] text-white/55">
-          {`{ ${section.label} · ${num} }`}
-        </span>
-      </div>
-      <h2 className="mb-5 font-serif text-3xl font-medium leading-[1.1] tracking-[-0.02em] text-white md:text-[38px]">
-        {section.title}
-      </h2>
-      {section.intro && (
-        <div className="max-w-md">
-          <Prose muted>{section.intro}</Prose>
-        </div>
-      )}
-    </div>
-  );
-}
+  const paragraphComponents = {
+    p: ({ children, ...props }: any) => {
+      if (!children) return null;
+      const text = String(children);
+      if (!text.trim() || text.trim() === "[Trust bar]") return null;
+      if (text.trim().startsWith(">")) {
+        return (
+          <blockquote className="my-4 rounded-r-xl border-l-2 border-primary/40 bg-primary/[0.04] px-4 py-3 text-white/70 italic text-sm">
+            {text.replace(/^>\s*/, "")}
+          </blockquote>
+        );
+      }
+      return (
+        <p
+          className="text-white/55 leading-relaxed mb-4 text-sm md:text-[15px]"
+          {...props}
+        >
+          {children}
+        </p>
+      );
+    },
+    strong: ({ children, ...props }: any) => {
+      const text = String(children);
+      if (text.includes("[PLACEHOLDER")) {
+        return (
+          <span
+            className="rounded bg-yellow-500/10 px-1.5 py-0.5 font-medium text-yellow-400"
+            {...props}
+          >
+            {children}
+          </span>
+        );
+      }
+      return (
+        <strong className="font-semibold text-white" {...props}>
+          {children}
+        </strong>
+      );
+    },
+  };
 
-// ---------- Main ----------
-export function PageContent({ content }: { content: string }) {
-  const sections = parseSections(content);
+  const linkComponents = {
+    a: ({ href, children, ...props }: any) => {
+      const baseClass =
+        "inline-flex items-center gap-1 text-primary/80 underline-offset-2 transition-all hover:text-primary hover:underline";
 
-  // If no H2 structure, fall back to plain prose so nothing is lost.
+      if (href?.startsWith("#")) {
+        return (
+          <a href={href} className={baseClass} {...props}>
+            {children}
+          </a>
+        );
+      }
+
+      if (href?.startsWith("/")) {
+        return (
+          <Link href={href} className={baseClass} {...props}>
+            {children}
+          </Link>
+        );
+      }
+
+      const externalClass =
+        baseClass +
+        " after:ml-0.5 after:inline-block after:text-[10px] after:content-['↗']";
+
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={externalClass}
+          {...props}
+        >
+          {children}
+        </a>
+      );
+    },
+  };
+
+  const codeComponents = {
+    code: ({ inline, children, ...props }: any) => {
+      if (inline) {
+        return (
+          <code
+            className="rounded-md bg-white/10 px-1.5 py-0.5 font-mono text-[0.9em] text-white/85"
+            {...props}
+          >
+            {children}
+          </code>
+        );
+      }
+      return (
+        <pre
+          className="my-4 overflow-x-auto rounded-xl border border-white/[0.07] bg-white/[0.03] p-4"
+          {...props}
+        >
+          <code className="font-mono text-sm text-white/80">{children}</code>
+        </pre>
+      );
+    },
+  };
+
+  const blockComponents = {
+    blockquote: ({ children, ...props }: any) => (
+      <blockquote
+        className="my-4 rounded-r-xl border-l-2 border-primary/30 bg-primary/[0.04] px-4 py-3 text-white/70 text-sm"
+        {...props}
+      >
+        {children}
+      </blockquote>
+    ),
+    hr: () => <hr className="my-6 border-white/[0.06]" />,
+  };
+
+  const introMarkdownComponents = {
+    ...headingComponents,
+    ...paragraphComponents,
+    ...linkComponents,
+    ...codeComponents,
+    ...blockComponents,
+  };
+
   if (sections.length === 0) {
-    return (
-      <div className="max-w-3xl">
-        <Prose muted>{content}</Prose>
-      </div>
-    );
+    return null;
   }
 
   return (
-    <div className=" mx-auto w-[85vw] px-6 py-16 md:py-24">
-      <div className="space-y-24 md:space-y-32">
-        {sections.map((section, i) => {
-          const flip = i % 2 === 1; // alternate sides
-          const hasCards = section.cards.length > 0;
+    <section className="relative py-12 md:py-30 border-t border-white/5">
+      <div className="mx-auto w-[85vw] px-6">
+        <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5 text-center">
+          — Insights
+        </div>
 
-          return (
-            <section
-              key={i}
-              className="grid grid-cols-1 gap-10 md:grid-cols-2 md:gap-16"
-            >
-              <div className={flip ? 'md:order-2' : ''}>
-                <SectionHeader section={section} index={i} />
+        <h2 className="text-chrome text-center text-5xl md:text-6xl font-medium tracking-[-0.03em] leading-[1.02] mb-20">
+          How This Solution Helps Your Business
+        </h2>
+
+        <div className="space-y-16 md:space-y-24">
+          {sections.map((section, index) => {
+            const reverse = index % 2 === 1;
+            const { intro, items } = parseSectionBody(section.raw);
+            const isFirst = index === 0;
+
+            // First section: full-width, plain layout — heading and description
+            // run the full line, no card / grid split.
+            if (isFirst) {
+              // Plain text — strip markdown bold markers and stray leading dashes
+              // so nothing renders with literal ** or - characters.
+              const stripMarkdown = (text: string) =>
+                text
+                  .replace(/\*/g, "")
+                  .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+                  .replace(/^-\s+/gm, "")
+                  .trim();
+
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  className="w-full"
+                >
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 rounded-2xl border border-white/10 grid place-items-center bg-white/[0.03]">
+                      <Check className="w-6 h-6 text-primary" />
+                    </div>
+                    <span className="text-[10px] uppercase tracking-[0.4em] text-white/40">
+                      [{" "}
+                      {section.title
+                        .split(" ")
+                        .slice(0, 3)
+                        .join(" ")
+                        .toUpperCase()}{" "}
+                      · {String(index + 1).padStart(2, "0")} ]
+                    </span>
+                  </div>
+                  {/* <h3 className="text-white/90 text-xl md:text-2xl leading-[1.05] tracking-tight mb-6">
+                {section.title}
+              </h3> */}
+                  {items.length > 0 ? (
+                    <div className="space-y-4">
+                      {intro && (
+                        <p className="text-base md:text-lg text-white/55 leading-relaxed">
+                          {stripMarkdown(intro)}
+                        </p>
+                      )}
+                      <ul className="space-y-3">
+                        {items.map((item, itemIndex) => (
+                          <li
+                            key={itemIndex}
+                            className="flex items-start gap-3"
+                          >
+                            <Check className="w-5 h-5 mt-1 text-primary shrink-0" />
+                            <span className="text-base md:text-lg text-white/60 leading-relaxed">
+                              {stripMarkdown(item)}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : (
+                    <p className="text-base md:text-lg text-white/55 leading-relaxed">
+                      {stripMarkdown(
+                        section.raw.replace(/^##[^\n]*\n?/, "").trim(),
+                      )}
+                    </p>
+                  )}
+                </motion.div>
+              );
+            }
+
+            return (
+              <div
+                key={index}
+                className={`grid lg:grid-cols-12 gap-10 items-start ${
+                  reverse ? "lg:[&>*:first-child]:order-2" : ""
+                }`}
+              >
+                <motion.div
+                  initial={{ opacity: 0, x: reverse ? 60 : -60 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-100px" }}
+                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  className="lg:col-span-5 lg:sticky lg:top-32"
+                >
+                  <div className="flex items-center gap-4 mb-6">
+                    <div className="w-14 h-14 rounded-2xl border border-white/10 grid place-items-center bg-white/[0.03]">
+                      <Check className="w-6 h-6 text-primary" />
+                    </div>
+                    <span className="text-[10px] uppercase tracking-[0.4em] text-white/40">
+                      [{" "}
+                      {section.title
+                        .split(" ")
+                        .slice(0, 3)
+                        .join(" ")
+                        .toUpperCase()}{" "}
+                      · {String(index + 1).padStart(2, "0")} ]
+                    </span>
+                  </div>
+                  <h3 className="font-display text-white text-3xl md:text-5xl leading-[1.05] tracking-tight mb-6">
+                    {section.title}
+                  </h3>
+                  {/* {intro && (
+                <div className="text-base md:text-lg text-white/55 leading-relaxed">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]} components={introMarkdownComponents}>
+                    {intro}
+                  </ReactMarkdown>
+                </div>
+              )} */}
+                </motion.div>
+
+                <div className="lg:col-span-7 space-y-4">
+                  {items.length > 0 ? (
+                    items.map((item, itemIndex) => (
+                      <motion.div
+                        key={itemIndex}
+                        initial={{ opacity: 0, y: 30 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true, margin: "-80px" }}
+                        transition={{
+                          delay: itemIndex * 0.1,
+                          duration: 0.6,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
+                        whileHover={{ y: -4 }}
+                        className="group relative rounded-2xl border border-white/[0.08] p-7 md:p-9 bg-white/[0.03] hover:border-primary/40 hover:bg-white/[0.05] transition-all"
+                      >
+                        <div className="flex items-start gap-4">
+                          <Check className="w-5 h-5 mt-1 text-primary shrink-0" />
+                          <p className="text-sm md:text-base text-white/60 leading-relaxed">
+                            {item}
+                          </p>
+                        </div>
+                        <ArrowUpRight className="absolute top-6 right-6 w-4 h-4 opacity-0 -translate-x-1 group-hover:opacity-60 group-hover:translate-x-0 transition-all text-white/30" />
+                      </motion.div>
+                    ))
+                  ) : (
+                    <motion.div
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: "-80px" }}
+                      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                      whileHover={{ y: -4 }}
+                      className="group relative rounded-2xl border border-white/[0.08] p-7 md:p-9 bg-white/[0.03] hover:border-primary/40 hover:bg-white/[0.05] transition-all"
+                    >
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={introMarkdownComponents}
+                      >
+                        {section.raw.replace(/^##[^\n]*\n?/, "").trim()}
+                      </ReactMarkdown>
+                      <ArrowUpRight className="absolute top-6 right-6 w-4 h-4 opacity-0 -translate-x-1 group-hover:opacity-60 group-hover:translate-x-0 transition-all text-white/30" />
+                    </motion.div>
+                  )}
+                </div>
               </div>
-
-             
-            </section>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
-    </div>
+    </section>
   );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

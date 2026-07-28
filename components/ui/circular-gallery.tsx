@@ -21,8 +21,7 @@ export interface GalleryItem {
   text: string;
 }
 
-interface CircularGalleryProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+interface CircularGalleryProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * An array of image and text objects for the gallery.
    */
@@ -405,22 +404,21 @@ class Media {
     }
   }
 
-  onResize(
-    {
-      screen,
-      viewport,
-    }: {
-      screen?: { width: number; height: number };
-      viewport?: { width: number; height: number };
-    } = {},
-  ) {
+  onResize({
+    screen,
+    viewport,
+  }: {
+    screen?: { width: number; height: number };
+    viewport?: { width: number; height: number };
+  } = {}) {
     if (screen) this.screen = screen;
     if (viewport) {
       this.viewport = viewport;
       if ((this.plane.program.uniforms as any).uViewportSizes) {
-        (
-          this.plane.program.uniforms as any
-        ).uViewportSizes.value = [this.viewport.width, this.viewport.height];
+        (this.plane.program.uniforms as any).uViewportSizes.value = [
+          this.viewport.width,
+          this.viewport.height,
+        ];
       }
     }
     this.scale = this.screen.height / 1500;
@@ -442,13 +440,13 @@ class Media {
 class App {
   container: HTMLElement;
   scrollSpeed: number;
-scroll: {
-  ease: number;
-  current: number;
-  target: number;
-  last: number;
-  position: number;
-};
+  scroll: {
+    ease: number;
+    current: number;
+    target: number;
+    last: number;
+    position: number;
+  };
   onCheckDebounce: () => void;
   renderer!: Renderer;
   gl!: OGLRenderingContext;
@@ -462,11 +460,11 @@ scroll: {
   screen!: { width: number; height: number };
   viewport!: { width: number; height: number };
   raf!: number;
-boundOnResize!: () => void;
-boundOnWheel!: (e: WheelEvent) => void;
-boundOnTouchDown!: (e: MouseEvent | TouchEvent) => void;
-boundOnTouchMove!: (e: MouseEvent | TouchEvent) => void;
-boundOnTouchUp!: () => void;
+  boundOnResize!: () => void;
+  boundOnWheel!: (e: WheelEvent) => void;
+  boundOnTouchDown!: (e: MouseEvent | TouchEvent) => void;
+  boundOnTouchMove!: (e: MouseEvent | TouchEvent) => void;
+  boundOnTouchUp!: () => void;
   constructor(
     container: HTMLElement,
     {
@@ -489,13 +487,13 @@ boundOnTouchUp!: () => void;
   ) {
     this.container = container;
     this.scrollSpeed = scrollSpeed;
-   this.scroll = {
-  ease: scrollEase,
-  current: 0,
-  target: 0,
-  last: 0,
-  position: 0,
-};
+    this.scroll = {
+      ease: scrollEase,
+      current: 0,
+      target: 0,
+      last: 0,
+      position: 0,
+    };
     this.onCheckDebounce = debounce(this.onCheck.bind(this), 200);
 
     autoBind(this);
@@ -546,7 +544,10 @@ boundOnTouchUp!: () => void;
     font: string,
   ) {
     const defaultItems: GalleryItem[] = [
-      { image: `https://picsum.photos/seed/1/800/600?grayscale`, text: "Bridge" },
+      {
+        image: `https://picsum.photos/seed/1/800/600?grayscale`,
+        text: "Bridge",
+      },
       {
         image: `https://picsum.photos/seed/2/800/600?grayscale`,
         text: "Desk Setup",
@@ -589,7 +590,7 @@ boundOnTouchUp!: () => void;
     if (!this.isDown) return;
     const x = "touches" in e ? e.touches[0].clientX : e.clientX;
     const distance = (this.start - x) * (this.scrollSpeed * 0.025);
- this.scroll.target = this.scroll.position + distance;
+    this.scroll.target = this.scroll.position + distance;
   }
 
   onTouchUp() {
@@ -599,7 +600,8 @@ boundOnTouchUp!: () => void;
 
   onWheel(e: WheelEvent) {
     const delta = e.deltaY || (e as any).wheelDelta || e.detail;
-    this.scroll.target += (delta > 0 ? this.scrollSpeed : -this.scrollSpeed) * 0.2;
+    this.scroll.target +=
+      (delta > 0 ? this.scrollSpeed : -this.scrollSpeed) * 0.2;
     this.onCheckDebounce();
   }
 
@@ -654,7 +656,6 @@ boundOnTouchUp!: () => void;
     this.boundOnTouchUp = this.onTouchUp;
 
     window.addEventListener("resize", this.boundOnResize);
-  ;
     window.addEventListener("wheel", this.boundOnWheel);
     this.container.addEventListener("mousedown", this.boundOnTouchDown);
     window.addEventListener("mousemove", this.boundOnTouchMove);
@@ -667,7 +668,7 @@ boundOnTouchUp!: () => void;
   destroy() {
     window.cancelAnimationFrame(this.raf);
     window.removeEventListener("resize", this.boundOnResize);
-   
+
     window.removeEventListener("wheel", this.boundOnWheel);
     this.container.removeEventListener("mousedown", this.boundOnTouchDown);
     window.removeEventListener("mousemove", this.boundOnTouchMove);
@@ -676,7 +677,11 @@ boundOnTouchUp!: () => void;
     window.removeEventListener("touchmove", this.boundOnTouchMove);
     window.removeEventListener("touchend", this.boundOnTouchUp);
 
-    if (this.renderer && this.renderer.gl && this.renderer.gl.canvas.parentNode) {
+    if (
+      this.renderer &&
+      this.renderer.gl &&
+      this.renderer.gl.canvas.parentNode
+    ) {
       this.renderer.gl.canvas.parentNode.removeChild(this.renderer.gl.canvas);
     }
   }

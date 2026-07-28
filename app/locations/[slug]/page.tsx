@@ -1,47 +1,46 @@
 // app/locations/[slug]/page.tsx
-import locationData from '@/content/locations';
-import { notFound } from 'next/navigation';
-import { Metadata } from 'next';
+import locationData from "@/content/locations";
+import { notFound } from "next/navigation";
+import { Metadata } from "next";
 import {
-  HeroHeader,
-  MainContent,
   FAQSection,
   CTASection,
   StructuredData,
   FAQSchema,
   extractFAQs,
-  cleanPageContent,
+  MainContent,
+  HeroHeader,
   type PageData,
-  type FAQ,
-} from '@/components/shared/IndustryServicePage';
+} from "@/components/shared/IndustryServicePage";
 
 // Generate static params
 export async function generateStaticParams() {
-  const params = locationData.pages.map((page) => {
-    const slug = page.url
-      .replace(/^\/+/, '')
-      .replace(/\/+$/, '')
-      .replace('locations/', '');
-    return { slug };
-  });
-  return params;
+  return locationData.pages.map((page: PageData) => ({
+    slug: page.url
+      .replace(/^\/+|\/+$/g, "") // Remove leading/trailing slashes
+      .replace("locations/", ""), // Remove the locations/ prefix
+  }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+// Generate metadata
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const { slug } = await params;
-  
-  const pageData = locationData.pages.find(page => {
-    const pageSlug = page.url
-      .replace(/^\/+/, '')
-      .replace(/\/+$/, '')
-      .replace('locations/', '');
-    return pageSlug === slug;
+
+  const pageData = locationData.pages.find((page: PageData) => {
+    const cleanUrl = page.url
+      .replace(/^\/+|\/+$/g, "")
+      .replace("locations/", "");
+    return cleanUrl === slug;
   });
 
   if (!pageData) {
     return {
-      title: 'Industry Not Found',
-      description: 'The requested industry page could not be found.',
+      title: "Location Not Found",
+      description: "The requested location page could not be found.",
     };
   }
 
@@ -52,37 +51,46 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       title: pageData.meta.title,
       description: pageData.meta.description,
       url: `https://clickmasters.com${pageData.url}`,
-      type: 'website',
+      type: "website",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: pageData.meta.title,
+      description: pageData.meta.description,
+    },
+    alternates: {
+      canonical: `https://clickmasters.com${pageData.url}`,
     },
   };
 }
 
-export default async function LocationPage({ params }: { params: Promise<{ slug: string }> }) {
+// Main page component
+export default async function LocationPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
-  
-  const pageData = locationData.pages.find(page => {
-    const pageSlug = page.url
-      .replace(/^\/+/, '')
-      .replace(/\/+$/, '')
-      .replace('locations/', '');
-    return pageSlug === slug;
+
+  const pageData = locationData.pages.find((page: PageData) => {
+    const cleanUrl = page.url
+      .replace(/^\/+|\/+$/g, "")
+      .replace("locations/", "");
+    return cleanUrl === slug;
   });
 
   if (!pageData) {
     notFound();
   }
 
-  // Clean content
-  const cleaned = cleanPageContent(pageData.content);
-  
-  // Extract FAQs
-  const faqs = extractFAQs(cleaned);
+  // Extract FAQs directly from pageData
+  const faqs = extractFAQs(pageData);
 
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-white/20">
-      <HeroHeader pageData={pageData} type="Industry" />
-      <MainContent content={cleaned} />
-      {faqs.length > 0 && <FAQSection faqs={faqs} />}
+      <HeroHeader pageData={pageData} type="Location" />
+      <MainContent pageData={pageData} />
+      <FAQSection pageData={pageData} />
       <CTASection pageData={pageData} />
       <StructuredData pageData={pageData} />
       <FAQSchema faqs={faqs} />
