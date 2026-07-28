@@ -82,7 +82,7 @@ export const ebooksData: EbooksData = {
   generatedAt: "2026-07-28T10:29:45.982265",
   pages: [
     {
-      url: "/ebooks/ai-for-business-guide/",
+      url: "/eboos/ai-for-business-guide/",
       meta: {
         title: "AI for Business: A Practical Guide to Implementation | Clickmasters",
         description:
@@ -466,7 +466,7 @@ Yes—we encourage internal sharing to help your team align on AI strategy.
       },
     },
     {
-      url: "/ebooks/custom-software-cost-guide/",
+      url: "/eboos/custom-software-cost-guide/",
       meta: {
         title: "Custom Software Cost Guide: Pricing Your Project | Clickmasters",
         description:
@@ -817,7 +817,7 @@ Get instant access to the complete guide:
       },
     },
     {
-      url: "/ebooks/scaling-startup-technology/",
+      url: "/eboos/scaling-startup-technology/",
       meta: {
         title: "Scaling Your Startup's Technology: A Founder's Guide | Clickmasters",
         description:
