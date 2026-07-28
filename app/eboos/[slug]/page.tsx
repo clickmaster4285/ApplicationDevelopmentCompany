@@ -1,4 +1,4 @@
-// app/ebooks/[slug]/page.tsx
+// app/eboos/[slug]/page.tsx
 import ebooksData from "@/content/eboos";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
@@ -17,7 +17,7 @@ export async function generateStaticParams() {
   return ebooksData.pages.map((page: any) => ({
     slug: page.url
       .replace(/^\/+|\/+$/g, "") // Remove leading/trailing slashes
-      .replace("ebooks/", ""), // Remove the ebooks/ prefix
+      .replace("eboos/", ""), // Remove the eboos/ prefix
   }));
 }
 
@@ -30,7 +30,7 @@ export async function generateMetadata({
   const { slug } = await params;
 
   const pageData = ebooksData.pages.find((page: any) => {
-    const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("ebooks/", "");
+    const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("eboos/", "");
     return cleanUrl === slug;
   });
 
@@ -70,7 +70,7 @@ export default async function EbookPage({
   const { slug } = await params;
 
   const pageData = ebooksData.pages.find((page: any) => {
-    const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("ebooks/", "");
+    const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("eboos/", "");
     return cleanUrl === slug;
   });
 
