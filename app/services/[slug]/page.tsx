@@ -14,8 +14,8 @@ import {
   FAQSchema,
   extractFAQs,
   MainContent,
-  HeroHeader,
 } from "@/components/shared/IndustryServicePage";
+import { HeroHeader } from "@/components/shared/HeroHeader";
 
 export async function generateStaticParams() {
   return servicesData.pages.map((page) => ({

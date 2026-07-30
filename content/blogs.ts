@@ -71,7 +71,8 @@ export const blogsData: BlogsData = {
     {
       url: "/blog/ai-development-cost-saving-strategies/",
       meta: {
-        title: "AI Development: 7 Cost-Saving Strategies That Actually Work | Clickmasters",
+        title:
+          "AI Development: 7 Cost-Saving Strategies That Actually Work | Clickmasters",
         description:
           "Learn proven strategies to reduce AI development costs by 60-90% without sacrificing quality. Practical tips from real production deployments.",
       },
@@ -368,7 +369,8 @@ Teams optimize cost without measuring quality impact. The result: you save money
     {
       url: "/blog/migrating-spreadsheets-to-custom-software/",
       meta: {
-        title: "How to Migrate From Spreadsheets to Custom Software (Without Chaos) | Clickmasters",
+        title:
+          "How to Migrate From Spreadsheets to Custom Software (Without Chaos) | Clickmasters",
         description:
           "A step-by-step guide to migrating your business from spreadsheets to custom software. Avoid common pitfalls and ensure adoption.",
       },
@@ -568,7 +570,8 @@ The best software fails if people don't use it.
         wordCount: 0,
         tier: 1,
         searchVolume: "350 avg monthly",
-        productionNote: "Published blog post with practical migration guidance.",
+        productionNote:
+          "Published blog post with practical migration guidance.",
       },
       internalLinks: [
         "/resources/how-to/how-to-migrate-from-spreadsheets-to-custom-software/",
@@ -621,7 +624,8 @@ The best software fails if people don't use it.
             rows: [
               {
                 Phase: "Audit & Discovery",
-                Activities: "Freeze spreadsheet, document logic, interview users",
+                Activities:
+                  "Freeze spreadsheet, document logic, interview users",
                 Duration: "1-2 weeks",
               },
               {
@@ -631,7 +635,8 @@ The best software fails if people don't use it.
               },
               {
                 Phase: "Build",
-                Activities: "Core functionality, data migration scripts, testing",
+                Activities:
+                  "Core functionality, data migration scripts, testing",
                 Duration: "4-6 weeks",
               },
               {
@@ -666,7 +671,8 @@ The best software fails if people don't use it.
     {
       url: "/blog/technical-debt-why-startups-should-care/",
       meta: {
-        title: "Technical Debt: Why Startups Should Care (and What to Do About It) | Clickmasters",
+        title:
+          "Technical Debt: Why Startups Should Care (and What to Do About It) | Clickmasters",
         description:
           "Technical debt can kill your startup. Learn how to manage it, when to pay it down, and why 'move fast' doesn't mean 'break things.'",
       },
@@ -1037,7 +1043,11 @@ export function getFeaturedBlogs(): BlogData[] {
 
 export function getRecentBlogs(limit: number = 5): BlogData[] {
   return blogsData.pages
-    .sort((a, b) => new Date(b.blog.publishDate).getTime() - new Date(a.blog.publishDate).getTime())
+    .sort(
+      (a, b) =>
+        new Date(b.blog.publishDate).getTime() -
+        new Date(a.blog.publishDate).getTime(),
+    )
     .slice(0, limit);
 }
 

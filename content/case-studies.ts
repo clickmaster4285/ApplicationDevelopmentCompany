@@ -899,7 +899,9 @@ export function getCaseStudiesByIndustry(industry: string): CaseStudyData[] {
   );
 }
 
-export function getCaseStudiesByTechnology(technology: string): CaseStudyData[] {
+export function getCaseStudiesByTechnology(
+  technology: string,
+): CaseStudyData[] {
   return caseStudiesData.pages.filter((page) =>
     page.caseStudy.technologies.some((tech) =>
       tech.toLowerCase().includes(technology.toLowerCase()),

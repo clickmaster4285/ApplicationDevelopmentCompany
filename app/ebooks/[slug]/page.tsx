@@ -1,5 +1,5 @@
-// app/eboos/[slug]/page.tsx
-import ebooksData from "@/content/eboos";
+// app/ebooks/[slug]/page.tsx
+import ebooksData from "@/content/ebooks";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import {
@@ -9,15 +9,15 @@ import {
   FAQSchema,
   extractFAQs,
   MainContent,
-  HeroHeader,
 } from "@/components/shared/IndustryServicePage";
+import { HeroHeader } from "@/components/shared/HeroHeader";
 
 // Generate static params
 export async function generateStaticParams() {
   return ebooksData.pages.map((page: any) => ({
     slug: page.url
       .replace(/^\/+|\/+$/g, "") // Remove leading/trailing slashes
-      .replace("eboos/", ""), // Remove the eboos/ prefix
+      .replace("ebooks/", ""), // Remove the ebooks/ prefix
   }));
 }
 
@@ -30,7 +30,7 @@ export async function generateMetadata({
   const { slug } = await params;
 
   const pageData = ebooksData.pages.find((page: any) => {
-    const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("eboos/", "");
+    const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("ebooks/", "");
     return cleanUrl === slug;
   });
 
@@ -70,7 +70,7 @@ export default async function EbookPage({
   const { slug } = await params;
 
   const pageData = ebooksData.pages.find((page: any) => {
-    const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("eboos/", "");
+    const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("ebooks/", "");
     return cleanUrl === slug;
   });
 
@@ -83,7 +83,7 @@ export default async function EbookPage({
 
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-white/20">
-      <HeroHeader pageData={pageData} type="Eboos" />
+      <HeroHeader pageData={pageData} type="Ebooks" />
       <MainContent pageData={pageData} />
       <FAQSection pageData={pageData} />
       <CTASection pageData={pageData} />

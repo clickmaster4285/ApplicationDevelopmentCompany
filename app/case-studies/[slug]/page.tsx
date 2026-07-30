@@ -9,9 +9,9 @@ import {
   FAQSchema,
   extractFAQs,
   MainContent,
-  HeroHeader,
   type PageData,
 } from "@/components/shared/IndustryServicePage";
+import { HeroHeader } from "@/components/shared/HeroHeader";
 
 // Generate static params
 export async function generateStaticParams() {
@@ -31,7 +31,9 @@ export async function generateMetadata({
   const { slug } = await params;
 
   const pageData = caseStudiesData.pages.find((page: PageData) => {
-    const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("case-studies/", "");
+    const cleanUrl = page.url
+      .replace(/^\/+|\/+$/g, "")
+      .replace("case-studies/", "");
     return cleanUrl === slug;
   });
 
@@ -72,7 +74,9 @@ export default async function CaseStudyPage({
   const { slug } = await params;
 
   const pageData = caseStudiesData.pages.find((page: PageData) => {
-    const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("case-studies/", "");
+    const cleanUrl = page.url
+      .replace(/^\/+|\/+$/g, "")
+      .replace("case-studies/", "");
     return cleanUrl === slug;
   });
 

@@ -44,7 +44,7 @@ export default function HomePage() {
       <SmoothScroll />
       <Cursor />
 
-      <Nav />
+      
       <Hero />
 
       <Marquee />
@@ -65,7 +65,7 @@ export default function HomePage() {
 
       <FAQ />
       <CTA />
-      <Footer />
+   
     </main>
   );
 }

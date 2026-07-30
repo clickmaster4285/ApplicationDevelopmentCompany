@@ -82,9 +82,10 @@ export const ebooksData: EbooksData = {
   generatedAt: "2026-07-28T10:29:45.982265",
   pages: [
     {
-      url: "/eboos/ai-for-business-guide/",
+      url: "/ebooks/ai-for-business-guide/",
       meta: {
-        title: "AI for Business: A Practical Guide to Implementation | Clickmasters",
+        title:
+          "AI for Business: A Practical Guide to Implementation | Clickmasters",
         description:
           "Download our free eBook on implementing AI in your business. Learn how to identify opportunities, build the business case, and avoid common pitfalls.",
       },
@@ -466,9 +467,10 @@ Yes—we encourage internal sharing to help your team align on AI strategy.
       },
     },
     {
-      url: "/eboos/custom-software-cost-guide/",
+      url: "/ebooks/custom-software-cost-guide/",
       meta: {
-        title: "Custom Software Cost Guide: Pricing Your Project | Clickmasters",
+        title:
+          "Custom Software Cost Guide: Pricing Your Project | Clickmasters",
         description:
           "Download our comprehensive guide to custom software costs. Understand what drives pricing, how to budget, and what to expect from your development project.",
       },
@@ -817,9 +819,10 @@ Get instant access to the complete guide:
       },
     },
     {
-      url: "/eboos/scaling-startup-technology/",
+      url: "/ebooks/scaling-startup-technology/",
       meta: {
-        title: "Scaling Your Startup's Technology: A Founder's Guide | Clickmasters",
+        title:
+          "Scaling Your Startup's Technology: A Founder's Guide | Clickmasters",
         description:
           "Download our free guide for founders on scaling startup technology. Learn how to build for growth, manage technical debt, and hire the right team.",
       },
