@@ -10,7 +10,20 @@ const logo = "/images/logo-white.webp";
 // Helper to get clean label from title
 const getCleanLabel = (title: string) => {
   // Remove "Company | Clickmasters" or similar suffixes
-  return title.split(" | ")[0].replace(/^[A-Za-z]+ /, "").trim();
+  let clean = title.split(" | ")[0];
+  
+  // Remove "Industry" from the end if present (for industry pages)
+  clean = clean.replace(/\s+Industry$/i, "");
+  
+  // Remove common prefixes like "Top ", "Best ", "Professional " etc.
+  clean = clean.replace(/^(Top|Best|Professional|Expert|Affordable|Leading)\s+/i, "");
+  
+  // Truncate if too long, but keep meaningful names
+  if (clean.length > 35) {
+    clean = clean.substring(0, 35) + "...";
+  }
+  
+  return clean.trim();
 };
 
 // Get nav items from content data
@@ -31,59 +44,59 @@ const getNavItems = () => {
   const ebooksPages = allPages.ebooks?.pages || [];
 
   return {
-    services: servicesPages.map(page => ({
+    services: servicesPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    solutions: solutionsPages.map(page => ({
+    solutions: solutionsPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    industries: industriesPages.map(page => ({
+    industries: industriesPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    technologies: technologiesPages.map(page => ({
+    technologies: technologiesPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    platforms: platformsPages.map(page => ({
+    platforms: platformsPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    frameworks: frameworksPages.map(page => ({
+    frameworks: frameworksPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    locations: locationsPages.map(page => ({
+    locations: locationsPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    compare: comparePages.map(page => ({
+    compare: comparePages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    cost: costPages.map(page => ({
+    cost: costPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    resources: resourcesPages.map(page => ({
+    resources: resourcesPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    about: aboutPages.map(page => ({
+    about: aboutPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    blogs: blogsPages.map(page => ({
+    blogs: blogsPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    caseStudies: caseStudiesPages.map(page => ({
+    caseStudies: caseStudiesPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
-    ebooks: ebooksPages.map(page => ({
+    ebooks: ebooksPages.map((page) => ({
       label: getCleanLabel(page.meta.title),
       href: page.url,
     })),
@@ -98,86 +111,68 @@ const getMainNav = () => {
     {
       label: "Services",
       href: "/services",
-      items: navItems.services, // Show ALL services
+      items: navItems.services,
       seeAll: "/services",
     },
     {
       label: "About",
       href: "/about",
-      items: navItems.about, // Show ALL about
+      items: navItems.about,
       seeAll: "/about",
     },
     {
       label: "Solutions",
       href: "/solutions",
-      items: navItems.solutions, // Show ALL solutions
+      items: navItems.solutions,
       seeAll: "/solutions",
     },
     {
       label: "Industries",
       href: "/industries",
-      items: navItems.industries, // Show ALL industries
+      items: navItems.industries,
       seeAll: "/industries",
     },
     {
       label: "Resources",
       href: "/resources",
-      items: navItems.resources, // Show ALL resources
+      items: navItems.resources,
       seeAll: "/resources",
     },
     {
       label: "Blogs",
       href: "/blog",
-      items: navItems.blogs, // Show ALL blogs
+      items: navItems.blogs,
       seeAll: "/blog",
     },
     {
       label: "Case Studies",
       href: "/case-studies",
-      items: navItems.caseStudies, // Show ALL case studies
+      items: navItems.caseStudies,
       seeAll: "/case-studies",
     },
     {
       label: "Ebooks",
       href: "/ebooks",
-      items: navItems.ebooks, // Show ALL ebooks
+      items: navItems.ebooks,
       seeAll: "/ebooks",
     },
-    // {
-    //   label: "Technologies",
-    //   href: "/technologies",
-    //   items: navItems.technologies, // Show ALL technologies
-    //   seeAll: "/technologies",
-    // },
-    // {
-    //   label: "Platforms",
-    //   href: "/platforms",
-    //   items: navItems.platforms, // Show ALL platforms
-    //   seeAll: "/platforms",
-    // },
-    // {
-    //   label: "Frameworks",
-    //   href: "/frameworks",
-    //   items: navItems.frameworks, // Show ALL frameworks
-    //   seeAll: "/frameworks",
-    // },
     {
       label: "Locations",
       href: "/locations",
-      items: navItems.locations, // Show ALL locations
+      items: navItems.locations,
       seeAll: "/locations",
     },
-    // {
-    //   label: "Compare",
-    //   href: "/compare",
-    //   items: navItems.compare, // Show ALL compare
-    //   seeAll: "/compare",
-    // },
   ];
 };
 
 // Sub-component for dropdown item
-function DropdownItem({ item, isMobile = false }: { item: any; isMobile?: boolean }) {
+function DropdownItem({
+  item,
+  isMobile = false,
+}: {
+  item: any;
+  isMobile?: boolean;
+}) {
   const pathname = usePathname();
   const isActive = pathname === item.href;
 
@@ -186,9 +181,10 @@ function DropdownItem({ item, isMobile = false }: { item: any; isMobile?: boolea
       href={item.href}
       className={`
         block px-4 py-2 text-sm transition-colors rounded-lg
-        ${isActive 
-          ? "text-white bg-white/10" 
-          : "text-white/70 hover:text-white hover:bg-white/5"
+        ${
+          isActive
+            ? "text-white bg-white/10"
+            : "text-white/70 hover:text-white hover:bg-white/5"
         }
         ${isMobile ? "text-base" : ""}
       `}
@@ -253,7 +249,8 @@ export function Nav() {
             >
               {item.items && item.items.length > 0 ? (
                 <>
-                  <button
+                  <Link
+                    href={item.href}
                     className={`px-4 py-2 text-xs uppercase tracking-[0.18em] transition-colors ${
                       isActivePath(item.href)
                         ? "text-white"
@@ -261,16 +258,16 @@ export function Nav() {
                     }`}
                   >
                     {item.label}
-                  </button>
-                  {/* Dropdown with scroll - same height as before */}
+                  </Link>
+                  {/* Dropdown with scroll */}
                   <div className="absolute top-full left-0 pt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                     <div className="bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl p-2 shadow-2xl">
-                      {/* Fixed height with scroll - exactly like before but scrollable */}
                       <div className="h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
                         {item.items.map((subItem: any) => (
                           <DropdownItem key={subItem.href} item={subItem} />
                         ))}
                       </div>
+                      {/* Uncomment if you want "View All" link */}
                       {/* {item.seeAll && (
                         <Link
                           href={item.seeAll}
@@ -338,34 +335,45 @@ export function Nav() {
       >
         <div className="p-4 overflow-y-auto max-h-[80vh]">
           {mainNav.map((item) => (
-            <div key={item.label} className="border-b border-white/5 last:border-0">
+            <div
+              key={item.label}
+              className="border-b border-white/5 last:border-0"
+            >
               {item.items && item.items.length > 0 ? (
                 <>
-                  <button
-                    onClick={() =>
-                      setActiveDropdown(
-                        activeDropdown === item.label ? null : item.label
-                      )
-                    }
-                    className="w-full flex items-center justify-between px-4 py-3 text-sm uppercase tracking-[0.18em] text-white/60 hover:text-white transition-colors"
-                  >
-                    <span>{item.label}</span>
-                    <svg
-                      className={`w-4 h-4 transition-transform duration-300 ${
-                        activeDropdown === item.label ? "rotate-180" : ""
-                      }`}
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+                  <div className="flex items-center">
+                    <Link
+                      href={item.href}
+                      className="flex-1 px-4 py-3 text-sm uppercase tracking-[0.18em] text-white/60 hover:text-white transition-colors"
+                      onClick={() => setMobileMenuOpen(false)}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 9l-7 7-7-7"
-                      />
-                    </svg>
-                  </button>
+                      {item.label}
+                    </Link>
+                    <button
+                      onClick={() =>
+                        setActiveDropdown(
+                          activeDropdown === item.label ? null : item.label,
+                        )
+                      }
+                      className="px-4 py-3 text-white/40 hover:text-white transition-colors"
+                    >
+                      <svg
+                        className={`w-4 h-4 transition-transform duration-300 ${
+                          activeDropdown === item.label ? "rotate-180" : ""
+                        }`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </button>
+                  </div>
                   <div
                     className={`overflow-y-auto transition-all duration-300 ${
                       activeDropdown === item.label ? "max-h-80" : "max-h-0"
@@ -373,7 +381,11 @@ export function Nav() {
                   >
                     <div className="pl-4 pb-2">
                       {item.items.map((subItem: any) => (
-                        <DropdownItem key={subItem.href} item={subItem} isMobile />
+                        <DropdownItem
+                          key={subItem.href}
+                          item={subItem}
+                          isMobile
+                        />
                       ))}
                       {item.seeAll && (
                         <Link
@@ -412,7 +424,7 @@ export function Nav() {
         </div>
       </div>
 
-      {/* Custom scrollbar styles - add to your globals.css */}
+      {/* Custom scrollbar styles */}
       <style jsx>{`
         .scrollbar-thin::-webkit-scrollbar {
           width: 4px;

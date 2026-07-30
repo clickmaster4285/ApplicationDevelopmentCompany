@@ -9,10 +9,9 @@ import {
   FAQSchema,
   extractFAQs,
   MainContent,
-  HeroHeader,
   type PageData,
 } from "@/components/shared/IndustryServicePage";
-
+import { HeroHeader } from "@/components/shared/HeroHeader";
 // Generate static params
 export async function generateStaticParams() {
   return frameworksData.pages.map((page: PageData) => ({

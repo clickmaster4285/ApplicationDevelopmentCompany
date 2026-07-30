@@ -9,9 +9,8 @@ import {
   FAQSchema,
   extractFAQs,
   MainContent,
-  HeroHeader,
 } from "@/components/shared/IndustryServicePage";
-
+import { HeroHeader } from "@/components/shared/HeroHeader";
 // Generate static params
 export async function generateStaticParams() {
   return blogsData.pages.map((page: any) => ({

@@ -10,9 +10,8 @@ import {
   FAQSchema,
   extractFAQs,
   MainContent,
-  HeroHeader,
 } from "@/components/shared/IndustryServicePage";
-
+import { HeroHeader } from "@/components/shared/HeroHeader";
 // Generate static params
 export async function generateStaticParams() {
   return resourcesData.pages.map((page: any) => {
@@ -20,14 +19,14 @@ export async function generateStaticParams() {
     const pathWithoutResources = page.url
       .replace(/^\/+|\/+$/g, "") // Remove leading/trailing slashes
       .replace("resources/", ""); // Remove the resources/ prefix
-    
+
     const segments = pathWithoutResources.split("/").filter(Boolean);
-    
+
     // For URL: /resources/ai-development/ai-agents-vs-rpa
     // segments = ["ai-development", "ai-agents-vs-rpa"]
-    
+
     return {
-      services: segments[0] || "",  // "ai-development"
+      services: segments[0] || "", // "ai-development"
       slug: segments.slice(1) || [], // ["ai-agents-vs-rpa"] (must be array for catch-all)
     };
   });
@@ -43,7 +42,7 @@ export async function generateMetadata({
 
   // Join the segments back to match the URL pattern
   const fullSlug = `${services}/${slug.join("/")}`;
-  
+
   const pageData = resourcesData.pages.find((page: any) => {
     const cleanUrl = page.url
       .replace(/^\/+|\/+$/g, "")
