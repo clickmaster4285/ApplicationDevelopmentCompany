@@ -174,7 +174,7 @@ export function HeroHeader({
                   Tier {pageData.metadata.tier}
                 </Badge>
               )}
-              <Badge variant="success" className="backdrop-blur-sm">
+              <Badge variant="primary" className="backdrop-blur-sm">
                 <Star className="h-3 w-3 mr-1" />
                 4.9/5 Rating
               </Badge>
@@ -210,7 +210,7 @@ export function HeroHeader({
                 <Badge>{pageData.metadata.intent}</Badge>
               )}
               {pageData.metadata.primaryKeyword && (
-                <Badge variant="success">
+                <Badge variant="primary">
                   {pageData.metadata.primaryKeyword}
                 </Badge>
               )}
@@ -347,7 +347,7 @@ export function HeroHeader({
     ) : (
       <>
         <Send className="h-4 w-4" />
-        <span>{pageData.metadata.cta || "Get Started Now"}</span>
+        <span>Get Started Now</span>
         <ArrowRight className="h-4 w-4" />
       </>
     )}
