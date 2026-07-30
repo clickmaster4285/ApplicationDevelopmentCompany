@@ -1,4 +1,3 @@
-
 'use client';
 // app/components/shared/HeroHeader.tsx
 import React, { useState } from "react";
@@ -7,8 +6,30 @@ import {
   ArrowRight, Shield, Clock, Star, Mail, Phone, 
   MessageCircle, Send, Award, TrendingUp, Headphones 
 } from "lucide-react";
-import { Badge } from "./IndustryServicePage"; // or define Badge locally
 import { MagneticButton } from "../landingPage/MagneticButton";
+
+// Local Badge component that supports className
+const Badge = ({ 
+  children, 
+  variant = "default", 
+  className = "" 
+}: { 
+  children: React.ReactNode; 
+  variant?: "default" | "primary" | "success";
+  className?: string;
+}) => {
+  const variantClasses = {
+    default: "bg-white/5 border-white/10 text-white/60",
+    primary: "bg-primary/20 border-primary/30 text-primary",
+    success: "bg-green-500/20 border-green-500/30 text-green-400"
+  };
+
+  return (
+    <span className={`inline-flex items-center gap-1 rounded-full border px-3 py-1 text-xs font-medium ${variantClasses[variant]} ${className}`}>
+      {children}
+    </span>
+  );
+};
 
 export interface PageMetadata {
   primaryKeyword: string;
@@ -318,7 +339,8 @@ export function HeroHeader({
     {isSubmitting ? (
       <>
         <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24">
-          ...
+          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
         </svg>
         <span>Submitting...</span>
       </>
