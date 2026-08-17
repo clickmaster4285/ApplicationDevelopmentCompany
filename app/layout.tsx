@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ClickMasters | Automate the Future of Work with AI",
+  title: "Application development company USA - Clickmasters",
   description:
-    "We design and build AI automation systems, AI agents, and workflow automation that eliminate manual work, increase efficiency, and scale your business 24/7.",
+    "ClickMasters is a leading application development company USA providing app development services that build digital products, improve systems, and drive digital growth.",
   icons: {
     icon: "/logo.png",
     shortcut: "/logo.png",

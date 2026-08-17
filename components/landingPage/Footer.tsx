@@ -43,8 +43,9 @@ export function Footer() {
             </div>
 
             <p className="mt-6 text-white/55 max-w-sm leading-relaxed text-sm">
-              ClickMasters Application Development — a modern software studio
-              engineering mobile, web and SaaS products for ambitious teams.
+              ClickMasters is an application development company in USA serving
+              businesses that need custom digital products and business
+              applications.
             </p>
             <div className="mt-8">
               <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-3">

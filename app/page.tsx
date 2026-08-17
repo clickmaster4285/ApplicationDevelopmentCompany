@@ -19,22 +19,22 @@ import SpiralGallery from "@/components/landingPage/SpiralGallery";
 import { ShuffleCards } from "@/components/landingPage/Testimonial";
 
 export const metadata: Metadata = {
-  title: "ClickMasters — Premium Application Development Studio",
+  title: "Application development company USA - Clickmasters",
   description:
-    "ClickMasters engineers category-defining mobile, web and SaaS products for ambitious teams. Cinematic detail. Engineering rigor.",
+    "ClickMasters is a leading application development company USA providing app development services that build digital products, improve systems, and drive digital growth.",
 
   openGraph: {
-    title: "ClickMasters — Premium Application Development Studio",
+    title: "Application development company USA - Clickmasters",
     description:
-      "Cinematic, sophisticated software craft. Mobile, web, SaaS and enterprise systems engineered end-to-end.",
+      "ClickMasters is a leading application development company USA providing app development services that build digital products, improve systems, and drive digital growth.",
     type: "website",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "ClickMasters — Premium Application Development Studio",
+    title: "Application development company USA - Clickmasters",
     description:
-      "Cinematic, sophisticated software craft. Mobile, web, SaaS and enterprise systems engineered end-to-end.",
+      "ClickMasters is a leading application development company USA providing app development services that build digital products, improve systems, and drive digital growth.",
   },
 };
 

@@ -28,20 +28,22 @@ export function CTA() {
       <div className="relative mx-auto max-w-5xl px-6 text-center">
         <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.03] px-4 py-1.5 text-[10px] uppercase tracking-[0.3em] text-white/70 backdrop-blur">
           <span className="h-1.5 w-1.5 rounded-full bg-chrome" />
-          Now accepting projects for Q3
+          Application Development Company in USA
         </div>
         <h2 className="mt-10 text-chrome text-[clamp(2.4rem,8vw,7rem)] font-medium tracking-[-0.04em] leading-[0.95]">
-          Ready to build your <br /> next application?
+          Have an application idea? <br /> Let’s build it.
         </h2>
         <p className="mt-8 max-w-xl mx-auto text-white/55 text-lg leading-relaxed">
-          Partner with ClickMasters and transform your vision into a scalable
-          digital product.
+          Work with an app development company that can take your project from
+          an early idea to a working application. Tell us what you want to
+          build, the problem you want to solve, and what your users need. We
+          will help you define the right path forward.
         </p>
         <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
           <MagneticButton variant="chrome">
-            Book a Consultation →
+            Discuss Your Application →
           </MagneticButton>
-          <MagneticButton variant="ghost">Get a Free Quote</MagneticButton>
+          <MagneticButton variant="ghost">Request a Proposal</MagneticButton>
         </div>
       </div>
     </section>

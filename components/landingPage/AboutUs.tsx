@@ -122,21 +122,29 @@ export function About() {
           {/* Left side - Header and content */}
           <div>
             <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
-              — About ClickMasters
+              — Application Development Solutions
             </div>
             <h2 className="text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] mb-8">
-              We turn ideas into{" "}
+              Solutions built{" "}
               <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
-                production-ready apps.
+                around your business.
               </span>
             </h2>
 
             <p className="text-white/55 text-lg leading-relaxed">
-              ClickMasters is an application development studio for founders,
-              product leaders, and enterprises who want apps that don’t just
-              look good but perform, scale, and convert. We bring strategy,
-              design, engineering, and operations together under one roof to
-              turn ideas into production-ready products.
+              Every business has different processes, users, and goals. That is
+              why we create application development solutions around the
+              problem you need to solve instead of forcing your business into a
+              standard product. We can build applications for customer
+              management, booking, inventory, operations, workflow automation,
+              communication, reporting, payments, data management, and other
+              business functions.
+            </p>
+            <p className="mt-6 text-white/55 text-lg leading-relaxed">
+              Our team looks at how your business works, what your users need,
+              and which systems your application must connect with. We then
+              create a solution that fits your current needs and can grow over
+              time.
             </p>
 
             {/* Stats grid - no cards */}

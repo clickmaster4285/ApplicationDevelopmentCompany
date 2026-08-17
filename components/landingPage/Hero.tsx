@@ -72,20 +72,20 @@ export function Hero() {
           ref={headlineRef}
           className="mt-8 font-display text-[clamp(2.2rem,6.5vw,6.5rem)] leading-[0.95] tracking-[-0.04em] font-semibold font-['Fraunces'] italic text-white"
         >
-          <span className="block overflow-hidden" data-word="We engineer">
-            We engineer software
+          <span className="block overflow-hidden" data-word="Application Development">
+            Application Development
           </span>
 
           <span
             className="block overflow-hidden text-white/95"
-            data-word="software that"
+            data-word="Company That Turns"
           >
-            that feels{" "}
+            Company That Turns Ideas Into{" "}
             <span
               className="italic text-white drop-shadow-[0_0_18px_rgba(255,255,255,0.25)]"
-              data-word="inevitable."
+              data-word="Results."
             >
-              inevitable.
+              Results.
             </span>
           </span>
         </h1>
@@ -94,21 +94,22 @@ export function Hero() {
           ref={subRef}
           className="opacity-0 translate-y-4 mt-8 max-w-3xl text-lg md:text-xl text-white/90 leading-relaxed"
         >
-          A design and engineering studio building category-defining digital
-          products across mobile, web, and SaaS. We craft systems that feel
-          inevitable not just functional, but deeply intentional. Every
-          interface is shaped with cinematic precision, performance discipline,
-          and obsessive attention to detail. From early-stage startups to
-          scaling platforms, we transform ambitious ideas into high-impact,
-          production-ready experiences.
+          Turn your idea into a secure, scalable, and easy-to-use application
+          with ClickMasters. We are an application development company helping
+          startups, growing businesses, and enterprises build digital products
+          around real business needs. From planning and design to development,
+          testing, launch, and ongoing improvement, our team supports the
+          complete product journey. Whether you want to launch a new
+          application, improve an existing product, or replace an outdated
+          system, we help you move forward with a clear development plan.
         </p>
 
         <div
           ref={ctaRef}
           className="opacity-0 translate-y-4 mt-10 flex flex-wrap items-center justify-center gap-4"
         >
-          <MagneticButton variant="chrome">Book a Consultation</MagneticButton>
-          <MagneticButton variant="ghost">View Our Work</MagneticButton>
+          <MagneticButton variant="chrome">Start Your Project</MagneticButton>
+          <MagneticButton variant="ghost">Request a Proposal</MagneticButton>
         </div>
 
         <div
