@@ -10,11 +10,11 @@ const p4 = "/images/p4.jpeg";
 const p5 = "/images/p5.jpeg";
 
 const galleryItems: GalleryItem[] = [
-  { image: p3, text: "Discovery" },
-  { image: p4, text: "Design" },
-  { image: p5, text: "Build" },
-  { image: p1, text: "Launch" },
-  { image: p2, text: "Scale" },
+  { image: p3, text: "Discovery & Planning" },
+  { image: p4, text: "UI/UX Design & Prototyping" },
+  { image: p5, text: "Application Development" },
+  { image: p1, text: "QA & Testing" },
+  { image: p2, text: "Deployment" },
 ];
 
 /**
@@ -28,10 +28,10 @@ export default function SpiralGallery() {
       <div className="mx-auto w-[85vw] px-6 pt-32 pb-10">
         <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
           {" "}
-          Scalable Architecture
+          — Our Process
         </div>
         <h2 className="text-white text-5xl md:text-7xl font-medium tracking-[-0.03em] leading-[1.02] max-w-3xl">
-          Our Process, Engineered for Scale
+          From Idea to Launch — Our Application Development Process
         </h2>
       </div>
 

@@ -5,24 +5,36 @@ import { Plus } from "lucide-react";
 
 const faqs = [
   {
-    q: "What kinds of products do you build?",
-    a: "Native and cross-platform mobile applications, SaaS platforms, enterprise web systems, internal tools and API platforms. We specialize in 0→1 launches and complex re-platforming work.",
+    q: "What does an app development company do?",
+    a: "An app development company helps businesses plan, design, develop, test, launch, and maintain applications. It may also provide strategy, integrations, security, and ongoing technical support.",
   },
   {
-    q: "How do engagements typically work?",
-    a: "We begin with a discovery sprint to align on strategy, scope and architecture, then move into design and development cycles with weekly demos and a transparent roadmap.",
+    q: "What are app development services?",
+    a: "App development services are the activities required to turn an idea or business requirement into a working application. They can include planning, UI/UX design, development, testing, deployment, integrations, and maintenance.",
   },
   {
-    q: "What is your typical timeline?",
-    a: "Most production launches ship in 8–16 weeks, depending on scope. Discovery sprints can be as fast as one week.",
+    q: "How much does app development cost?",
+    a: "The cost depends on features, complexity, design, platforms, integrations, security requirements, technology, and project scope. A detailed estimate normally requires a clear understanding of your requirements.",
   },
   {
-    q: "Do you support products after launch?",
-    a: "Yes. Every engagement can transition into a dedicated support partnership including monitoring, performance tuning and continuous feature development.",
+    q: "How long does it take to develop an application?",
+    a: "The timeline depends on application size and complexity. An MVP can often be developed faster than a large application with advanced integrations, several user roles, and complex features.",
   },
   {
-    q: "What technologies do you specialize in?",
-    a: "React, Next.js, TypeScript, Node.js, React Native, Flutter, Swift, Kotlin, GraphQL, Postgres, AWS and Firebase — chosen per project for longevity and fit.",
+    q: "How do I choose the right app development agency?",
+    a: "Look at the agency's technical experience, development process, case studies, communication, relevant industry knowledge, security approach, support options, and ability to handle your project requirements.",
+  },
+  {
+    q: "Can you build mobile, web, and desktop applications?",
+    a: "Yes. ClickMasters provides development capabilities for mobile, web, desktop, AI-powered, and specialized applications based on project needs.",
+  },
+  {
+    q: "Who owns the application source code after development?",
+    a: "Source-code ownership should be clearly defined in your project agreement before development begins. This helps avoid confusion about intellectual property and future application changes.",
+  },
+  {
+    q: "Do you provide support after an application launches?",
+    a: "Yes. Post-launch services can include maintenance, fixes, security updates, performance improvements, new features, and application scaling.",
   },
 ];
 
@@ -35,7 +47,7 @@ export function FAQ() {
           — FAQ
         </div>
         <h2 className="text-chrome text-center text-5xl md:text-6xl font-medium tracking-[-0.03em] leading-[1.02] mb-16">
-          Answers to common questions.
+          Frequently Asked Questions About App Development
         </h2>
         <div className="divide-y divide-white/5 border-y border-white/5">
           {faqs.map((f, i) => {

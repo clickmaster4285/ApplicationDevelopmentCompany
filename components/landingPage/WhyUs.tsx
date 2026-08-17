@@ -14,38 +14,38 @@ const whyUs6 = "/images/whyUs6.jpeg";
 const items = [
   {
     icon: Zap,
-    title: "Fast Delivery",
-    desc: "Tight, opinionated cycles. Production shipping in weeks, not quarters.",
+    title: "Business-Focused Development",
+    desc: "We connect technical decisions with real business needs, user requirements, and project goals.",
     imageUrl: whyUs1,
   },
   {
     icon: Layers,
-    title: "Scalable Architecture",
-    desc: "Systems designed for the 10x — modular, observable and resilient.",
+    title: "Custom Development",
+    desc: "Your application is built around your required features, workflows, users, and integrations instead of a fixed template.",
     imageUrl: whyUs2,
   },
   {
     icon: Cpu,
-    title: "Modern Tech Stack",
-    desc: "React, TypeScript, edge runtimes and the latest mobile frameworks.",
+    title: "Clear Development Process",
+    desc: "You know what stage your application is in and what work comes next throughout the development process.",
     imageUrl: whyUs3,
   },
   {
-    icon: Shield,
-    title: "Enterprise Security",
-    desc: "SOC2 mindset, hardened auth, encryption-at-rest and continuous audits.",
+    icon: Gauge,
+    title: "Scalable Architecture",
+    desc: "We plan applications so they can support new users, features, integrations, and changing business requirements.",
     imageUrl: whyUs4,
   },
   {
-    icon: Headphones,
-    title: "Dedicated Support",
-    desc: "Senior engineers on call. Real humans, real ownership, real SLAs.",
+    icon: Shield,
+    title: "Security in Development",
+    desc: "Security is considered throughout planning, development, testing, deployment, and ongoing support.",
     imageUrl: whyUs5,
   },
   {
-    icon: Gauge,
-    title: "Performance Optimized",
-    desc: "Sub-second LCP and 60fps interactions on every device we ship to.",
+    icon: Headphones,
+    title: "Long-Term Support",
+    desc: "Our relationship does not need to end at launch. We can continue improving and maintaining your application as your business grows.",
     imageUrl: whyUs6,
   },
 ];
@@ -58,12 +58,12 @@ export function WhyUs() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-20">
             <div>
               <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
-                — ENGINEERING EXCELLENCE
+                — WHY CHOOSE US
               </div>
               <h2 className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-2xl">
-                Modern Systems,
+                Why Choose
                 <br />
-                <span className="text-zinc-300"> Fast Delivery</span>
+                <span className="text-zinc-300"> ClickMasters?</span>
               </h2>
             </div>
           </div>

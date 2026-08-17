@@ -108,15 +108,16 @@ export function Stack() {
         <div className="grid lg:grid-cols-2 gap-20 items-center">
           <div>
             <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
-              — Technology
+              — Technologies
             </div>
             <h2 className="text-chrome text-5xl md:text-7xl font-medium tracking-[-0.03em] leading-[1.02]">
-              A neural network of modern tools.
+              Technologies behind our app development services.
             </h2>
             <p className="mt-8 text-white/55 max-w-md leading-relaxed">
-              We choose technologies the way an architect chooses materials —
-              for durability, expressiveness, and the way they age. Every stack
-              decision is engineered, never trend-driven.
+              The right technology depends on what your application needs to
+              do. Our development teams work across modern technologies for
+              frontend, backend, mobile, databases, cloud infrastructure, APIs
+              &amp; integrations, and artificial intelligence.
             </p>
           </div>
           <div className="relative aspect-square w-full max-w-xl mx-auto">

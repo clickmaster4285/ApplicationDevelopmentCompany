@@ -21,43 +21,43 @@ import { useRef } from "react";
 const services = [
   {
     icon: Smartphone,
-    title: "Mobile App Development",
-    desc: "Native and cross-platform mobile experiences with first-class performance on iOS and Android.",
+    title: "Mobile Application Development",
+    desc: "Build mobile applications that give users a smooth experience across modern devices. We develop applications based on your features, users, business goals, and long-term growth plans.",
     img: svcMobile,
     large: true, // First card - full width
   },
   {
     icon: Globe,
     title: "Web Application Development",
-    desc: "Modern, scalable web platforms built on React, Next.js and edge-first architectures.",
+    desc: "We build custom web applications that help businesses manage operations, serve customers, automate work, and deliver digital services through a browser.",
     img: svcWeb,
     large: false,
   },
   {
     icon: Palette,
-    title: "UI/UX Design",
-    desc: "Brand-defining interfaces engineered around motion, hierarchy and product strategy.",
+    title: "Desktop Application Development",
+    desc: "Get reliable desktop applications designed for business operations, internal teams, data management, and specialized workflows.",
     img: svcUi,
     large: false,
   },
   {
     icon: Cloud,
-    title: "SaaS Development",
-    desc: "Multi-tenant SaaS products with billing, auth, analytics and cloud-native foundations.",
+    title: "AI Application Development",
+    desc: "Add AI features to your applications to automate tasks, improve decisions, support users, and make better use of business data.",
     img: svcSaas,
     large: true, // Fourth card - full width
   },
   {
     icon: Plug,
-    title: "API Integration",
-    desc: "Stitch services, automate workflows and unify data with robust, observable APIs.",
+    title: "Specialized Application Development",
+    desc: "We also build specialized applications for SaaS products, IoT systems, blockchain platforms, AR/VR experiences, embedded systems, and other advanced business needs.",
     img: svcApi,
     large: false,
   },
   {
     icon: Wrench,
-    title: "Application Maintenance",
-    desc: "24/7 monitoring, performance tuning and continuous improvement after launch.",
+    title: "Application Maintenance & Support",
+    desc: "Post-launch support covering bug fixes, security updates, performance improvements, feature enhancements, and scalability improvements.",
     img: svcMaint,
     large: false,
   },
@@ -150,15 +150,19 @@ export function Services() {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-20">
           <div>
             <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
-              — Capabilities
+              — App Development Services
             </div>
             <h2 className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-2xl">
-              Full-stack craft, end&#8209;to&#8209;end.
+              End&#8209;to&#8209;End App
+              <br />
+              Development Services
             </h2>
           </div>
           <p className="max-w-md text-white/55 leading-relaxed">
-            From the first sketch to scaled deployment, every capability is
-            in-house and engineered to the same uncompromising standard.
+            Our app development services cover the full journey from an early
+            idea to a working digital product. We focus on building
+            applications that are simple to use, reliable, secure, and ready to
+            grow with your business.
           </p>
         </div>
 
