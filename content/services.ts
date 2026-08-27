@@ -1510,24 +1510,25 @@ export const servicesData: ServicesData = {
     {
       url: "/services/custom-application-development/",
       meta: {
-        title: "Custom Application Development Company | Clickmasters",
+        title: "Custom Application Development Services USA | clickmasters",
         description:
-          "Custom application development for US businesses. Web, mobile & AI applications built by senior engineers. Fixed quotes in 24 hours. Get a free estimate.",
+          "clickmasters is a custom application development company providing app development services across the USA for scalable web, mobile and business applications.",
       },
       content:
         "# Custom Application Development Company\n\n**Custom application development is the design, engineering, and ongoing support of software built specifically for one organization's workflows — instead of forcing your business to fit an off-the-shelf product.** Clickmasters builds custom web, mobile, and AI applications for US businesses, with senior engineering teams, transparent fixed-quote pricing, and full IP ownership transferred to you.\n\nIf you're evaluating whether to build, what it should cost, and who should build it, this page answers all three — and if you'd rather talk it through, you can [get a free project estimate](#estimate) with a scoped quote in 24 hours.\n\n[Trust bar: Clutch rating ★★★★★ · {N} projects delivered · ISO 27001 / SOC 2 badges · client logos]\n\n## What Is Custom Application Development?\n\nCustom application development means building software around *your* process — your data model, your approval chains, your integrations, your compliance requirements — rather than adapting your operations to a vendor's assumptions.\n\nOff-the-shelf tools are the right answer when your process is generic. They stop being the right answer when you find yourself maintaining spreadsheet workarounds beside your \"system of record,\" paying per-seat fees for features nobody uses, or being told an integration is \"on the roadmap.\" That's the point where a custom application typically pays for itself: you own the software outright, license fees disappear, and the product changes at the speed of your business instead of a vendor's release cycle.\n\nA well-run custom build is not a leap of faith. It's a staged engineering process with fixed checkpoints — discovery, design, iterative delivery, launch, support — where you see working software every two weeks and can change course before money is misspent. That process is described step-by-step below.\n\n## Our Custom Application Development Services\n\n## Our Development Process\n\n1. **Discovery & scoping (1–3 weeks).** We map your workflows, interview stakeholders, and produce a requirements document, clickable prototype, and fixed quote. You own every deliverable from this phase even if we never write a line of code together.\n2. **Solution design.** Architecture, data model, integration plan, and UI design — reviewed and signed off before development starts, so there are no surprises about what's being built.\n3. **Iterative development.** Two-week sprints, each ending in a demo of working software on a staging environment you can open in your browser. You reprioritize between sprints; scope changes go through a written change process with cost impact stated up front.\n4. **Quality assurance.** Automated test coverage plus manual QA on every release candidate. Security review against OWASP standards before any production deployment.\n5. **Launch.** Staged rollout with data migration, user training materials, and a rollback plan. Zero-downtime deployment is the default, not an add-on.\n6. **Support & evolution.** SLA-backed support tiers, proactive monitoring, and a standing improvement backlog — most clients ship meaningful new features quarterly after launch.\n\n## Why US Businesses Choose Clickmasters\n\n**Senior teams, not bench rotations.** The engineers who scope your project build your project. Team composition is named in your statement of work.\n\n**You own everything.** Source code, infrastructure accounts, documentation, and IP transfer to you — contractually, from day one. No lock-in, no hostage code.\n\n**Fixed quotes that hold.** Discovery produces a specification detailed enough to price honestly. When scope is stable, price is stable; when you change scope, you see the cost before approving it.\n\n**US-hours collaboration.** Daily overlap with US time zones, a named project manager, and communication in your tools (Slack, Teams, Jira) — you always know what shipped this week and what ships next.\n\n**Security by default.** [ISO 27001 / SOC 2 — link certification proof]. OWASP-aligned secure development lifecycle, encrypted data at rest and in transit, and role-based access on every build.\n\n## Industries We Serve\n\nWe build custom applications with the compliance and domain depth each vertical demands: [Healthcare](/industries/healthcare/) (HIPAA), [FinTech & Banking](/industries/fintech/) (PCI DSS, SOC 2), [Logistics](/industries/logistics/), [Real Estate](/industries/real-estate/), [Manufacturing](/industries/manufacturing/), [Retail & Ecommerce](/industries/retail/), [Insurance](/industries/insurance/), [Education](/industries/education/), [Construction](/industries/construction/), and [more industries →](/industries/)\n\n## Technologies We Use\n\nFrontend: [React](/technologies/react/) · [Next.js](/technologies/nextjs/) · [Angular](/technologies/angular/) — Backend: [Node.js](/technologies/nodejs/) · [Python](/technologies/python/) · [.NET](/technologies/dotnet/) · [Java](/technologies/java/) — Mobile: [Flutter](/technologies/flutter/) · [React Native](/technologies/react-native/) — Cloud: [AWS](/technologies/aws/) · [Azure](/technologies/azure/) — AI: [OpenAI](/technologies/openai/) · [Claude](/technologies/anthropic-claude/) · [RAG](/technologies/rag/) · [AI agents](/technologies/agentic-ai/)\n\nWe recommend stacks based on your constraints — team skills, hosting requirements, hiring market — not on what we feel like using. You get a written rationale for every major technology choice.\n\n## Recent Projects\n\n> ** replace with 3 real case studies before publishing]**\n> - Client / industry]** — [problem in one line]. Built [solution] on [stack]. Result: metric, e.g., \"processing time down X%\"]**. → [Read case study](/case-studies/{slug}/)\n> - Client / industry]** — … → [Read case study](/case-studies/{slug}/)\n> - Client / industry]** — … → [Read case study](/case-studies/{slug}/)\n\n## Pricing & Engagement Models\n\nMost custom applications land between **$40,000 and $250,000** depending on complexity, integrations, and compliance scope. For a detailed breakdown of what drives cost, see our [custom application development cost guide](/cost/custom-software-development-cost/) — or skip ahead and [get an exact quote](#estimate).\n\n## Frequently Asked Questions\n\n**How much does custom application development cost?**\nSimple internal tools start around $25,000–$50,000; mid-complexity business applications typically run $75,000–$180,000; enterprise platforms with multiple integrations and compliance requirements run $200,000+. Discovery produces an exact fixed quote for your scope. Full breakdown: [cost guide](/cost/custom-software-development-cost/).\n\n**How long does it take to build a custom application?**\nA focused MVP: 10–14 weeks. A full business application: 4–7 months. Enterprise platforms: 6–12 months. Timelines are fixed per milestone in your statement of work.\n\n**Custom application vs off-the-shelf software — how do we decide?**\nBuy when your process is generic and a vendor covers 90%+ of your needs. Build when workarounds, per-seat fees, or missing integrations are costing more than a build would — our [build-vs-buy framework](/frameworks/build-vs-buy/) walks through the math.\n\n**Who owns the source code?**\nYou do. IP assignment is written into our master services agreement, and code lives in repositories you control from the first sprint.\n\n**Can you work with our existing systems?**\nYes — integration is most of the job in many builds. We regularly connect custom applications to Salesforce, QuickBooks, SAP, EHRs, payment processors, and internal databases via [API development](/services/api-development/).\n\n**What happens after launch?**\nYou choose a support tier (response-time SLAs, monitoring, security patching) and keep a standing backlog for improvements. We don't disappear at go-live — and if you ever want to take maintenance in-house, the documentation and handover to do so are included.\n\n**Do you sign NDAs?**\nYes, before any scoping conversation. Your process knowledge is a competitive asset and we treat it that way.\n\n**Where is your team located?**\n[State honestly: e.g., \"Delivery centers in {locations} with US-hours overlap and US-based account management.\" — do not publish a false US-only claim; it will surface in sales calls and reviews.]\n\n### [#estimate] Get a Free Project Estimate\nTell us what you're trying to build — a 30-minute call and a written scope + quote within 24 hours. No obligation, and you keep the scoping document either way.\n[Form: name, work email, company, project description] [Button: Get My Estimate] [Or book directly: calendar embed]",
       metadata: {
-        primaryKeyword: "custom application development",
+        primaryKeyword: "custom application development services",
         secondaryKeywords: [
-          "custom application development company",
-          "custom application development services",
+          "application development agency",
+          "application development company",
           "custom app development",
-          "bespoke application development",
+          "app development services USA",
+          "application development services",
         ],
         intent: "Commercial/Transactional",
         funnel: "Decision",
         schema: ["Service", "FAQPage", "BreadcrumbList", "Organization"],
-        cta: "Get a Free Project Estimate",
+        cta: "Discuss Your Custom Application",
         wordCount: 0,
         tier: "",
         searchVolume: "",
@@ -2231,23 +2232,24 @@ export const servicesData: ServicesData = {
     {
       url: "/services/desktop-application-development/",
       meta: {
-        title: "Desktop Application Development Company | Clickmasters",
+        title: "Desktop Application Development Services USA | clickmasters",
         description:
-          "Desktop Application Development for US businesses — senior engineers, fixed-milestone pricing & honest scoping. Talk to an expert.",
+          "clickmasters provides desktop application development services in the USA for secure, scalable Windows, macOS and Linux software built around your business.",
       },
       content:
         '# Desktop Application Development\n\n**Desktop still wins specific fights — offline depth, hardware access, keyboard-speed professional tools — and deserves modern engineering when it does.** Clickmasters provides desktop application development for US businesses — with fixed-milestone pricing, senior engineers, and the honest scoping that tells you when a simpler path serves you better.\n\n[Trust bar:  proof points]]\n\n## What This Service Covers\n\n- **Windows line-of-business tools (WPF/WinUI)**\n- **Cross-platform desktop via Electron where it fits**\n- **Modernizing WinForms-era tools**\n- [Related capability links to be finalized in internal-linking pass]\n\n## How We Deliver\n\nThe same delivery spine as every Clickmasters engagement: discovery that documents your real workflows, fixed-scope milestones you approve before build, weekly demo cadence with working software, and a [support path](/services/software-maintenance-support/) after launch. Standards throughout: version-controlled everything, [testing discipline](/services/qa-software-testing/), security-baseline engineering, and documentation your next team can inherit.\n\n## When This Is the Right Investment (and When It Isn\'t)\n\nHonest routing is the house style: if an off-the-shelf tool, a simpler service, or "not yet" serves you better, the scoping call says so — the [build-vs-buy framework](/frameworks/build-vs-buy/) with your numbers, not ours. The build case is real when the workflow is yours alone, the integration surface is specific to your stack, or subscription-and-workaround costs have crossed ownership economics.\n\n## Recent Work\n\n> ** 1–2 verifiable case studies with measured outcomes. Required before indexing per quality gates.]**\n\nFocused engagements typically start in the [PLACEHOLDER range]; scope drives the number and every quote is fixed-milestone. The scoping call produces a real figure against your requirements — see also our [cost guides](/resources/software-cost-guides/).\n\n**How long does delivery take?**\nFocused scopes ship first working milestones in 4–8 weeks; larger programs phase quarterly with value live at each phase. Timeline comes with the quote, not after it.\n\n**Do you work with our existing systems and team?**\nYes — integration with your current stack is standard scope, and we work as [embedded staff](/services/it-staff-augmentation/), [dedicated team](/services/dedicated-development-teams/), or full project delivery per your preference.\n\n**Who owns the code and IP?**\nYou do — full ownership, your repositories from day one, no license fees on your own software.\n\n**What happens after launch?**\nYour choice of handover to your team (documentation and training included) or [SLA-backed support](/services/software-maintenance-support/) — most clients run a hybrid.\n\n[Form] [Calendar embed]',
       metadata: {
-        primaryKeyword: "desktop application development",
+        primaryKeyword: "desktop application development services",
         secondaryKeywords: [
-          "desktop application development services",
           "desktop application development company",
-          "hire desktop application development experts",
+          "desktop application development agency",
+          "desktop app development services USA",
+          "custom desktop application development",
         ],
-        intent: "Commercial",
+        intent: "Commercial/Transactional",
         funnel: "",
-        schema: ["Service", "FAQPage", "BreadcrumbList"],
-        cta: "Get a Scoping Call",
+        schema: ["Service", "FAQPage", "BreadcrumbList", "Organization"],
+        cta: "Discuss Your Desktop Application",
         wordCount: 0,
         tier: 3,
         searchVolume: "n/a avg monthly (Keyword Planner import)",
@@ -3318,23 +3320,25 @@ export const servicesData: ServicesData = {
     {
       url: "/services/iot-development/",
       meta: {
-        title: "IoT Development Company | Clickmasters",
+        title: "IoT Development Services USA | clickmasters",
         description:
-          "IoT Development for US businesses — senior engineers, fixed-milestone pricing & honest scoping. Talk to an expert.",
+          "clickmasters provides IoT development services in the USA, connecting devices, cloud platforms, applications and data for secure, scalable IoT solutions.",
       },
       content:
         '# IoT Development\n\n**IoT is three disciplines pretending to be one — device firmware, connectivity, and the cloud platform that makes the data mean something.** Clickmasters provides iot development for US businesses — with fixed-milestone pricing, senior engineers, and the honest scoping that tells you when a simpler path serves you better.\n\n[Trust bar:  proof points]]\n\n## What This Service Covers\n\n- **Sensor-to-dashboard platforms for operations**\n- **Device fleet management and OTA updates**\n- **Edge buffering for unreliable connectivity**\n- [Related capability links to be finalized in internal-linking pass]\n\n## How We Deliver\n\nThe same delivery spine as every Clickmasters engagement: discovery that documents your real workflows, fixed-scope milestones you approve before build, weekly demo cadence with working software, and a [support path](/services/software-maintenance-support/) after launch. Standards throughout: version-controlled everything, [testing discipline](/services/qa-software-testing/), security-baseline engineering, and documentation your next team can inherit.\n\n## When This Is the Right Investment (and When It Isn\'t)\n\nHonest routing is the house style: if an off-the-shelf tool, a simpler service, or "not yet" serves you better, the scoping call says so — the [build-vs-buy framework](/frameworks/build-vs-buy/) with your numbers, not ours. The build case is real when the workflow is yours alone, the integration surface is specific to your stack, or subscription-and-workaround costs have crossed ownership economics.\n\n## Recent Work\n\n> ** 1–2 verifiable case studies with measured outcomes. Required before indexing per quality gates.]**\n\nFocused engagements typically start in the [PLACEHOLDER range]; scope drives the number and every quote is fixed-milestone. The scoping call produces a real figure against your requirements — see also our [cost guides](/resources/software-cost-guides/).\n\n**How long does delivery take?**\nFocused scopes ship first working milestones in 4–8 weeks; larger programs phase quarterly with value live at each phase. Timeline comes with the quote, not after it.\n\n**Do you work with our existing systems and team?**\nYes — integration with your current stack is standard scope, and we work as [embedded staff](/services/it-staff-augmentation/), [dedicated team](/services/dedicated-development-teams/), or full project delivery per your preference.\n\n**Who owns the code and IP?**\nYou do — full ownership, your repositories from day one, no license fees on your own software.\n\n**What happens after launch?**\nYour choice of handover to your team (documentation and training included) or [SLA-backed support](/services/software-maintenance-support/) — most clients run a hybrid.\n\n[Form] [Calendar embed]',
       metadata: {
-        primaryKeyword: "iot development company",
+        primaryKeyword: "IoT development services",
         secondaryKeywords: [
-          "iot development company services",
-          "iot development company company",
-          "hire iot development experts",
+          "IoT development company",
+          "IoT development agency",
+          "IoT development services USA",
+          "IoT application development services",
+          "IoT software development company",
         ],
-        intent: "Commercial",
+        intent: "Commercial/Transactional",
         funnel: "",
-        schema: ["Service", "FAQPage", "BreadcrumbList"],
-        cta: "Get a Scoping Call",
+        schema: ["Service", "FAQPage", "BreadcrumbList", "Organization"],
+        cta: "Discuss Your IoT Project",
         wordCount: 0,
         tier: 2,
         searchVolume: "500.0 avg monthly (Keyword Planner import)",
