@@ -16,6 +16,9 @@ import {
   MainContent,
 } from "@/components/shared/IndustryServicePage";
 import { HeroHeader } from "@/components/shared/HeroHeader";
+import CustomApplicationDevelopment from "@/components/landingPage/CustomApplicationDevelopment";
+import DesktopApplicationDevelopment from "@/components/landingPage/DesktopApplicationDevelopment";
+import IoTDevelopment from "@/components/landingPage/IoTDevelopment";
 
 export async function generateStaticParams() {
   return servicesData.pages.map((page) => ({
@@ -82,6 +85,18 @@ export default async function ServicePage({
     : null;
 
   const faqs = extractFAQs(pageData);
+
+  if (slug === "custom-application-development") {
+    return <CustomApplicationDevelopment />;
+  }
+
+  if (slug === "desktop-application-development") {
+    return <DesktopApplicationDevelopment />;
+  }
+
+  if (slug === "iot-development") {
+    return <IoTDevelopment />;
+  }
 
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-white/20">
