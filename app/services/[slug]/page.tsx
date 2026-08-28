@@ -20,6 +20,7 @@ import CustomApplicationDevelopment from "@/components/landingPage/CustomApplica
 import DesktopApplicationDevelopment from "@/components/landingPage/DesktopApplicationDevelopment";
 import IoTDevelopment from "@/components/landingPage/IoTDevelopment";
 import EmbeddedSoftwareDevelopment from "@/components/landingPage/EmbeddedSoftwareDevelopment";
+import ARVRDevelopment from "@/components/landingPage/ARVRDevelopment";
 
 export async function generateStaticParams() {
   return servicesData.pages.map((page) => ({
@@ -101,6 +102,10 @@ export default async function ServicePage({
 
   if (slug === "embedded-software-development") {
     return <EmbeddedSoftwareDevelopment />;
+  }
+
+  if (slug === "ar-vr-development") {
+    return <ARVRDevelopment />;
   }
 
   return (
