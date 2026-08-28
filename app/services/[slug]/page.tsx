@@ -12,17 +12,20 @@ import {
   RelatedServices,
   StructuredData,
   FAQSchema,
-  extractFAQs,
   MainContent,
 } from "@/components/shared/IndustryServicePage";
+import { extractFAQs } from "@/components/shared/IndustryServicePageUtils";
 import { HeroHeader } from "@/components/shared/HeroHeader";
 import CustomApplicationDevelopment from "@/components/landingPage/CustomApplicationDevelopment";
 import DesktopApplicationDevelopment from "@/components/landingPage/DesktopApplicationDevelopment";
 import IoTDevelopment from "@/components/landingPage/IoTDevelopment";
+import EmbeddedSoftwareDevelopment from "@/components/landingPage/EmbeddedSoftwareDevelopment";
+import ARVRDevelopment from "@/components/landingPage/ARVRDevelopment";
+import BlockchainDevelopment from "@/components/landingPage/BlockchainDevelopment";
 
 export async function generateStaticParams() {
   return servicesData.pages.map((page) => ({
-    slug: page.url.replace(/^\/+|\/+$/g, "").replace("/services/", ""),
+    slug: page.url.replace(/^\/+|\/+$/g, "").replace(/^services\//, ""),
   }));
 }
 
@@ -96,6 +99,18 @@ export default async function ServicePage({
 
   if (slug === "iot-development") {
     return <IoTDevelopment />;
+  }
+
+  if (slug === "embedded-software-development") {
+    return <EmbeddedSoftwareDevelopment />;
+  }
+
+  if (slug === "ar-vr-development") {
+    return <ARVRDevelopment />;
+  }
+
+  if (slug === "blockchain-development") {
+    return <BlockchainDevelopment />;
   }
 
   return (
