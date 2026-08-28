@@ -11,10 +11,10 @@ import {
   type OGLRenderingContext,
 } from "ogl";
 import { useEffect, useRef } from "react";
-import { cn } from "@/lib/utils"; // Assuming shadcn 'cn' utility path
+import { cn } from "@/lib/utils";
 
 /* --------------------------------
-* Types
+ * Types
 ----------------------------------- */
 export interface GalleryItem {
   image: string;
@@ -22,38 +22,20 @@ export interface GalleryItem {
 }
 
 interface CircularGalleryProps extends React.HTMLAttributes<HTMLDivElement> {
-  /**
-   * An array of image and text objects for the gallery.
-   */
   items?: GalleryItem[];
-  /**
-   * The amount of curvature. Higher values create a stronger bend.
-   * @default 3
-   */
   bend?: number;
-  /**
-   * The border radius for the images, as a percentage (0.0 to 0.5).
-   * @default 0.05
-   */
   borderRadius?: number;
-  /**
-   * Multiplier for scroll interaction speed.
-   * @default 2
-   */
   scrollSpeed?: number;
-  /**
-   * Easing factor for the scroll animation (lower is smoother).
-   * @default 0.05
-   */
   scrollEase?: number;
-  /**
-   * Optional class name to override the default font (e.g., from Next/font).
-   */
   fontClassName?: string;
+  autoRotate?: boolean;
+  autoRotateSpeed?: number;
+  showDots?: boolean;
+  showArrows?: boolean;
 }
 
 /* --------------------------------
-* OGL Helper Utilities
+ * OGL Helper Utilities
 ----------------------------------- */
 function debounce(func: (...args: any[]) => void, wait: number) {
   let timeout: NodeJS.Timeout;
@@ -88,7 +70,7 @@ function createTextTexture(
   const metrics = context.measureText(text);
   const textWidth = Math.ceil(metrics.width);
   const textHeight = Math.ceil(parseInt(font, 10) * 1.2);
-  canvas.width = textWidth + 20;
+  canvas.width = textWidth + 40;
   canvas.height = textHeight + 20;
   context.font = font;
   context.fillStyle = color;
@@ -102,7 +84,7 @@ function createTextTexture(
 }
 
 /* --------------------------------
-* OGL Classes
+ * OGL Classes
 ----------------------------------- */
 class Title {
   gl: OGLRenderingContext;
@@ -173,10 +155,10 @@ class Title {
     });
     this.mesh = new Mesh(this.gl, { geometry, program });
     const aspect = width / height;
-    const textHeight = this.plane.scale.y * 0.15;
+    const textHeight = this.plane.scale.y * 0.12;
     const textWidth = textHeight * aspect;
     this.mesh.scale.set(textWidth, textHeight, 1);
-    this.mesh.position.y = -this.plane.scale.y * 0.5 - textHeight * 0.5 - 0.05;
+    this.mesh.position.y = -this.plane.scale.y * 0.55 - textHeight * 0.5;
     this.mesh.setParent(this.plane);
   }
 }
@@ -208,6 +190,8 @@ class Media {
   speed: number = 0;
   isBefore: boolean = false;
   isAfter: boolean = false;
+  currentScale: number = 1;
+  targetScale: number = 1;
 
   constructor({
     geometry,
@@ -275,11 +259,14 @@ class Media {
         uniform mat4 projectionMatrix;
         uniform float uTime;
         uniform float uSpeed;
+        uniform float uHover;
         varying vec2 vUv;
         void main() {
           vUv = uv;
           vec3 p = position;
-          p.z = (sin(p.x * 4.0 + uTime) * 1.5 + cos(p.y * 2.0 + uTime) * 1.5) * (0.1 + uSpeed * 0.5);
+          // Subtle wave distortion based on time and speed
+          float wave = (sin(p.x * 4.0 + uTime) * 1.5 + cos(p.y * 2.0 + uTime) * 1.5) * (0.05 + uSpeed * 0.3);
+          p.z = wave + uHover * 0.1;
           gl_Position = projectionMatrix * modelViewMatrix * vec4(p, 1.0);
         }
       `,
@@ -289,6 +276,8 @@ class Media {
         uniform vec2 uPlaneSizes;
         uniform sampler2D tMap;
         uniform float uBorderRadius;
+        uniform float uHover;
+        uniform float uCenter;
         varying vec2 vUv;
         
         float roundedBoxSDF(vec2 p, vec2 b, float r) {
@@ -309,9 +298,15 @@ class Media {
           
           float d = roundedBoxSDF(vUv - 0.5, vec2(0.5 - uBorderRadius), uBorderRadius);
           
-          // Smooth antialiasing for edges
           float edgeSmooth = 0.002;
           float alpha = 1.0 - smoothstep(-edgeSmooth, edgeSmooth, d);
+          
+          // Vignette effect for non-centered items
+          float vignette = 1.0 - (1.0 - uCenter) * 0.3;
+          color.rgb *= vignette;
+          
+          // Brighten on hover
+          color.rgb += uHover * 0.1;
           
           gl_FragColor = vec4(color.rgb, alpha);
         }
@@ -323,6 +318,8 @@ class Media {
         uSpeed: { value: 0 },
         uTime: { value: 100 * Math.random() },
         uBorderRadius: { value: this.borderRadius },
+        uHover: { value: 0 },
+        uCenter: { value: 0 },
       },
       transparent: true,
     });
@@ -361,6 +358,8 @@ class Media {
   update(
     scroll: { current: number; last: number },
     direction: "left" | "right",
+    centerIndex: number,
+    hoverIndex: number,
   ) {
     this.plane.position.x = this.x - scroll.current - this.extra;
 
@@ -386,8 +385,16 @@ class Media {
     }
 
     this.speed = scroll.current - scroll.last;
-    this.program.uniforms.uTime.value += 0.04;
-    this.program.uniforms.uSpeed.value = this.speed;
+    this.program.uniforms.uTime.value += 0.02;
+    this.program.uniforms.uSpeed.value = this.speed * 10;
+    this.program.uniforms.uHover.value = this.index === hoverIndex ? 1.0 : 0.0;
+    this.program.uniforms.uCenter.value = this.index === centerIndex ? 1.0 : 0.0;
+
+    // Smooth scale animation
+    this.targetScale = this.index === centerIndex ? 1.0 : 0.85;
+    this.currentScale += (this.targetScale - this.currentScale) * 0.1;
+    this.plane.scale.x = this.plane.scale.x * this.currentScale / Math.max(this.currentScale, 0.01);
+    this.plane.scale.y = this.plane.scale.y * this.currentScale / Math.max(this.currentScale, 0.01);
 
     const planeOffset = this.plane.scale.x / 2;
     const viewportOffset = this.viewport.width / 2;
@@ -414,23 +421,17 @@ class Media {
     if (screen) this.screen = screen;
     if (viewport) {
       this.viewport = viewport;
-      if ((this.plane.program.uniforms as any).uViewportSizes) {
-        (this.plane.program.uniforms as any).uViewportSizes.value = [
-          this.viewport.width,
-          this.viewport.height,
-        ];
-      }
     }
-    this.scale = this.screen.height / 1500;
+    this.scale = this.screen.height / 1400;
     this.plane.scale.y =
-      (this.viewport.height * (900 * this.scale)) / this.screen.height;
+      (this.viewport.height * (850 * this.scale)) / this.screen.height;
     this.plane.scale.x =
-      (this.viewport.width * (700 * this.scale)) / this.screen.width;
+      (this.viewport.width * (650 * this.scale)) / this.screen.width;
     this.program.uniforms.uPlaneSizes.value = [
       this.plane.scale.x,
       this.plane.scale.y,
     ];
-    this.padding = 2;
+    this.padding = 1.5;
     this.width = this.plane.scale.x + this.padding;
     this.widthTotal = this.width * this.length;
     this.x = this.width * this.index;
@@ -440,6 +441,9 @@ class Media {
 class App {
   container: HTMLElement;
   scrollSpeed: number;
+  scrollEase: number;
+  autoRotate: boolean;
+  autoRotateSpeed: number;
   scroll: {
     ease: number;
     current: number;
@@ -465,6 +469,13 @@ class App {
   boundOnTouchDown!: (e: MouseEvent | TouchEvent) => void;
   boundOnTouchMove!: (e: MouseEvent | TouchEvent) => void;
   boundOnTouchUp!: () => void;
+  boundOnMouseMove!: (e: MouseEvent) => void;
+  boundOnMouseLeave!: () => void;
+  hoverIndex: number = -1;
+  centerIndex: number = 0;
+  lastAutoRotateTime: number = 0;
+  autoRotateDirection: 1 | -1 = 1;
+
   constructor(
     container: HTMLElement,
     {
@@ -475,6 +486,8 @@ class App {
       font,
       scrollSpeed,
       scrollEase,
+      autoRotate = false,
+      autoRotateSpeed = 0.3,
     }: {
       items?: GalleryItem[];
       bend: number;
@@ -483,10 +496,15 @@ class App {
       font: string;
       scrollSpeed: number;
       scrollEase: number;
+      autoRotate?: boolean;
+      autoRotateSpeed?: number;
     },
   ) {
     this.container = container;
     this.scrollSpeed = scrollSpeed;
+    this.scrollEase = scrollEase;
+    this.autoRotate = autoRotate;
+    this.autoRotateSpeed = autoRotateSpeed;
     this.scroll = {
       ease: scrollEase,
       current: 0,
@@ -521,8 +539,8 @@ class App {
 
   createCamera() {
     this.camera = new Camera(this.gl);
-    this.camera.fov = 45;
-    this.camera.position.z = 20;
+    this.camera.fov = 40;
+    this.camera.position.z = 18;
   }
 
   createScene() {
@@ -559,7 +577,7 @@ class App {
     ];
 
     const galleryItems = items && items.length > 0 ? items : defaultItems;
-    this.mediasImages = [...galleryItems, ...galleryItems]; // Duplicate for seamless loop
+    this.mediasImages = [...galleryItems, ...galleryItems];
     this.medias = this.mediasImages.map((data, index) => {
       return new Media({
         geometry: this.planeGeometry,
@@ -605,12 +623,24 @@ class App {
     this.onCheckDebounce();
   }
 
+  onMouseMove(e: MouseEvent) {
+    const rect = this.container.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const itemWidth = this.medias[0]?.width || 1;
+    this.hoverIndex = Math.round((x + this.scroll.current) / itemWidth) % this.medias.length;
+  }
+
+  onMouseLeave() {
+    this.hoverIndex = -1;
+  }
+
   onCheck() {
     if (!this.medias || !this.medias[0]) return;
     const width = this.medias[0].width;
     const itemIndex = Math.round(Math.abs(this.scroll.target) / width);
     const item = width * itemIndex;
     this.scroll.target = this.scroll.target < 0 ? -item : item;
+    this.centerIndex = Math.abs(itemIndex) % (this.mediasImages.length / 2);
   }
 
   onResize() {
@@ -634,6 +664,13 @@ class App {
   }
 
   update() {
+    // Auto-rotate logic
+    const now = performance.now();
+    if (this.autoRotate && !this.isDown && now - this.lastAutoRotateTime > 3000) {
+      this.scroll.target += this.autoRotateDirection * this.autoRotateSpeed;
+      this.lastAutoRotateTime = now;
+    }
+
     this.scroll.current = lerp(
       this.scroll.current,
       this.scroll.target,
@@ -641,11 +678,13 @@ class App {
     );
     const direction = this.scroll.current > this.scroll.last ? "right" : "left";
     if (this.medias) {
-      this.medias.forEach((media) => media.update(this.scroll, direction));
+      this.medias.forEach((media) =>
+        media.update(this.scroll, direction, this.centerIndex, this.hoverIndex)
+      );
     }
     this.renderer.render({ scene: this.scene, camera: this.camera });
     this.scroll.last = this.scroll.current;
-    this.raf = window.requestAnimationFrame(this.update);
+    this.raf = window.requestAnimationFrame(this.update.bind(this));
   }
 
   addEventListeners() {
@@ -654,25 +693,28 @@ class App {
     this.boundOnTouchDown = this.onTouchDown;
     this.boundOnTouchMove = this.onTouchMove;
     this.boundOnTouchUp = this.onTouchUp;
+    this.boundOnMouseMove = this.onMouseMove;
+    this.boundOnMouseLeave = this.onMouseLeave;
 
     window.addEventListener("resize", this.boundOnResize);
-    window.addEventListener("wheel", this.boundOnWheel);
+    window.addEventListener("wheel", this.boundOnWheel, { passive: true });
     this.container.addEventListener("mousedown", this.boundOnTouchDown);
     window.addEventListener("mousemove", this.boundOnTouchMove);
     window.addEventListener("mouseup", this.boundOnTouchUp);
-    this.container.addEventListener("touchstart", this.boundOnTouchDown);
-    window.addEventListener("touchmove", this.boundOnTouchMove);
+    this.container.addEventListener("mouseleave", this.boundOnMouseLeave);
+    this.container.addEventListener("touchstart", this.boundOnTouchDown, { passive: true });
+    window.addEventListener("touchmove", this.boundOnTouchMove, { passive: true });
     window.addEventListener("touchend", this.boundOnTouchUp);
   }
 
   destroy() {
     window.cancelAnimationFrame(this.raf);
     window.removeEventListener("resize", this.boundOnResize);
-
     window.removeEventListener("wheel", this.boundOnWheel);
     this.container.removeEventListener("mousedown", this.boundOnTouchDown);
     window.removeEventListener("mousemove", this.boundOnTouchMove);
     window.removeEventListener("mouseup", this.boundOnTouchUp);
+    this.container.removeEventListener("mouseleave", this.boundOnMouseLeave);
     this.container.removeEventListener("touchstart", this.boundOnTouchDown);
     window.removeEventListener("touchmove", this.boundOnTouchMove);
     window.removeEventListener("touchend", this.boundOnTouchUp);
@@ -688,7 +730,7 @@ class App {
 }
 
 /* --------------------------------
-* React Component
+ * React Component
 ----------------------------------- */
 const CircularGallery = ({
   items,
@@ -698,6 +740,10 @@ const CircularGallery = ({
   scrollEase = 0.05,
   className,
   fontClassName,
+  autoRotate = false,
+  autoRotateSpeed = 0.3,
+  showDots = false,
+  showArrows = false,
   ...props
 }: CircularGalleryProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -705,11 +751,10 @@ const CircularGallery = ({
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Get computed styles for theme-adaptive text
     const computedStyle = getComputedStyle(containerRef.current);
-    const computedColor = computedStyle.color || "hsl(var(--foreground))";
-    const computedFontWeight = computedStyle.fontWeight || "bold";
-    const computedFontSize = computedStyle.fontSize || "30px";
+    const computedColor = computedStyle.color || "#ffffff";
+    const computedFontWeight = computedStyle.fontWeight || "600";
+    const computedFontSize = computedStyle.fontSize || "24px";
     const computedFontFamily = computedStyle.fontFamily;
 
     const computedFont = `${computedFontWeight} ${computedFontSize} ${computedFontFamily}`;
@@ -722,20 +767,21 @@ const CircularGallery = ({
       font: computedFont,
       scrollSpeed,
       scrollEase,
+      autoRotate,
+      autoRotateSpeed,
     });
 
     return () => {
       app.destroy();
     };
-  }, [items, bend, borderRadius, scrollSpeed, scrollEase, fontClassName]);
+  }, [items, bend, borderRadius, scrollSpeed, scrollEase, fontClassName, autoRotate, autoRotateSpeed]);
 
   return (
     <div
       ref={containerRef}
       className={cn(
-        "w-full h-full overflow-hidden cursor-grab active:cursor-grabbing",
-        // Apply theme-aware defaults for getComputedStyle to read
-        "text-foreground font-bold text-[30px]",
+        "w-full h-full overflow-hidden cursor-grab active:cursor-grabbing select-none",
+        "text-white font-semibold text-[24px]",
         fontClassName,
         className,
       )}

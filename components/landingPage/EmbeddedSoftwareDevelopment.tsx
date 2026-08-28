@@ -1,8 +1,11 @@
 "use client";
 
+import { Fragment, type ReactNode } from "react";
 import Link from "next/link";
+import { Reveal } from "@/components/ui/Reveal";
 import {
   AppWindow,
+  ArrowRight,
   ArrowUpRight,
   Bluetooth,
   Check,
@@ -82,6 +85,18 @@ const professionalServices = [
   "Testing and validation",
   "Performance optimization",
   "Maintenance and modernization",
+];
+
+const embeddedStack = [
+  "Hardware",
+  "Bootloader",
+  "BSP / HAL",
+  "Device Drivers",
+  "RTOS or Embedded Linux",
+  "Middleware",
+  "Embedded Application",
+  "Connectivity",
+  "IoT Platform",
 ];
 
 const serviceCards = [
@@ -759,12 +774,28 @@ function renderLinkedText(text: string) {
   );
 }
 
-function SectionHeading({ title, text }: { title: string; text?: string }) {
+function SectionHeading({
+  kicker,
+  title,
+  text,
+}: {
+  kicker?: string;
+  title: string;
+  text?: string;
+}) {
   return (
-    <div className="mb-10 grid gap-5 md:mb-12 lg:grid-cols-[0.95fr_1fr] lg:items-end">
-      <h2 className="text-chrome max-w-3xl text-3xl font-medium leading-[1.02] tracking-normal md:text-5xl">
-        {title}
-      </h2>
+    <div className="mb-10 grid gap-5 md:mb-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+      <div>
+        {kicker && (
+          <p className="eyebrow flex items-center gap-3 text-white/40">
+            <span className="h-px w-8 bg-gradient-to-r from-chrome/80 to-transparent" />
+            {kicker}
+          </p>
+        )}
+        <h2 className="text-chrome mt-5 max-w-3xl text-3xl font-medium leading-[1.02] tracking-normal md:text-5xl">
+          {title}
+        </h2>
+      </div>
       {text && (
         <p className="max-w-2xl text-[15px] leading-relaxed text-white/58 lg:justify-self-end">
           {renderLinkedText(text)}
@@ -774,19 +805,15 @@ function SectionHeading({ title, text }: { title: string; text?: string }) {
   );
 }
 
-function PremiumCard({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
+function PremiumCard({ children, className = "" }: { children: ReactNode; className?: string }) {
   return (
     <div
-      className={`group relative overflow-hidden rounded-lg border border-white/[0.07] bg-[linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.018))] shadow-2xl shadow-black/20 transition-colors duration-300 hover:border-white/16 ${className}`}
+      className={`group relative overflow-hidden rounded-lg border border-white/[0.07] bg-[linear-gradient(180deg,rgba(255,255,255,0.055),rgba(255,255,255,0.018))] shadow-2xl shadow-black/20 transition-all duration-500 hover:-translate-y-0.5 hover:border-white/16 hover:shadow-[0_28px_80px_-24px_rgba(232,237,242,0.16)] ${className}`}
     >
       <div className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
-      <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 bg-white/[0.035] blur-3xl" />
+      <div className="noise pointer-events-none absolute inset-0" />
+      <div className="pointer-events-none absolute -right-16 -top-16 h-40 w-40 bg-white/[0.045] blur-3xl" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(120%_90%_at_80%_0%,rgba(255,255,255,0.06),transparent_55%)] opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
       <div className="relative">{children}</div>
     </div>
   );
@@ -823,16 +850,44 @@ function ItemGrid({ items }: { items: readonly string[] }) {
   );
 }
 
-function ServiceCard({ card }: { card: (typeof serviceCards)[number] }) {
+function IconTile({ icon: Icon }: { icon: LucideIcon }) {
+  return (
+    <div className="relative grid h-11 w-11 place-items-center overflow-hidden rounded-md border border-white/10 bg-white/[0.045]">
+      <div className="absolute inset-x-1 top-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+      <Icon className="h-5 w-5 text-chrome" />
+    </div>
+  );
+}
+
+function FlowPath({ steps }: { steps: readonly string[] }) {
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      {steps.map((step, index) => (
+        <Fragment key={step}>
+          <span className="inline-flex items-center rounded-md border border-white/12 bg-white/[0.06] px-4 py-2.5 text-sm text-white/82">
+            {step}
+          </span>
+          {index < steps.length - 1 && <ArrowRight className="h-4 w-4 shrink-0 text-white/35" />}
+        </Fragment>
+      ))}
+    </div>
+  );
+}
+
+function ServiceCard({ card, index }: { card: (typeof serviceCards)[number]; index: number }) {
   const Icon = card.icon;
   return (
-    <PremiumCard className="p-6 md:p-7">
-      <div className="grid h-11 w-11 place-items-center rounded-md border border-white/10 bg-white/[0.045]">
-        <Icon className="h-5 w-5 text-chrome" />
-      </div>
-      <h3 className="mt-6 text-xl font-medium tracking-normal text-white md:text-2xl">
-        {card.title}
-      </h3>
+    <Reveal className="h-full" delay={Math.min(index % 6, 5) * 0.07}>
+      <PremiumCard className="h-full p-6 md:p-7">
+        <div className="flex items-start justify-between gap-4">
+          <IconTile icon={Icon} />
+          <span className="bg-chrome bg-clip-text text-2xl font-semibold tabular-nums text-transparent opacity-25 transition-opacity duration-300 group-hover:opacity-60">
+            {String(index + 1).padStart(2, "0")}
+          </span>
+        </div>
+        <h3 className="mt-6 text-xl font-medium tracking-normal text-white md:text-2xl">
+          {card.title}
+        </h3>
       <div className="mt-4 space-y-3 text-sm leading-relaxed text-white/60">
         {card.paragraphs.map((paragraph) => (
           <p key={paragraph}>{renderLinkedText(paragraph)}</p>
@@ -851,7 +906,8 @@ function ServiceCard({ card }: { card: (typeof serviceCards)[number] }) {
       {card.pointsTitle && <p className="mt-5 text-sm leading-relaxed text-white/60">{card.pointsTitle}</p>}
       {card.points2 && <div className="mt-3"><ItemGrid items={card.points2} /></div>}
       {card.extra && <p className="mt-5 text-sm leading-relaxed text-white/58">{renderLinkedText(card.extra)}</p>}
-    </PremiumCard>
+      </PremiumCard>
+    </Reveal>
   );
 }
 
@@ -864,12 +920,14 @@ function SimpleCards({
 }) {
   return (
     <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-      {items.map(([title, text]) => (
-        <PremiumCard key={title} className="p-6">
-          <Icon className="mb-5 h-6 w-6 text-chrome" />
-          <h3 className="text-lg font-medium tracking-normal text-white">{title}</h3>
-          <p className="mt-3 text-sm leading-relaxed text-white/60">{renderLinkedText(text)}</p>
-        </PremiumCard>
+      {items.map(([title, text], index) => (
+        <Reveal key={title} className="h-full" delay={Math.min(index % 3, 2) * 0.08}>
+          <PremiumCard className="h-full p-6">
+            <IconTile icon={Icon} />
+            <h3 className="mt-5 text-lg font-medium tracking-normal text-white">{title}</h3>
+            <p className="mt-3 text-sm leading-relaxed text-white/60">{renderLinkedText(text)}</p>
+          </PremiumCard>
+        </Reveal>
       ))}
     </div>
   );
@@ -877,17 +935,28 @@ function SimpleCards({
 
 function StepCards({ items }: { items: readonly StepItem[] }) {
   return (
-    <div className="grid gap-4 md:grid-cols-2">
-      {items.map(([title, text, points]) => (
-        <PremiumCard key={title} className="p-6">
-          <h3 className="text-lg font-medium tracking-normal text-white md:text-xl">{title}</h3>
-          <p className="mt-3 text-sm leading-relaxed text-white/60">{text}</p>
-          {points && (
-            <div className="mt-4">
-              <ItemGrid items={points} />
+    <div className="grid gap-5 md:grid-cols-2">
+      {items.map(([title, text, points], index) => (
+        <Reveal key={title} className="h-full" delay={Math.min(index % 4, 3) * 0.07}>
+          <PremiumCard className="h-full p-6">
+            <div className="flex items-center gap-4">
+              <span className="grid h-10 w-10 shrink-0 place-items-center rounded-md border border-white/10 bg-gradient-to-b from-white/[0.1] to-white/[0.02]">
+                <span className="bg-chrome bg-clip-text text-sm font-semibold tabular-nums text-transparent">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+              </span>
+              <h3 className="text-lg font-medium tracking-normal text-white md:text-xl">
+                {title.replace(/^\d+\.\s*/, "")}
+              </h3>
             </div>
-          )}
-        </PremiumCard>
+            <p className="mt-4 text-sm leading-relaxed text-white/60">{text}</p>
+            {points && (
+              <div className="mt-4">
+                <ItemGrid items={points} />
+              </div>
+            )}
+          </PremiumCard>
+        </Reveal>
       ))}
     </div>
   );
@@ -901,38 +970,44 @@ function DataTable({
   rows: string[][];
 }) {
   return (
-    <div className="relative overflow-hidden rounded-lg border border-white/[0.08]">
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-white/[0.06]">
-          <thead className="bg-white/[0.04]">
-            <tr>
-              {headers.map((header) => (
-                <th
-                  key={header}
-                  className="px-6 py-5 text-left text-xs font-medium uppercase tracking-normal text-white/50"
-                >
-                  {header}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-white/[0.06]">
-            {rows.map((row) => (
-              <tr key={row.join("-")} className="transition-colors hover:bg-white/[0.02]">
-                {row.map((cell, index) => (
-                  <td
-                    key={`${cell}-${index}`}
-                    className={`px-6 py-4 text-sm ${index === 0 ? "font-medium text-chrome" : "text-white/60"}`}
+    <Reveal>
+      <div className="relative overflow-hidden rounded-lg border border-white/[0.08] bg-white/[0.02] shadow-2xl shadow-black/30">
+        <div className="pointer-events-none absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-white/35 to-transparent" />
+        <div className="overflow-x-auto">
+          <table className="min-w-full divide-y divide-white/[0.06]">
+            <thead>
+              <tr className="bg-gradient-to-b from-white/[0.06] to-white/[0.02]">
+                {headers.map((header) => (
+                  <th
+                    key={header}
+                    className="py-5 pl-6 pr-4 text-left text-[10px] font-medium uppercase tracking-[0.18em] text-white/50"
                   >
-                    {renderLinkedText(cell)}
-                  </td>
+                    <span className="inline-flex items-center gap-2">
+                      <span className="h-1 w-1 rounded-full bg-chrome/70" />
+                      {header}
+                    </span>
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-white/[0.06]">
+              {rows.map((row) => (
+                <tr key={row.join("-")} className="transition-colors duration-300 hover:bg-white/[0.035]">
+                  {row.map((cell, index) => (
+                    <td
+                      key={`${cell}-${index}`}
+                      className={`py-4 pl-6 pr-4 text-sm ${index === 0 ? "font-medium text-chrome" : "text-white/60"}`}
+                    >
+                      {renderLinkedText(cell)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    </Reveal>
   );
 }
 
@@ -940,54 +1015,77 @@ function HeroVisual() {
   return (
     <div className="relative h-[496px] overflow-hidden rounded-md bg-[#0a0a0a]">
       <div className="pointer-events-none absolute inset-0 opacity-[0.5] [background-image:linear-gradient(rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.06)_1px,transparent_1px)] [background-size:40px_40px]" />
+      <div className="animate-float pointer-events-none absolute right-5 top-4 z-10 rounded-md border border-white/12 bg-[#0e0e0e] px-3 py-2 text-[10px] uppercase tracking-[0.14em] text-white/60">
+        firmware · boot verified
+      </div>
       <svg viewBox="0 0 520 496" className="relative h-full w-full" aria-hidden="true">
-        <g fill="none" stroke="rgba(255,255,255,0.14)" strokeWidth="1">
-          <path d="M260 64 L260 40" />
-          <path d="M60 248 L20 248" />
-          <path d="M460 248 L500 248" />
-          <path d="M260 432 L260 456" />
-          <path d="M80 90 L180 90 L180 190" />
-          <path d="M440 90 L340 90 L340 190" />
-          <path d="M80 406 L180 406 L180 288" />
-          <path d="M440 406 L340 406 L340 288" />
-          <path d="M260 90 L260 190" />
-          <path d="M260 406 L260 288" />
-          <path d="M180 190 L340 190 L340 288 L180 288 L180 190" />
+        <defs>
+          <linearGradient id="emBoard" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.1" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0.02" />
+          </linearGradient>
+          <linearGradient id="emChip" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stopColor="#e8edf2" stopOpacity="0.6" />
+            <stop offset="55%" stopColor="#c9cdd2" stopOpacity="0.24" />
+            <stop offset="100%" stopColor="#8a8f98" stopOpacity="0.1" />
+          </linearGradient>
+          <radialGradient id="emGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#e8edf2" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="#e8edf2" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        <circle cx="260" cy="248" r="180" fill="url(#emGlow)" />
+
+        <g stroke="rgba(255,255,255,0.16)" strokeWidth="1" fill="none">
+          <path d="M216 206 L150 150" strokeDasharray="4 4" />
+          <path d="M304 206 L380 150" strokeDasharray="4 4" />
+          <path d="M236 290 L150 360" strokeDasharray="4 4" />
+          <path d="M284 290 L380 360" strokeDasharray="4 4" />
+          <path d="M216 248 L120 248" strokeDasharray="4 4" />
+          <path d="M304 248 L410 248" strokeDasharray="4 4" />
+          <path d="M260 206 L260 90" strokeDasharray="4 4" />
+          <path d="M260 290 L260 420" strokeDasharray="4 4" />
         </g>
-        {["L", "R", "T", "B"].map((side) =>
-          Array.from({ length: 6 }).map((_, i) => {
-            const y = 210 + i * 16;
-            const x = 256 + i * 6;
-            return side === "T" ? (
-              <rect key={`T${i}`} x={x} y={66} width="3" height="14" fill="rgba(255,255,255,0.25)" />
-            ) : side === "B" ? (
-              <rect key={`B${i}`} x={x} y={416} width="3" height="14" fill="rgba(255,255,255,0.25)" />
-            ) : side === "L" ? (
-              <rect key={`L${i}`} x="66" y={y} width="14" height="3" fill="rgba(255,255,255,0.25)" />
-            ) : (
-              <rect key={`R${i}`} x="440" y={y} width="14" height="3" fill="rgba(255,255,255,0.25)" />
-            );
-          }),
-        )}
-        <circle cx="260" cy="140" r="3" fill="rgba(255,255,255,0.45)" />
-        <circle cx="260" cy="356" r="3" fill="rgba(255,255,255,0.45)" />
-        <circle cx="140" cy="248" r="3" fill="rgba(255,255,255,0.45)" />
-        <circle cx="380" cy="248" r="3" fill="rgba(255,255,255,0.45)" />
-        <g fontFamily="ui-sans-serif, system-ui, sans-serif" fontSize="12" fill="rgba(255,255,255,0.42)">
-          <text x="72" y="80" textAnchor="start">Firmware</text>
-          <text x="366" y="80" textAnchor="start">Drivers</text>
-          <text x="261" y="52" textAnchor="middle">Bootloader</text>
-          <text x="261" y="476" textAnchor="middle">IoT Connectivity</text>
-          <text x="28" y="244" textAnchor="start">Sensors</text>
-          <text x="482" y="244" textAnchor="start">RTOS</text>
-          <text x="188" y="396" textAnchor="middle">HAL / BSP</text>
-          <text x="322" y="396" textAnchor="middle">Middleware</text>
+
+        <rect x="192" y="184" width="136" height="128" rx="14" fill="url(#emBoard)" stroke="rgba(255,255,255,0.35)" strokeWidth="1.25" />
+        <rect x="200" y="192" width="120" height="112" rx="10" fill="url(#emChip)" />
+        <rect x="206" y="198" width="3" height="3" fill="rgba(255,255,255,0.5)" />
+        <rect x="311" y="198" width="3" height="3" fill="rgba(255,255,255,0.5)" />
+        <rect x="206" y="297" width="3" height="3" fill="rgba(255,255,255,0.5)" />
+        <rect x="311" y="297" width="3" height="3" fill="rgba(255,255,255,0.5)" />
+
+        <g fill="rgba(255,255,255,0.4)">
+          {[216, 232, 248, 264, 280, 296].map((x, i) => (
+            <rect key={`t${i}`} x={x} y="176" width="5" height="12" rx="1" />
+          ))}
+          {[216, 232, 248, 264, 280, 296].map((x, i) => (
+            <rect key={`b${i}`} x={x} y="308" width="5" height="12" rx="1" />
+          ))}
+          {[204, 217, 230, 243, 256, 269].map((y, i) => (
+            <rect key={`l${i}`} x="182" y={y} width="12" height="5" rx="1" />
+          ))}
+          {[204, 217, 230, 243, 256, 269].map((y, i) => (
+            <rect key={`r${i}`} x="326" y={y} width="12" height="5" rx="1" />
+          ))}
         </g>
-        <rect x="214" y="214" width="92" height="68" rx="8" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.3)" strokeWidth="1.25" />
-        <rect x="230" y="258" width="60" height="10" rx="5" fill="rgba(255,255,255,0.12)" />
-        <g fontFamily="ui-sans-serif, system-ui, sans-serif" textAnchor="middle">
-          <text x="260" y="236" fontSize="13" fill="rgba(255,255,255,0.82)">EMBEDDED</text>
-          <text x="260" y="252" fontSize="11" fill="rgba(255,255,255,0.5)">MCU / MPU</text>
+
+        <rect x="230" y="216" width="60" height="26" rx="6" fill="rgba(255,255,255,0.12)" />
+        <text x="260" y="233" textAnchor="middle" fontSize="13" fontWeight="600" letterSpacing="2" fill="#ffffff" opacity="0.95">MCU</text>
+        <rect x="230" y="250" width="80" height="8" rx="4" fill="rgba(255,255,255,0.22)" />
+        <rect x="230" y="264" width="62" height="8" rx="4" fill="rgba(255,255,255,0.14)" />
+        <rect x="230" y="278" width="70" height="8" rx="4" fill="rgba(255,255,255,0.18)" />
+        <text x="230" y="303" fontFamily="ui-monospace,monospace" fontSize="10" fill="rgba(255,255,255,0.55)">arm cortex · rtos ready</text>
+
+        <g fontFamily="ui-sans-serif, system-ui, sans-serif" fontSize="11" fill="rgba(255,255,255,0.5)">
+          <text x="120" y="242" textAnchor="middle">DRIVERS</text>
+          <text x="396" y="242" textAnchor="middle">FIRMWARE</text>
+          <text x="260" y="80" textAnchor="middle">BOOTLOADER</text>
+          <text x="260" y="440" textAnchor="middle">RTOS · LINUX</text>
+          <text x="132" y="144" textAnchor="middle">BLE / WI-FI</text>
+          <text x="384" y="144" textAnchor="middle">SENSORS</text>
+          <text x="132" y="376" textAnchor="middle">HAL / BSP</text>
+          <text x="384" y="376" textAnchor="middle">IoT CLOUD</text>
         </g>
       </svg>
       <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-transparent to-transparent" />
@@ -1009,7 +1107,7 @@ export default function EmbeddedSoftwareDevelopment() {
                 <span className="h-1.5 w-1.5 rounded-full bg-chrome" />
                 Embedded Software Development Services USA
               </div>
-              <h1 className="text-chrome mt-7 max-w-4xl text-[clamp(2.35rem,6.5vw,6.2rem)] font-medium leading-[0.94] tracking-normal">
+              <h1 className="text-chrome-shine mt-7 max-w-4xl text-[clamp(2.35rem,6.5vw,6.2rem)] font-medium leading-[0.94] tracking-normal">
                 Embedded Software Development Services USA
               </h1>
               <div className="mt-7 max-w-2xl space-y-4 text-lg leading-relaxed text-white/68">
@@ -1022,16 +1120,18 @@ export default function EmbeddedSoftwareDevelopment() {
               </div>
             </div>
 
-            <PremiumCard className="min-h-[520px] p-3">
-              <HeroVisual />
-            </PremiumCard>
+            <Reveal delay={0.1}>
+              <PremiumCard className="min-h-[520px] p-3">
+                <HeroVisual />
+              </PremiumCard>
+            </Reveal>
           </div>
         </div>
       </section>
 
       <section className="relative border-t border-white/5 py-16 md:py-24">
         <div className="mx-auto w-[min(92vw,1120px)] px-4">
-          <SectionHeading title="Embedded Software Development Company for USA Businesses" />
+          <SectionHeading kicker="Company Fit" title="Embedded Software Development Company for USA Businesses" />
           <div className="grid gap-4 md:grid-cols-2">
             <PremiumCard className="p-6">
               <p className="text-[15px] leading-relaxed text-white/62">Embedded software sits between physical hardware and the higher-level applications that depend on it.</p>
@@ -1052,13 +1152,13 @@ export default function EmbeddedSoftwareDevelopment() {
 
       <section className="relative border-t border-white/5 py-16 md:py-24">
         <div className="mx-auto w-[min(92vw,1240px)] px-4">
-          <SectionHeading title="What Are Embedded Software Development Services?" />
+          <SectionHeading kicker="Overview" title="What Are Embedded Software Development Services?" />
           <div className="grid gap-5 lg:grid-cols-[0.85fr_1.15fr]">
             <PremiumCard className="p-6 md:p-8">
               <div className="space-y-4 text-[15px] leading-relaxed text-white/62">
                 <p>Embedded software development services involve creating software designed specifically to control, communicate with or operate within physical hardware.</p>
                 <p>A typical embedded software stack may include:</p>
-                <p className="text-white/75">Hardware → Bootloader → BSP/HAL → Device Drivers → RTOS or Embedded Linux → Middleware → Embedded Application → Connectivity → IoT Platform</p>
+                <FlowPath steps={embeddedStack} />
                 <p>Professional embedded software development combines these layers through a structured engineering approach.</p>
               </div>
             </PremiumCard>
@@ -1073,10 +1173,10 @@ export default function EmbeddedSoftwareDevelopment() {
 
       <section className="relative border-t border-white/5 py-16 md:py-24">
         <div className="mx-auto w-[min(92vw,1240px)] px-4">
-          <SectionHeading title="Our Embedded Software Development Services" />
+          <SectionHeading kicker="Services" title="Our Embedded Software Development Services" />
           <div className="grid gap-5 lg:grid-cols-2">
-            {serviceCards.map((card) => (
-              <ServiceCard key={card.title} card={card} />
+            {serviceCards.map((card, index) => (
+              <ServiceCard key={card.title} card={card} index={index} />
             ))}
           </div>
         </div>
@@ -1084,7 +1184,7 @@ export default function EmbeddedSoftwareDevelopment() {
 
       <section className="relative border-t border-white/5 py-16 md:py-24">
         <div className="mx-auto w-[min(92vw,1240px)] px-4">
-          <SectionHeading title="RTOS vs Embedded Linux" text="Choosing the correct operating environment is an important architecture decision." />
+          <SectionHeading kicker="Architecture" title="RTOS vs Embedded Linux" text="Choosing the correct operating environment is an important architecture decision." />
           <DataTable headers={["Requirement", "RTOS", "Embedded Linux"]} rows={rtosVsLinuxRows} />
           <p className="mt-6 max-w-3xl text-sm leading-relaxed text-white/55">Neither is universally better.</p>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-white/55">The right platform depends on hardware resources, timing requirements, connectivity, application complexity and long-term product plans.</p>
@@ -1093,7 +1193,7 @@ export default function EmbeddedSoftwareDevelopment() {
 
       <section className="relative border-t border-white/5 py-16 md:py-24">
         <div className="mx-auto w-[min(92vw,1240px)] px-4">
-          <SectionHeading title="Embedded Software Security" text="Security should be considered at the architecture stage rather than added only before launch." />
+          <SectionHeading kicker="Security" title="Embedded Software Security" text="Security should be considered at the architecture stage rather than added only before launch." />
           <p className="mb-8 max-w-3xl text-sm leading-relaxed text-white/55">Depending on product requirements, embedded security can involve:</p>
           <SimpleCards items={securityItems} icon={Shield} />
           <p className="mt-8 max-w-3xl text-sm leading-relaxed text-white/55">Security requirements vary significantly depending on the device, environment, data and industry.</p>
@@ -1129,14 +1229,14 @@ export default function EmbeddedSoftwareDevelopment() {
 
       <section className="relative border-t border-white/5 py-16 md:py-24">
         <div className="mx-auto w-[min(92vw,1240px)] px-4">
-          <SectionHeading title="Embedded Software Development Process" text="As an embedded software development agency, clickmasters uses a structured engineering process." />
+          <SectionHeading kicker="Process" title="Embedded Software Development Process" text="As an embedded software development agency, clickmasters uses a structured engineering process." />
           <StepCards items={processSteps} />
         </div>
       </section>
 
       <section className="relative border-t border-white/5 py-16 md:py-24">
         <div className="mx-auto w-[min(92vw,1240px)] px-4">
-          <SectionHeading title="Embedded Software Development Cost in the USA" text="The cost of embedded development depends heavily on hardware and system complexity." />
+          <SectionHeading kicker="Pricing" title="Embedded Software Development Cost in the USA" text="The cost of embedded development depends heavily on hardware and system complexity." />
           <p className="mb-6 max-w-3xl text-sm leading-relaxed text-white/55">Important cost factors include:</p>
           <DataTable headers={["Cost Factor", "Why It Matters"]} rows={costFactorRows} />
           <p className="mt-6 max-w-3xl text-sm leading-relaxed text-white/55">A reliable estimate requires understanding both the software requirements and the target hardware.</p>
@@ -1148,7 +1248,7 @@ export default function EmbeddedSoftwareDevelopment() {
 
       <section className="relative border-t border-white/5 py-16 md:py-24">
         <div className="mx-auto w-[min(92vw,1240px)] px-4">
-          <SectionHeading title="Embedded Software Development Services for USA Businesses" text="clickmasters provides embedded software development services for businesses across the USA, helping organizations build software for connected devices, intelligent products and specialized hardware environments." />
+          <SectionHeading kicker="USA" title="Embedded Software Development Services for USA Businesses" text="clickmasters provides embedded software development services for businesses across the USA, helping organizations build software for connected devices, intelligent products and specialized hardware environments." />
           <p className="mb-6 max-w-3xl text-sm leading-relaxed text-white/55">We can support:</p>
           <ItemGrid items={usaNeeds} />
           <p className="mt-8 max-w-3xl text-sm leading-relaxed text-white/55">Our remote delivery model enables organizations across the USA to work with an embedded software development company without limiting engineering resources to one physical market.</p>
@@ -1157,7 +1257,7 @@ export default function EmbeddedSoftwareDevelopment() {
 
       <section className="relative border-t border-white/5 py-16 md:py-24">
         <div className="mx-auto w-[min(92vw,1240px)] px-4">
-          <SectionHeading title="Industries Using Embedded Software" text="Embedded systems are used wherever software needs to operate closely with physical equipment." />
+          <SectionHeading kicker="Industries" title="Industries Using Embedded Software" text="Embedded systems are used wherever software needs to operate closely with physical equipment." />
           <p className="mb-6 max-w-3xl text-sm leading-relaxed text-white/55">Potential applications include:</p>
           <SimpleCards items={industries} icon={CircuitBoard} />
           <p className="mt-8 max-w-3xl text-sm leading-relaxed text-white/55">Industry-specific claims should always be supported by the requirements and experience relevant to the actual project.</p>
@@ -1166,17 +1266,25 @@ export default function EmbeddedSoftwareDevelopment() {
 
       <section className="relative border-t border-white/5 py-16 md:py-24">
         <div className="mx-auto w-[min(92vw,1240px)] px-4">
-          <SectionHeading title="Why Choose clickmasters as Your Embedded Software Development Company?" />
+          <SectionHeading kicker="Why clickmasters" title="Why Choose clickmasters as Your Embedded Software Development Company?" />
           <SimpleCards items={whyChoose} icon={Shield} />
         </div>
       </section>
 
       <section className="relative border-t border-white/5 py-16 md:py-24">
         <div className="mx-auto w-[min(92vw,1040px)] px-4">
-          <div className="relative overflow-hidden rounded-lg border border-white/[0.06] bg-gradient-to-br from-[#161616] via-[#0e0e0e] to-[#0a0a0a] px-6 py-12 text-center md:py-20">
+          <Reveal>
+          <div className="relative overflow-hidden rounded-lg border border-white/10 bg-gradient-to-br from-[#161616] via-[#0e0e0e] to-[#0a0a0a] px-6 py-12 text-center md:py-20">
+            <div className="noise pointer-events-none absolute inset-0" />
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,#050505_90%)]" />
+            <div className="pointer-events-none absolute -top-32 left-1/2 h-64 w-64 -translate-x-1/2 rounded-full bg-chrome/10 blur-3xl" />
             <div className="relative">
-              <h2 className="text-chrome text-[clamp(2rem,6vw,4.5rem)] font-medium leading-[1.0] tracking-normal">Start Your Embedded Software Development Project</h2>
+              <p className="eyebrow flex items-center justify-center gap-3 text-white/40">
+                <span className="h-px w-8 bg-gradient-to-r from-transparent to-chrome/80" />
+                Get Started
+                <span className="h-px w-8 bg-gradient-to-l from-transparent to-chrome/80" />
+              </p>
+              <h2 className="text-chrome mt-6 text-[clamp(2rem,6vw,4.5rem)] font-medium leading-[1.0] tracking-normal">Start Your Embedded Software Development Project</h2>
               <div className="mx-auto mt-8 max-w-2xl space-y-4 text-white/55 leading-relaxed text-[15px] md:text-base">
                 <p>Whether you need new firmware, custom device drivers, BSP development, RTOS integration, Embedded Linux software or a complete embedded stack for an IoT product, clickmasters can help define and implement the engineering approach.</p>
                 <p>Our embedded software development services in the USA cover the journey from hardware assessment and architecture through development, integration, testing, deployment and continued support.</p>
@@ -1186,25 +1294,31 @@ export default function EmbeddedSoftwareDevelopment() {
               </div>
             </div>
           </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="relative border-t border-white/5 py-16 md:py-24">
         <div className="mx-auto w-[min(92vw,920px)] px-4">
-          <SectionHeading title="Frequently Asked Questions About Embedded Software Development" />
+          <SectionHeading kicker="FAQ" title="Frequently Asked Questions About Embedded Software Development" />
           <div className="divide-y divide-white/5 border-y border-white/5">
             {faqs.map(([question, answer]) => (
-              <div key={question} className="py-6">
-                <details className="group">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-6">
-                    <span className="text-base font-medium tracking-normal text-white md:text-lg">{question}</span>
-                    <ChevronRight className="h-5 w-5 shrink-0 text-white/40 transition-transform group-open:rotate-90" />
-                  </summary>
-                  <p className="pt-4 pr-10 text-[15px] leading-relaxed text-white/60">{answer}</p>
-                </details>
-              </div>
+              <details key={question} className="group py-6">
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-6 transition-colors hover:opacity-90">
+                  <span className="text-base font-medium tracking-normal text-white md:text-lg">{question}</span>
+                  <ChevronRight className="h-5 w-5 shrink-0 text-white/40 transition-transform group-open:rotate-90" />
+                </summary>
+                <p className="pt-4 pr-10 text-[15px] leading-relaxed text-white/60">{answer}</p>
+              </details>
             ))}
           </div>
+          <a
+            href="/contact"
+            className="mt-8 inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white"
+          >
+            Have a specific device or system in mind? Talk to us about your embedded software requirements.
+            <ArrowUpRight className="h-4 w-4" />
+          </a>
         </div>
       </section>
 

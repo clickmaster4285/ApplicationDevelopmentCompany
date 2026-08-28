@@ -1,10 +1,43 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Check, ArrowUpRight } from "lucide-react";
+import { Check, ArrowUpRight, Sparkles, Zap, Shield, Users, TrendingUp, Award, Target, Layers, BarChart3, Globe, Cpu, Database, Cloud, Lock, Terminal, Rocket, Lightbulb, PieChart, Brain, GitBranch, Server, Network, HardDrive, Monitor, Smartphone, Tablet, Layout, Code, Settings, Palette, Search, Megaphone, ShoppingCart, Users as UsersIcon, Mail, Phone, MapPin, Clock, Star, Heart, ThumbsUp, Flag, Gem, Crown, Diamond, Zap as ZapIcon, Flame, Bolt, Waves, Mountain, Trees, Sun, Moon, Cloud as CloudIcon, Wind, Droplets, Leaf, Flower, Sparkles as SparklesIcon } from "lucide-react";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+
+const iconMap: Record<string, React.ReactNode> = {
+  strategy: <Target className="h-5 w-5" />,
+  planning: <Layers className="h-5 w-5" />,
+  design: <Palette className="h-5 w-5" />,
+  development: <Code className="h-5 w-5" />,
+  testing: <Search className="h-5 w-5" />,
+  deployment: <Rocket className="h-5 w-5" />,
+  maintenance: <Settings className="h-5 w-5" />,
+  security: <Lock className="h-5 w-5" />,
+  performance: <ZapIcon className="h-5 w-5" />,
+  scaling: <TrendingUp className="h-5 w-5" />,
+  analytics: <BarChart3 className="h-5 w-5" />,
+  integration: <GitBranch className="h-5 w-5" />,
+  cloud: <Cloud className="h-5 w-5" />,
+  database: <Database className="h-5 w-5" />,
+  api: <Server className="h-5 w-5" />,
+  frontend: <Monitor className="h-5 w-5" />,
+  backend: <Cpu className="h-5 w-5" />,
+  mobile: <Smartphone className="h-5 w-5" />,
+  web: <Globe className="h-5 w-5" />,
+  ai: <Brain className="h-5 w-5" />,
+  ml: <Brain className="h-5 w-5" />,
+  default: <SparklesIcon className="h-5 w-5" />,
+};
+
+function getIconForTitle(title: string): React.ReactNode {
+  const lowerTitle = title.toLowerCase();
+  for (const [key, icon] of Object.entries(iconMap)) {
+    if (lowerTitle.includes(key)) return icon;
+  }
+  return iconMap.default;
+}
 
 export function PageContent({
   content,
@@ -252,27 +285,28 @@ export function PageContent({
   }
 
   return (
-    <section className="relative py-12 md:py-30 border-t border-white/5">
+    <section className="relative py-16 md:py-32 border-t border-white/5">
       <div className="mx-auto w-[85vw] px-6">
-        <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5 text-center">
-          — Insights
+        <div className="text-center mb-20">
+          <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5 inline-flex items-center gap-2">
+            <span className="w-12 h-px bg-white/10" />
+            — Insights
+            <span className="w-12 h-px bg-white/10" />
+          </div>
+          <h2 className="text-chrome text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[1.02]">
+            How This Solution Helps Your Business
+          </h2>
         </div>
 
-        <h2 className="text-chrome text-center text-5xl md:text-6xl font-medium tracking-[-0.03em] leading-[1.02] mb-20">
-          How This Solution Helps Your Business
-        </h2>
-
-        <div className="space-y-16 md:space-y-24">
+        <div className="space-y-20 md:space-y-28">
           {sections.map((section, index) => {
             const reverse = index % 2 === 1;
             const { intro, items } = parseSectionBody(section.raw);
             const isFirst = index === 0;
+            const sectionIcon = getIconForTitle(section.title);
 
-            // First section: full-width, plain layout — heading and description
-            // run the full line, no card / grid split.
+            // First section: full-width hero layout
             if (isFirst) {
-              // Plain text — strip markdown bold markers and stray leading dashes
-              // so nothing renders with literal ** or - characters.
               const stripMarkdown = (text: string) =>
                 text
                   .replace(/\*/g, "")
@@ -289,46 +323,50 @@ export function PageContent({
                   transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
                   className="w-full"
                 >
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 rounded-2xl border border-white/10 grid place-items-center bg-white/[0.03]">
-                      <Check className="w-6 h-6 text-primary" />
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="w-16 h-16 rounded-2xl border border-white/10 grid place-items-center bg-white/[0.03] flex-shrink-0">
+                      {sectionIcon}
                     </div>
-                    <span className="text-[10px] uppercase tracking-[0.4em] text-white/40">
-                      [{" "}
-                      {section.title
-                        .split(" ")
-                        .slice(0, 3)
-                        .join(" ")
-                        .toUpperCase()}{" "}
-                      · {String(index + 1).padStart(2, "0")} ]
-                    </span>
+                    <div>
+                      <span className="text-[10px] uppercase tracking-[0.4em] text-white/40 block mb-1">
+                        [ {section.title
+                          .split(" ")
+                          .slice(0, 3)
+                          .join(" ")
+                          .toUpperCase()} · {String(index + 1).padStart(2, "0")} ]
+                      </span>
+                    </div>
                   </div>
-                  {/* <h3 className="text-white/90 text-xl md:text-2xl leading-[1.05] tracking-tight mb-6">
-                {section.title}
-              </h3> */}
+                  
                   {items.length > 0 ? (
-                    <div className="space-y-4">
+                    <div className="space-y-5">
                       {intro && (
-                        <p className="text-base md:text-lg text-white/55 leading-relaxed">
+                        <p className="text-lg md:text-xl text-white/55 leading-relaxed max-w-3xl">
                           {stripMarkdown(intro)}
                         </p>
                       )}
-                      <ul className="space-y-3">
+                      <ul className="space-y-4">
                         {items.map((item, itemIndex) => (
-                          <li
+                          <motion.li
                             key={itemIndex}
-                            className="flex items-start gap-3"
+                            initial={{ opacity: 0, x: -20 }}
+                            whileInView={{ opacity: 1, x: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ delay: itemIndex * 0.08, duration: 0.5 }}
+                            className="flex items-start gap-4 group"
                           >
-                            <Check className="w-5 h-5 mt-1 text-primary shrink-0" />
-                            <span className="text-base md:text-lg text-white/60 leading-relaxed">
+                            <div className="w-10 h-10 rounded-xl border border-primary/30 bg-primary/10 grid place-items-center flex-shrink-0 text-primary group-hover:bg-primary group-hover:border-primary group-hover:text-[#050505] transition-all">
+                              <Check className="w-5 h-5" />
+                            </div>
+                            <span className="text-lg md:text-xl text-white/60 leading-relaxed pt-1">
                               {stripMarkdown(item)}
                             </span>
-                          </li>
+                          </motion.li>
                         ))}
                       </ul>
                     </div>
                   ) : (
-                    <p className="text-base md:text-lg text-white/55 leading-relaxed">
+                    <p className="text-lg md:text-xl text-white/55 leading-relaxed max-w-3xl">
                       {stripMarkdown(
                         section.raw.replace(/^##[^\n]*\n?/, "").trim(),
                       )}
@@ -338,47 +376,55 @@ export function PageContent({
               );
             }
 
+            // Subsequent sections: alternating grid layout
             return (
-              <div
+              <motion.div
                 key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 className={`grid lg:grid-cols-12 gap-10 items-start ${
                   reverse ? "lg:[&>*:first-child]:order-2" : ""
                 }`}
               >
+                {/* Left side - Visual/Title */}
                 <motion.div
                   initial={{ opacity: 0, x: reverse ? 60 : -60 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                   className="lg:col-span-5 lg:sticky lg:top-32"
                 >
-                  <div className="flex items-center gap-4 mb-6">
-                    <div className="w-14 h-14 rounded-2xl border border-white/10 grid place-items-center bg-white/[0.03]">
-                      <Check className="w-6 h-6 text-primary" />
+                  <div className="flex items-center gap-4 mb-8">
+                    <div className="w-16 h-16 rounded-2xl border border-white/10 grid place-items-center bg-white/[0.03] flex-shrink-0">
+                      {sectionIcon}
                     </div>
                     <span className="text-[10px] uppercase tracking-[0.4em] text-white/40">
-                      [{" "}
-                      {section.title
+                      [ {section.title
                         .split(" ")
                         .slice(0, 3)
                         .join(" ")
-                        .toUpperCase()}{" "}
-                      · {String(index + 1).padStart(2, "0")} ]
+                        .toUpperCase()} · {String(index + 1).padStart(2, "0")} ]
                     </span>
                   </div>
-                  <h3 className="font-display text-white text-3xl md:text-5xl leading-[1.05] tracking-tight mb-6">
+                  <h3 className="font-display text-white text-3xl md:text-4xl lg:text-5xl leading-[1.05] tracking-tight mb-6">
                     {section.title}
                   </h3>
-                  {/* {intro && (
-                <div className="text-base md:text-lg text-white/55 leading-relaxed">
-                  <ReactMarkdown remarkPlugins={[remarkGfm]} components={introMarkdownComponents}>
-                    {intro}
-                  </ReactMarkdown>
-                </div>
-              )} */}
+                  {intro && (
+                    <div className="text-base md:text-lg text-white/55 leading-relaxed border-l-2 border-primary/30 pl-6">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={introMarkdownComponents}
+                      >
+                        {intro}
+                      </ReactMarkdown>
+                    </div>
+                  )}
                 </motion.div>
 
-                <div className="lg:col-span-7 space-y-4">
+                {/* Right side - Content items */}
+                <div className="lg:col-span-7 space-y-5">
                   {items.length > 0 ? (
                     items.map((item, itemIndex) => (
                       <motion.div
@@ -387,20 +433,30 @@ export function PageContent({
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true, margin: "-80px" }}
                         transition={{
-                          delay: itemIndex * 0.1,
+                          delay: itemIndex * 0.08,
                           duration: 0.6,
                           ease: [0.22, 1, 0.36, 1],
                         }}
-                        whileHover={{ y: -4 }}
-                        className="group relative rounded-2xl border border-white/[0.08] p-7 md:p-9 bg-white/[0.03] hover:border-primary/40 hover:bg-white/[0.05] transition-all"
+                        whileHover={{ y: -4, x: 4 }}
+                        className="group relative rounded-2xl border border-white/[0.08] p-6 md:p-8 bg-white/[0.03] hover:border-primary/40 hover:bg-white/[0.05] transition-all duration-300"
                       >
                         <div className="flex items-start gap-4">
-                          <Check className="w-5 h-5 mt-1 text-primary shrink-0" />
-                          <p className="text-sm md:text-base text-white/60 leading-relaxed">
+                          <div className="w-10 h-10 rounded-xl border border-primary/30 bg-primary/10 grid place-items-center flex-shrink-0 text-primary group-hover:bg-primary group-hover:border-primary group-hover:text-[#050505] transition-all">
+                            <Check className="w-5 h-5" />
+                          </div>
+                          <p className="text-sm md:text-base text-white/60 leading-relaxed flex-1">
                             {item}
                           </p>
                         </div>
-                        <ArrowUpRight className="absolute top-6 right-6 w-4 h-4 opacity-0 -translate-x-1 group-hover:opacity-60 group-hover:translate-x-0 transition-all text-white/30" />
+                        <motion.div
+                          className="absolute top-6 right-6 w-8 h-8 rounded-lg bg-white/[0.03] grid place-items-center"
+                          initial={{ opacity: 0, x: 10 }}
+                          animate={{ opacity: 0, x: 10 }}
+                          whileHover={{ opacity: 0.6, x: 0 }}
+                          transition={{ duration: 0.3 }}
+                        >
+                          <ArrowUpRight className="w-4 h-4 text-white/30" />
+                        </motion.div>
                       </motion.div>
                     ))
                   ) : (
@@ -410,7 +466,7 @@ export function PageContent({
                       viewport={{ once: true, margin: "-80px" }}
                       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
                       whileHover={{ y: -4 }}
-                      className="group relative rounded-2xl border border-white/[0.08] p-7 md:p-9 bg-white/[0.03] hover:border-primary/40 hover:bg-white/[0.05] transition-all"
+                      className="group relative rounded-2xl border border-white/[0.08] p-6 md:p-8 bg-white/[0.03] hover:border-primary/40 hover:bg-white/[0.05] transition-all duration-300"
                     >
                       <ReactMarkdown
                         remarkPlugins={[remarkGfm]}
@@ -418,11 +474,19 @@ export function PageContent({
                       >
                         {section.raw.replace(/^##[^\n]*\n?/, "").trim()}
                       </ReactMarkdown>
-                      <ArrowUpRight className="absolute top-6 right-6 w-4 h-4 opacity-0 -translate-x-1 group-hover:opacity-60 group-hover:translate-x-0 transition-all text-white/30" />
+                      <motion.div
+                        className="absolute top-6 right-6 w-8 h-8 rounded-lg bg-white/[0.03] grid place-items-center"
+                        initial={{ opacity: 0, x: 10 }}
+                        animate={{ opacity: 0, x: 10 }}
+                        whileHover={{ opacity: 0.6, x: 0 }}
+                        transition={{ duration: 0.3 }}
+                      >
+                        <ArrowUpRight className="w-4 h-4 text-white/30" />
+                      </motion.div>
                     </motion.div>
                   )}
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

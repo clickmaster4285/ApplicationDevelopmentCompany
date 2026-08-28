@@ -7,9 +7,9 @@ import {
   CTASection,
   StructuredData,
   FAQSchema,
-  extractFAQs,
   MainContent,
 } from "@/components/shared/IndustryServicePage";
+import { extractFAQs } from "@/components/shared/IndustryServicePageUtils";
 import { HeroHeader } from "@/components/shared/HeroHeader";
 
 // Generate static params
