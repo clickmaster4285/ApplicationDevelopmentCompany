@@ -19,10 +19,11 @@ import { HeroHeader } from "@/components/shared/HeroHeader";
 import CustomApplicationDevelopment from "@/components/landingPage/CustomApplicationDevelopment";
 import DesktopApplicationDevelopment from "@/components/landingPage/DesktopApplicationDevelopment";
 import IoTDevelopment from "@/components/landingPage/IoTDevelopment";
+import EmbeddedSoftwareDevelopment from "@/components/landingPage/EmbeddedSoftwareDevelopment";
 
 export async function generateStaticParams() {
   return servicesData.pages.map((page) => ({
-    slug: page.url.replace(/^\/+|\/+$/g, "").replace("/services/", ""),
+    slug: page.url.replace(/^\/+|\/+$/g, "").replace(/^services\//, ""),
   }));
 }
 
@@ -96,6 +97,10 @@ export default async function ServicePage({
 
   if (slug === "iot-development") {
     return <IoTDevelopment />;
+  }
+
+  if (slug === "embedded-software-development") {
+    return <EmbeddedSoftwareDevelopment />;
   }
 
   return (
