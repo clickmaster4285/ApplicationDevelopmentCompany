@@ -910,7 +910,7 @@ export function StructuredData({ pageData }: { pageData: PageData }) {
           provider: {
             "@type": "Organization",
             name: "Clickmasters",
-            url: "https://clickmasters.com",
+            url: "https://clickmastersapplicationdevelopment.com",
           },
           serviceType: pageData.metadata.primaryKeyword,
         }),

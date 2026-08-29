@@ -223,15 +223,45 @@ export function HeroHeader({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    const name = formData.name.trim();
+    const email = formData.email.trim();
+    const message = formData.message.trim();
+
+    if (!name || !email || !message) {
+      setSubmitStatus('error');
+      return;
+    }
+
     setIsSubmitting(true);
-    
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setIsSubmitting(false);
-    setSubmitStatus('success');
-    setFormData({ name: "", email: "", phone: "", company: "", message: "" });
-    
-    setTimeout(() => setSubmitStatus('idle'), 3000);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...formData,
+          name,
+          email,
+          message,
+          phone: formData.phone.trim(),
+          company: formData.company.trim(),
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Contact request failed');
+      }
+
+      setSubmitStatus('success');
+      setFormData({ name: "", email: "", phone: "", company: "", message: "" });
+      setTimeout(() => setSubmitStatus('idle'), 3000);
+    } catch {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -270,7 +300,7 @@ export function HeroHeader({
           {/* Left side - Content */}
           <div className="flex flex-col gap-6 relative">
             {/* Animated entrance wrapper */}
-            <div className="animate-[fade-slide-up_0.8s_ease-out_forwards] opacity-0" style={{ animationDelay: '0.1s' }}>
+            <div className="animate-[fade-slide-up_0.8s_ease-out_forwards]" style={{ animationDelay: '0.1s' }}>
               <div className="flex items-center gap-3 flex-wrap">
                 <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-2 text-[11px] font-medium uppercase tracking-[0.12em] text-white/60 backdrop-blur-sm">
                   {iconMap[type] || iconMap.Service}
@@ -288,19 +318,19 @@ export function HeroHeader({
               </div>
             </div>
 
-            <div className="animate-[fade-slide-up_0.8s_ease-out_forwards] opacity-0" style={{ animationDelay: '0.2s' }}>
+            <div className="animate-[fade-slide-up_0.8s_ease-out_forwards]" style={{ animationDelay: '0.2s' }}>
               <h1 className="text-chrome text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium leading-[1.05] tracking-[-0.03em]">
                 {title}
               </h1>
             </div>
 
-            <div className="animate-[fade-slide-up_0.8s_ease-out_forwards] opacity-0" style={{ animationDelay: '0.3s' }}>
+            <div className="animate-[fade-slide-up_0.8s_ease-out_forwards]" style={{ animationDelay: '0.3s' }}>
               <p className="max-w-xl text-white/60 leading-relaxed text-base md:text-lg">
                 {description}
               </p>
             </div>
 
-            <div className="animate-[fade-slide-up_0.8s_ease-out_forwards] opacity-0" style={{ animationDelay: '0.4s' }}>
+            <div className="animate-[fade-slide-up_0.8s_ease-out_forwards]" style={{ animationDelay: '0.4s' }}>
               <div className="flex flex-wrap items-center gap-4 md:gap-6">
                 <div className="flex items-center gap-2 text-white/50 text-sm">
                   <Shield className="h-4 w-4 text-primary" />
@@ -321,7 +351,7 @@ export function HeroHeader({
               </div>
             </div>
 
-            <div className="animate-[fade-slide-up_0.8s_ease-out_forwards] opacity-0" style={{ animationDelay: '0.5s' }}>
+            <div className="animate-[fade-slide-up_0.8s_ease-out_forwards]" style={{ animationDelay: '0.5s' }}>
               <div className="flex flex-wrap gap-2.5">
                 {pageData.metadata.intent && (
                   <Badge>{pageData.metadata.intent}</Badge>
@@ -334,7 +364,7 @@ export function HeroHeader({
               </div>
             </div>
 
-            <div className="animate-[fade-slide-up_0.8s_ease_out_forwards] opacity-0" style={{ animationDelay: '0.6s' }}>
+            <div className="animate-[fade-slide-up_0.8s_ease-out_forwards]" style={{ animationDelay: '0.6s' }}>
               <div className="flex flex-wrap gap-3">
                 <MagneticButton variant="chrome" className="group">
                   <span className="relative z-10 flex items-center gap-2">
@@ -348,7 +378,7 @@ export function HeroHeader({
           </div>
 
           {/* Right side - Premium Form */}
-          <div className="w-full max-w-lg mx-auto lg:mx-0 justify-self-end animate-[fade-slide-up_1s_ease-out_forwards] opacity-0" style={{ animationDelay: '0.3s' }}>
+          <div className="w-full max-w-lg mx-auto lg:mx-0 justify-self-end animate-[fade-slide-up_1s_ease-out_forwards]" style={{ animationDelay: '0.3s' }}>
             <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl hover:border-white/20 transition-all duration-500">
               {/* Glow accents */}
               <div className="pointer-events-none absolute -top-20 -right-20 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
@@ -442,7 +472,7 @@ export function HeroHeader({
                     />
 
                     <Field 
-                      label="Message" 
+                      label="Message *" 
                       name="message" 
                       type="textarea"
                       placeholder="Tell us about your project..."
@@ -451,7 +481,9 @@ export function HeroHeader({
                       onFocus={() => handleFocus('message')}
                       onBlur={handleBlur}
                       rows={3}
+                      required
                       focused={focusedField === 'message'}
+                      error={!formData.message && submitStatus === 'error'}
                     />
 
                     <div className="flex justify-center pt-2">
@@ -579,14 +611,7 @@ function Field({
 
   return (
     <div className="relative">
-      <label className={`
-        absolute left-4 top-3.5 text-white/40 text-xs font-medium uppercase tracking-wider 
-        transition-all duration-300 pointer-events-none
-        ${hasValue || focused ? 'top-[-6px] left-3 text-[9px] text-primary/80' : ''}
-        ${error && !hasValue ? 'text-red-400' : ''}
-      `}>
-        {label}
-      </label>
+      <label className="sr-only">{label}</label>
       {isTextarea ? (
         <textarea
           name={name}

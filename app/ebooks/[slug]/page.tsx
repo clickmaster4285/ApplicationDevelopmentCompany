@@ -47,7 +47,7 @@ export async function generateMetadata({
     openGraph: {
       title: pageData.meta.title,
       description: pageData.meta.description,
-      url: `https://clickmasters.com${pageData.url}`,
+      url: `https://clickmastersapplicationdevelopment.com${pageData.url}`,
       type: "website",
     },
     twitter: {
@@ -56,7 +56,7 @@ export async function generateMetadata({
       description: pageData.meta.description,
     },
     alternates: {
-      canonical: `https://clickmasters.com${pageData.url}`,
+      canonical: `https://clickmastersapplicationdevelopment.com${pageData.url}`,
     },
   };
 }
