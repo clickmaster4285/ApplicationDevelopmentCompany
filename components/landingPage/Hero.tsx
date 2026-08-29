@@ -27,7 +27,7 @@ export function Hero() {
         .split("")
         .map(
           (c) =>
-            `<span class="inline-block translate-y-[120%] opacity-0">${c === " " ? "&nbsp;" : c}</span>`,
+            `<span class="inline-block translate-y-[120%]">${c === " " ? "&nbsp;" : c}</span>`,
         )
         .join("");
     });
@@ -92,7 +92,7 @@ export function Hero() {
 
         <p
           ref={subRef}
-          className="opacity-0 translate-y-4 mt-8 max-w-3xl text-lg md:text-xl text-white/90 leading-relaxed"
+          className="translate-y-4 mt-8 max-w-3xl text-lg md:text-xl text-white/90 leading-relaxed"
         >
           Turn your idea into a secure, scalable, and easy-to-use application
           with ClickMasters. We are an application development company helping
@@ -106,7 +106,7 @@ export function Hero() {
 
         <div
           ref={ctaRef}
-          className="opacity-0 translate-y-4 mt-10 flex flex-wrap items-center justify-center gap-4"
+          className="translate-y-4 mt-10 flex flex-wrap items-center justify-center gap-4"
         >
           <MagneticButton variant="chrome">Start Your Project</MagneticButton>
           <MagneticButton variant="ghost">Request a Proposal</MagneticButton>
@@ -114,7 +114,7 @@ export function Hero() {
 
         <div
           ref={scrollRef}
-          className="opacity-0 absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-white/40"
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 text-[10px] uppercase tracking-[0.4em] text-white/40"
         >
           Scroll
           <span className="relative block h-12 w-px bg-gradient-to-b from-white/40 to-transparent overflow-hidden">
