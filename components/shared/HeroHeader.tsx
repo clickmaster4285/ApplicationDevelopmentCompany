@@ -9,6 +9,7 @@ import {
   MousePointer2
 } from "lucide-react";
 import { MagneticButton } from "../landingPage/MagneticButton";
+import { submitLeadToCrm } from "@/lib/crm";
 
 const Badge = ({ 
   children, 
@@ -235,6 +236,16 @@ export function HeroHeader({
 
     setIsSubmitting(true);
     setSubmitStatus('idle');
+
+    // Push the lead to the central ClickMasters CRM. This runs in the
+    // background and never blocks or fails the contact form itself.
+    submitLeadToCrm({
+      name,
+      email,
+      phone: formData.phone.trim(),
+      company: formData.company.trim(),
+      message,
+    });
 
     try {
       const response = await fetch('/api/contact', {
