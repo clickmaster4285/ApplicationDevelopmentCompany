@@ -16,13 +16,17 @@ const svcUi = "/images/ui-ux.jpeg";
 const svcSaas = "/images/saas.jpeg";
 const svcApi = "/images/api.jpeg";
 const svcMaint = "/images/application.jpeg";
+
 import { useRef } from "react";
+import Link from "next/link";
 
 const services = [
   {
     icon: Smartphone,
     title: "Mobile Application Development",
     desc: "Build mobile applications that give users a smooth experience across modern devices. We develop applications based on your features, users, business goals, and long-term growth plans.",
+    cta: "Explore Mobile Application Development",
+    href: "/services/mobile-app-development/",
     img: svcMobile,
     large: true, // First card - full width
   },
@@ -30,6 +34,8 @@ const services = [
     icon: Globe,
     title: "Web Application Development",
     desc: "We build custom web applications that help businesses manage operations, serve customers, automate work, and deliver digital services through a browser.",
+    cta: "Explore Web Application Development",
+    href: "/services/web-application-development/",
     img: svcWeb,
     large: false,
   },
@@ -37,6 +43,8 @@ const services = [
     icon: Palette,
     title: "Desktop Application Development",
     desc: "Get reliable desktop applications designed for business operations, internal teams, data management, and specialized workflows.",
+    cta: "Explore Desktop Application Development",
+    href: "/services/desktop-application-development/",
     img: svcUi,
     large: false,
   },
@@ -44,6 +52,8 @@ const services = [
     icon: Cloud,
     title: "AI Application Development",
     desc: "Add AI features to your applications to automate tasks, improve decisions, support users, and make better use of business data.",
+    cta: "Explore AI Application Development",
+    href: "/services/ai-application-development/",
     img: svcSaas,
     large: true, // Fourth card - full width
   },
@@ -51,6 +61,8 @@ const services = [
     icon: Plug,
     title: "Specialized Application Development",
     desc: "We also build specialized applications for SaaS products, IoT systems, blockchain platforms, AR/VR experiences, embedded systems, and other advanced business needs.",
+    cta: "View All App Development Services",
+    href: "/services",
     img: svcApi,
     large: false,
   },
@@ -58,6 +70,8 @@ const services = [
     icon: Wrench,
     title: "Application Maintenance & Support",
     desc: "Post-launch support covering bug fixes, security updates, performance improvements, feature enhancements, and scalability improvements.",
+    cta: "Explore Application Maintenance & Support",
+    href: "/services/software-maintenance-support/",
     img: svcMaint,
     large: false,
   },
@@ -134,10 +148,13 @@ function Capsule({ s, i }: { s: (typeof services)[number]; i: number }) {
           {s.desc}
         </p>
 
-        <button className="relative mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-white/70 hover:text-white transition-colors">
-          Learn more
+        <Link
+          href={s.href}
+          className="relative mt-6 inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-white/70 hover:text-white transition-colors"
+        >
+          {s.cta}
           <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-        </button>
+        </Link>
       </div>
     </div>
   );
@@ -171,6 +188,16 @@ export function Services() {
           {services.map((s, i) => (
             <Capsule key={s.title} s={s} i={i} />
           ))}
+        </div>
+
+        <div className="mt-14 flex justify-center">
+          <Link
+            href="/services"
+            className="group inline-flex items-center gap-3 rounded-full border border-chrome/40 bg-white/[0.03] px-8 py-4 text-xs uppercase tracking-[0.25em] text-white/80 backdrop-blur transition-colors hover:text-white hover:bg-white/5"
+          >
+            View All App Development Services
+            <ArrowUpRight className="h-4 w-4 text-chrome transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          </Link>
         </div>
       </div>
     </section>

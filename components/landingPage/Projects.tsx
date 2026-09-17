@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowUpRight } from "lucide-react";
 
 const Helix = "/images/health.jpeg";
 const Lumen = "/images/fintech.jpeg";
@@ -198,6 +200,18 @@ export function Projects() {
           challenges, from understanding requirements and selecting
           technologies to building, testing, and launching the final solution.
         </p>
+        <p className="mt-4 text-white/55 leading-relaxed max-w-2xl">
+          You can explore our work to understand the types of applications we
+          build, the problems they solve, and the development approach used for
+          each project.
+        </p>
+        <Link
+          href="/case-studies"
+          className="group mt-10 inline-flex items-center gap-3 rounded-full border border-chrome/40 bg-white/[0.03] px-8 py-4 text-xs uppercase tracking-[0.25em] text-white/80 backdrop-blur transition-colors hover:text-white hover:bg-white/5"
+        >
+          View Our Case Studies
+          <ArrowUpRight className="h-4 w-4 text-chrome transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </Link>
       </div>
       {projects.map((p, i) => (
         <ProjectCard key={p.name} p={p} i={i} />

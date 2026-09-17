@@ -115,10 +115,27 @@ export function Stack() {
             </h2>
             <p className="mt-8 text-white/55 max-w-md leading-relaxed">
               The right technology depends on what your application needs to
-              do. Our development teams work across modern technologies for
-              frontend, backend, mobile, databases, cloud infrastructure, APIs
-              &amp; integrations, and artificial intelligence.
+              do. Our development teams work across modern technologies for:
             </p>
+            <div className="mt-8 flex flex-wrap gap-2.5 max-w-md">
+              {[
+                "Frontend Development",
+                "Backend Development",
+                "Mobile Technologies",
+                "Databases",
+                "Cloud Infrastructure",
+                "APIs & Integrations",
+                "Artificial Intelligence",
+              ].map((cap) => (
+                <span
+                  key={cap}
+                  className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-gradient-to-b from-[#161616] to-[#0a0a0a] px-4 py-2 text-xs text-white/70 transition-colors duration-300 hover:text-white hover:border-white/20"
+                >
+                  <span className="h-1.5 w-1.5 rotate-45 bg-chrome opacity-70" />
+                  {cap}
+                </span>
+              ))}
+            </div>
           </div>
           <div className="relative aspect-square w-full max-w-xl mx-auto">
             {/* Concentric rings */}
@@ -185,6 +202,70 @@ export function Stack() {
                 );
               })}
             </svg>
+          </div>
+        </div>
+
+        {/* Capability breakdown */}
+        <div className="mt-24 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          {[
+            {
+              t: "Frontend Development",
+              d: "Building clear, responsive, and interactive user interfaces.",
+            },
+            {
+              t: "Backend Development",
+              d: "Managing business logic, users, data, permissions, and application functions.",
+            },
+            {
+              t: "Mobile Technologies",
+              d: "Supporting native and cross-platform application requirements.",
+            },
+            {
+              t: "Databases",
+              d: "Organizing and managing application data securely and efficiently.",
+            },
+            {
+              t: "Cloud Infrastructure",
+              d: "Supporting deployment, performance, storage, availability, and future growth.",
+            },
+            {
+              t: "APIs & Integrations",
+              d: "Connecting applications with payment systems, CRM platforms, ERP systems, databases, and other business tools.",
+            },
+            {
+              t: "Artificial Intelligence",
+              d: "Adding AI-powered automation, analysis, assistants, and intelligent application features where they create real value.",
+            },
+          ].map((c, i) => (
+            <div
+              key={c.t}
+              className="group relative overflow-hidden rounded-3xl border border-white/[0.07] bg-gradient-to-b from-[#161616] to-[#0a0a0a] p-7 transition-colors duration-500 hover:border-white/20"
+            >
+              <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+              <div className="flex items-center justify-between mb-5">
+                <span className="text-xs tracking-[0.3em] text-white/30">
+                  0{i + 1}
+                </span>
+                <span className="h-2 w-2 rotate-45 bg-chrome opacity-50 transition-opacity group-hover:opacity-100" />
+              </div>
+              <h3 className="text-lg md:text-xl font-medium tracking-tight text-white">
+                {c.t}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-white/55">
+                {c.d}
+              </p>
+            </div>
+          ))}
+
+          {/* Fill card to complete the 4-col grid on xl */}
+          <div className="relative hidden xl:flex flex-col justify-between rounded-3xl border border-white/[0.07] bg-gradient-to-b from-[#161616] to-[#0a0a0a] p-7 overflow-hidden">
+            <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+            <span className="text-[10px] uppercase tracking-[0.3em] text-white/40">
+              The right stack for
+            </span>
+            <span className="text-lg font-medium tracking-tight text-white/80">
+              your application.
+            </span>
           </div>
         </div>
       </div>

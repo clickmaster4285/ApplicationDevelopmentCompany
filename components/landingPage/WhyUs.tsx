@@ -58,7 +58,7 @@ export function WhyUs() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-8 mb-20">
             <div>
               <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
-                — WHY CHOOSE US
+                — WHY CHOOSE US AS YOUR APP DEVELOPMENT AGENCY
               </div>
               <h2 className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-2xl">
                 Why Choose
@@ -66,6 +66,12 @@ export function WhyUs() {
                 <span className="text-zinc-300"> ClickMasters?</span>
               </h2>
             </div>
+            <p className="max-w-md text-white/55 leading-relaxed">
+              Choosing the right app development agency is about more than
+              finding a team that can write code. You need a development partner
+              that understands your goals, communicates clearly, and builds with
+              the future in mind.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
