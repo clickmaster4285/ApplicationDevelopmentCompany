@@ -31,7 +31,7 @@ export function CTA() {
           Application Development Company in USA
         </div>
         <h2 className="mt-10 text-chrome text-[clamp(2.4rem,8vw,7rem)] font-medium tracking-[-0.04em] leading-[0.95]">
-          Have an application idea? <br /> Let’s build it.
+          Have an Application Idea? <br /> Let&rsquo;s Build It.
         </h2>
         <p className="mt-8 max-w-xl mx-auto text-white/55 text-lg leading-relaxed">
           Work with an app development company that can take your project from
@@ -40,10 +40,12 @@ export function CTA() {
           will help you define the right path forward.
         </p>
         <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
-          <MagneticButton variant="chrome">
-            Discuss Your Application →
+          <MagneticButton variant="chrome" href="/contact">
+            Discuss Your Application
           </MagneticButton>
-          <MagneticButton variant="ghost">Request a Proposal</MagneticButton>
+          <MagneticButton variant="ghost" href="/contact">
+            Request a Proposal
+          </MagneticButton>
         </div>
       </div>
     </section>

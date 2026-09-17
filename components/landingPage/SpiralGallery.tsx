@@ -19,6 +19,34 @@ const galleryItems: GalleryItem[] = [
   { image: p5, text: "Application Development" },
   { image: p1, text: "QA & Testing" },
   { image: p2, text: "Deployment" },
+  { image: p3, text: "Maintenance & Improvement" },
+];
+
+const processSteps = [
+  {
+    title: "Discovery & Planning",
+    desc: "We start by understanding your idea, users, goals, required features, technical needs, and project scope.",
+  },
+  {
+    title: "UI/UX Design & Prototyping",
+    desc: "Our team plans the user journey and creates clear interfaces that make the application simple and easy to use.",
+  },
+  {
+    title: "Application Development",
+    desc: "Our developers turn approved designs and requirements into a working application using suitable technologies and development methods.",
+  },
+  {
+    title: "Quality Assurance & Testing",
+    desc: "We test features, usability, performance, security, and compatibility before the application goes live.",
+  },
+  {
+    title: "Deployment",
+    desc: "Once the application is ready, we prepare it for launch and help deploy it to the required environment or platform.",
+  },
+  {
+    title: "Maintenance & Improvement",
+    desc: "After launch, we can support updates, fixes, performance improvements, security changes, and new features as your needs grow.",
+  },
 ];
 
 /**
@@ -46,7 +74,8 @@ export default function SpiralGallery() {
           From Idea to Launch — Our Application Development Process
         </h2>
         <p className="mt-4 text-white/40 text-base md:text-lg max-w-2xl">
-          A proven 5-phase methodology that transforms concepts into scalable, secure, and delightful digital products.
+          A clear process reduces risk and keeps your project focused. We manage
+          each stage of development with your business goals in mind.
         </p>
       </motion.div>
 
@@ -121,6 +150,43 @@ export default function SpiralGallery() {
         </div>
       </motion.div>
 
+      {/* Phase details */}
+      <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ staggerChildren: 0.08 }}
+        className="mx-auto w-[85vw] px-6 pb-8"
+      >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {processSteps.map((step, index) => (
+            <motion.div
+              key={step.title}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0 },
+              }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="group relative overflow-hidden rounded-3xl border border-white/[0.07] bg-gradient-to-b from-[#161616] to-[#0a0a0a] p-8 transition-colors duration-500 hover:border-white/20"
+            >
+              <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+              <div className="flex items-center justify-between mb-6">
+                <span className="text-xs tracking-[0.3em] text-white/30">
+                  0{index + 1}
+                </span>
+                <span className="h-2 w-2 rotate-45 bg-chrome opacity-60 transition-opacity group-hover:opacity-100" />
+              </div>
+              <h3 className="text-xl md:text-2xl font-medium tracking-tight text-white">
+                {step.title}
+              </h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/55">
+                {step.desc}
+              </p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+
       {/* Stats */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
@@ -130,7 +196,7 @@ export default function SpiralGallery() {
         className="mx-auto w-[85vw] px-6 py-12 border-t border-white/5"
       >
         <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
-          <StatItem value="5" label="Phases" />
+          <StatItem value="6" label="Phases" />
           <StatItem value="12+" label="Years Experience" />
           <StatItem value="500+" label="Projects Delivered" />
           <StatItem value="98%" label="Client Satisfaction" />

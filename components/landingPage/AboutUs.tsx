@@ -1,8 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ArrowUpRight } from "lucide-react";
 
 const aboutVideo = "/images/about.mp4";
 
@@ -146,6 +148,14 @@ export function About() {
               create a solution that fits your current needs and can grow over
               time.
             </p>
+
+            <Link
+              href="/solutions"
+              className="group mt-8 inline-flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-white/70 hover:text-white transition-colors"
+            >
+              Explore Our Application Solutions
+              <ArrowUpRight className="h-4 w-4 text-chrome transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
 
             {/* Stats grid - no cards */}
             <div className="mt-12 grid grid-cols-2 gap-8">

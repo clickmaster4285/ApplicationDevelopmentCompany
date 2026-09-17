@@ -201,7 +201,7 @@ export function PageContent({
   const linkComponents = {
     a: ({ href, children, ...props }: any) => {
       const baseClass =
-        "inline-flex items-center gap-1 text-primary/80 underline-offset-2 transition-all hover:text-primary hover:underline";
+        "inline-flex items-center gap-1 text-sky-400 underline underline-offset-4 decoration-sky-400/40 transition-all hover:text-sky-300 hover:decoration-sky-300";
 
       if (href?.startsWith("#")) {
         return (

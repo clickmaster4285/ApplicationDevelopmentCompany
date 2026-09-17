@@ -90,26 +90,32 @@ export function Hero() {
           </span>
         </h1>
 
-        <p
-          ref={subRef}
-          className="translate-y-4 mt-8 max-w-3xl text-lg md:text-xl text-white/90 leading-relaxed"
-        >
-          Turn your idea into a secure, scalable, and easy-to-use application
-          with ClickMasters. We are an application development company helping
-          startups, growing businesses, and enterprises build digital products
-          around real business needs. From planning and design to development,
-          testing, launch, and ongoing improvement, our team supports the
-          complete product journey. Whether you want to launch a new
-          application, improve an existing product, or replace an outdated
-          system, we help you move forward with a clear development plan.
-        </p>
+        <div ref={subRef} className="translate-y-4 mt-8 max-w-3xl">
+          <p className="text-lg md:text-xl text-white/90 leading-relaxed">
+            Turn your idea into a secure, scalable, and easy-to-use application
+            with ClickMasters.
+          </p>
+          <p className="mt-4 text-base md:text-lg text-white/70 leading-relaxed">
+            We are an application development company helping startups, growing
+            businesses, and enterprises build digital products around real
+            business needs. From planning and design to development, testing,
+            launch, and ongoing improvement, our team supports the complete
+            product journey. Whether you want to launch a new application,
+            improve an existing product, or replace an outdated system, we help
+            you move forward with a clear development plan.
+          </p>
+        </div>
 
         <div
           ref={ctaRef}
           className="translate-y-4 mt-10 flex flex-wrap items-center justify-center gap-4"
         >
-          <MagneticButton variant="chrome">Start Your Project</MagneticButton>
-          <MagneticButton variant="ghost">Request a Proposal</MagneticButton>
+          <MagneticButton variant="chrome" href="/contact">
+            Start Your Project
+          </MagneticButton>
+          <MagneticButton variant="ghost" href="/contact">
+            Request a Proposal
+          </MagneticButton>
         </div>
 
         <div

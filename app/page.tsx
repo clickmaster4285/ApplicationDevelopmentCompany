@@ -17,6 +17,12 @@ import { SmoothScroll } from "@/components/landingPage/SmoothScroll";
 import { About } from "@/components/landingPage/AboutUs";
 import SpiralGallery from "@/components/landingPage/SpiralGallery";
 import { ShuffleCards } from "@/components/landingPage/Testimonial";
+import { AudienceSection } from "@/components/landingPage/AudienceSection";
+import { IndustrySection } from "@/components/landingPage/IndustrySection";
+import { CostTimelineSection } from "@/components/landingPage/CostTimelineSection";
+import { SecuritySection } from "@/components/landingPage/SecuritySection";
+import { USALocationSection } from "@/components/landingPage/USALocationSection";
+import { PostLaunchSection } from "@/components/landingPage/PostLaunchSection";
 
 export const metadata: Metadata = {
   title: "Application development company USA - Clickmasters",
@@ -51,21 +57,42 @@ export default function HomePage() {
       <About />
       <Services />
 
+      {/* Process — From Idea to Launch */}
       <SpiralGallery />
+
+      <WhyUs />
+
+      {/* Custom Applications for Startups, Businesses, and Enterprises */}
+      <AudienceSection />
 
       <Stack />
 
-      {/* <Tunnel /> */}
+      {/* Application Development for Your Industry */}
+      <IndustrySection />
 
+      {/* Our Application Development Work */}
       <Projects />
+
+      {/* Cost & Timeline */}
+      <CostTimelineSection />
+
       <Stats />
-      <WhyUs />
+
+      {/* Secure, Scalable, and Integration-Ready Applications */}
+      <SecuritySection />
+
+      {/* Application Development Company in USA */}
+      <USALocationSection />
+
+      {/* Post-Launch Application Support */}
+      <PostLaunchSection />
+
+      {/* <Tunnel /> */}
 
       <ShuffleCards />
 
       <FAQ />
       <CTA />
-   
     </main>
   );
 }
