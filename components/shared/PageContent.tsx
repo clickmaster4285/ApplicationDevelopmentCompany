@@ -39,6 +39,39 @@ function getIconForTitle(title: string): React.ReactNode {
   return iconMap.default;
 }
 
+function removeRepeatedContentBlocks(text: string) {
+  let cleaned = text.trim();
+
+  for (let pass = 0; pass < 3; pass += 1) {
+    const blocks = cleaned
+      .split(/\n{2,}/)
+      .map((block) => block.trim())
+      .filter(Boolean);
+
+    if (blocks.length < 2 || blocks.length % 2 !== 0) break;
+
+    const midpoint = blocks.length / 2;
+    const firstHalf = blocks.slice(0, midpoint);
+    const secondHalf = blocks.slice(midpoint);
+    const normalize = (value: string) =>
+      value.replace(/\s+/g, " ").trim().toLowerCase();
+
+    const isRepeated = firstHalf.every(
+      (block, index) => normalize(block) === normalize(secondHalf[index]),
+    );
+
+    if (!isRepeated) break;
+
+    cleaned = firstHalf.join("\n\n");
+  }
+
+  return cleaned.trim();
+}
+
+function sectionHasMarkdownList(text: string) {
+  return /^[-*]\s+|^\d+\.\s+/m.test(text);
+}
+
 export function PageContent({
   content,
   pageData,
@@ -48,9 +81,18 @@ export function PageContent({
 }) {
   const rawContent = content || pageData?.content || "";
 
-  const contentWithoutHeader = rawContent
-    .replace(/^# .+\n/, "")
-    .replace(/^(.+?)(?=\n\n|$)/, "");
+  const contentAfterTitle = rawContent.replace(/^# .+\n?/, "").trimStart();
+  const firstSectionIndex = contentAfterTitle.search(/^##\s+/m);
+  const contentBeforeSections =
+    firstSectionIndex >= 0 ? contentAfterTitle.slice(0, firstSectionIndex) : "";
+  const contentWithoutHeader =
+    firstSectionIndex >= 0 ? contentAfterTitle.slice(firstSectionIndex) : "";
+  const introRemainder = contentBeforeSections
+    .split(/\n{2,}/)
+    .map((block) => block.trim())
+    .filter(Boolean)
+    .slice(1)
+    .join("\n\n");
 
   const cleanHeading = (text: string) => {
     const cleanText = text.replace(/\[#\w+\]\s*/, "");
@@ -72,7 +114,9 @@ export function PageContent({
       const lines = section.split("\n");
       const titleLine = lines[0] || "";
       const title = cleanHeading(titleLine.replace(/^##\s*/, "").trim());
-      let description = lines.slice(1).join("\n").trim();
+      let description = removeRepeatedContentBlocks(
+        lines.slice(1).join("\n").trim(),
+      );
 
       const faqMatch = description.match(/\n\*\*[^*]+\?\*\*/);
 
@@ -87,10 +131,10 @@ export function PageContent({
         raw,
         title,
         description,
-        isFaq,
+        isUtilitySection: isFaq,
       };
     })
-    .filter((s) => s.title && s.description && !s.isFaq);
+    .filter((s) => s.title && s.description && !s.isUtilitySection);
 
   const parseSectionBody = (raw: string) => {
     const body = raw.replace(/^##[^\n]*\n?/, "").trim();
@@ -287,16 +331,22 @@ export function PageContent({
   return (
     <section className="relative py-16 md:py-32 border-t border-white/5">
       <div className="mx-auto w-[85vw] px-6">
-        <div className="text-center mb-20">
-          <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5 inline-flex items-center gap-2">
-            <span className="w-12 h-px bg-white/10" />
-            — Insights
-            <span className="w-12 h-px bg-white/10" />
-          </div>
-          <h2 className="text-chrome text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[1.02]">
-            How This Solution Helps Your Business
-          </h2>
-        </div>
+        {introRemainder && (
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-20 group relative rounded-2xl border border-white/[0.08] p-6 md:p-8 bg-white/[0.03]"
+          >
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              components={introMarkdownComponents}
+            >
+              {introRemainder}
+            </ReactMarkdown>
+          </motion.div>
+        )}
 
         <div className="space-y-20 md:space-y-28">
           {sections.map((section, index) => {
@@ -304,6 +354,8 @@ export function PageContent({
             const { intro, items } = parseSectionBody(section.raw);
             const isFirst = index === 0;
             const sectionIcon = getIconForTitle(section.title);
+            const sectionBody = section.description;
+            const hasMarkdownList = sectionHasMarkdownList(sectionBody);
 
             // First section: full-width hero layout
             if (isFirst) {
@@ -338,7 +390,7 @@ export function PageContent({
                     </div>
                   </div>
                   
-                  {items.length > 0 ? (
+                  {hasMarkdownList && items.length > 0 ? (
                     <div className="space-y-5">
                       {intro && (
                         <p className="text-lg md:text-xl text-white/55 leading-relaxed max-w-3xl">
@@ -368,7 +420,7 @@ export function PageContent({
                   ) : (
                     <p className="text-lg md:text-xl text-white/55 leading-relaxed max-w-3xl">
                       {stripMarkdown(
-                        section.raw.replace(/^##[^\n]*\n?/, "").trim(),
+                        sectionBody,
                       )}
                     </p>
                   )}
@@ -411,21 +463,11 @@ export function PageContent({
                   <h3 className="font-display text-white text-3xl md:text-4xl lg:text-5xl leading-[1.05] tracking-tight mb-6">
                     {section.title}
                   </h3>
-                  {intro && (
-                    <div className="text-base md:text-lg text-white/55 leading-relaxed border-l-2 border-primary/30 pl-6">
-                      <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
-                        components={introMarkdownComponents}
-                      >
-                        {intro}
-                      </ReactMarkdown>
-                    </div>
-                  )}
                 </motion.div>
 
                 {/* Right side - Content items */}
                 <div className="lg:col-span-7 space-y-5">
-                  {items.length > 0 ? (
+                  {hasMarkdownList && items.length > 0 ? (
                     items.map((item, itemIndex) => (
                       <motion.div
                         key={itemIndex}
@@ -472,7 +514,7 @@ export function PageContent({
                         remarkPlugins={[remarkGfm]}
                         components={introMarkdownComponents}
                       >
-                        {section.raw.replace(/^##[^\n]*\n?/, "").trim()}
+                        {sectionBody}
                       </ReactMarkdown>
                       <motion.div
                         className="absolute top-6 right-6 w-8 h-8 rounded-lg bg-white/[0.03] grid place-items-center"
