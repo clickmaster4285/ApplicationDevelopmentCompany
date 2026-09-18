@@ -132,7 +132,7 @@ export function cleanPageContent(contentOrPageData: string | PageData): string {
     .trim();
 
   cleaned = cleaned
-    .replace(/##\s*FAQ\s*\n[\s\S]*?(?=\n##|\n---|$)/i, "")
+    .replace(/##\s*(?:FAQ|FAQs|Frequently Asked Questions[^\n]*)\n[\s\S]*?(?=\n##|\n---|$)/i, "")
     .replace(/\n{3,}/g, "\n\n")
     .trim();
 

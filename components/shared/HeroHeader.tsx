@@ -219,8 +219,18 @@ export function HeroHeader({
       .replace(/^-\s+/gm, "")
       .trim();
 
-  const title = stripMarkdown(pageData.meta.title || "");
-  const description = stripMarkdown(pageData.meta.description || "");
+  const contentLines = (pageData.content || "")
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+  const contentTitle = contentLines[0]?.replace(/^#\s+/, "");
+  const contentDescription = contentLines
+    .slice(1)
+    .find((line) => !/^CTA:/i.test(line) && !/^##\s+/.test(line));
+  const title = stripMarkdown(contentTitle || pageData.meta.title || "");
+  const description = stripMarkdown(
+    contentDescription || pageData.meta.description || "",
+  );
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
