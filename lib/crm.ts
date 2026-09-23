@@ -6,12 +6,14 @@
 // automatically. Submission is fire-and-forget: if the CRM is unreachable,
 // the contact form's own email flow is NOT affected.
 
+import { Key } from "lucide-react";
+
 export const CRM_WEBSITE = "clickmastersapplicationdevelopment.com";
 export const CRM_SERVICE = "Software Development";
 
 const CRM_ENDPOINT =
   process.env.NEXT_PUBLIC_CRM_LEAD_ENDPOINT ??
-  "https://crm.clickmasters.pk/api/leads";
+  "https://apierp.clickmasters.pk/public/web-leads";
 
 export type CrmLead = {
   name?: string;
@@ -51,7 +53,7 @@ export function submitLeadToCrm(lead: CrmLead): void {
 
   void fetch(CRM_ENDPOINT, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { "Content-Type": "application/json", "X-Website-Key": "wl_16a772e10845d0251cb6f33c571b2b1fe744bb6cf2722a99"},
     body: JSON.stringify(formData),
     keepalive: true,
   })
