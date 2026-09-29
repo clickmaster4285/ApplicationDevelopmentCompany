@@ -3,6 +3,7 @@
 import React from "react";
 import { TravelRouteCard } from "@/components/ui/whyUsCard";
 import { Zap, Layers, Cpu, Shield, Headphones, Gauge } from "lucide-react";
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 
 const whyUs1 = "/images/whyUs1.jpeg";
 const whyUs2 = "/images/whyUs2.jpeg";
@@ -60,11 +61,11 @@ export function WhyUs() {
               <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
                 — WHY CHOOSE US AS YOUR APP DEVELOPMENT AGENCY
               </div>
-              <h2 className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-2xl">
+              <ScopedHeading className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-2xl">
                 Why Choose
                 <br />
                 <span className="text-zinc-300"> ClickMasters?</span>
-              </h2>
+              </ScopedHeading>
             </div>
             <p className="max-w-md text-white/55 leading-relaxed">
               Choosing the right app development agency is about more than

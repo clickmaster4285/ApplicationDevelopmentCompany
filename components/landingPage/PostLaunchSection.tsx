@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 
 const supportItems = [
   "Bug fixes",
@@ -21,9 +22,9 @@ export function PostLaunchSection() {
             <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
               — After Launch
             </div>
-            <h2 className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-2xl">
+            <ScopedHeading className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-2xl">
               Post-launch application support.
-            </h2>
+            </ScopedHeading>
           </div>
           <p className="max-w-md text-white/55 leading-relaxed">
             Launching your application is only one stage of its lifecycle. As

@@ -460,6 +460,9 @@ export function EbooksPage() {
 
       {/* Grid */}
       <div ref={gridRef} className="w-full max-w-[85vw] mx-auto px-6 pb-16">
+        <h2 className="text-white text-3xl md:text-5xl font-medium tracking-[-0.03em] leading-[1.02] mb-8">
+          Guides and playbooks
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {[...featuredEbooks, ...regularEbooks].map((ebook, index) => (
             <EbookCard key={ebook.id} ebook={ebook} index={index} />

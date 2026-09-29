@@ -1,5 +1,6 @@
 "use client";
 
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 import {
   CircularGallery,
   type GalleryItem,
@@ -70,9 +71,9 @@ export default function SpiralGallery() {
             Our Process
           </span>
         </div>
-        <h2 className="text-white text-5xl md:text-7xl font-medium tracking-[-0.03em] leading-[1.02] max-w-3xl">
+        <ScopedHeading className="text-white text-5xl md:text-7xl font-medium tracking-[-0.03em] leading-[1.02] max-w-3xl">
           From Idea to Launch — Our Application Development Process
-        </h2>
+        </ScopedHeading>
         <p className="mt-4 text-white/40 text-base md:text-lg max-w-2xl">
           A clear process reduces risk and keeps your project focused. We manage
           each stage of development with your business goals in mind.

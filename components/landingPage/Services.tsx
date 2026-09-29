@@ -1,5 +1,6 @@
 "use client";
 
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 import {
   Smartphone,
   Globe,
@@ -169,11 +170,11 @@ export function Services() {
             <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
               — App Development Services
             </div>
-            <h2 className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-2xl">
+            <ScopedHeading className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-2xl">
               End&#8209;to&#8209;End App
               <br />
               Development Services
-            </h2>
+            </ScopedHeading>
           </div>
           <p className="max-w-md text-white/55 leading-relaxed">
             Our app development services cover the full journey from an early

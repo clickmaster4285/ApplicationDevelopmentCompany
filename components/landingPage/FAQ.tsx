@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Plus } from "lucide-react";
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 
 const faqs = [
   {
@@ -46,9 +47,9 @@ export function FAQ() {
         <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5 text-center">
           — FAQ
         </div>
-        <h2 className="text-chrome text-center text-5xl md:text-6xl font-medium tracking-[-0.03em] leading-[1.02] mb-16">
+        <ScopedHeading className="text-chrome text-center text-5xl md:text-6xl font-medium tracking-[-0.03em] leading-[1.02] mb-16">
           Frequently Asked Questions About App Development
-        </h2>
+        </ScopedHeading>
         <div className="divide-y divide-white/5 border-y border-white/5">
           {faqs.map((f, i) => {
             const isOpen = open === i;

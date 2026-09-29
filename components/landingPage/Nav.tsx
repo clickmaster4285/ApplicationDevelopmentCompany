@@ -260,24 +260,25 @@ export function Nav() {
                     {item.label}
                   </Link>
                   {/* Dropdown with scroll */}
-                  <div className="absolute top-full left-0 pt-2 w-72 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                  {activeDropdown === item.label && (
+                  <div className="absolute top-full left-0 pt-2 w-72">
                     <div className="bg-black/90 backdrop-blur-xl border border-white/10 rounded-xl p-2 shadow-2xl">
-                      <div className="h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
-                        {item.items.map((subItem: any) => (
+                      <div className="max-h-80 overflow-y-auto scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+                        {item.items.slice(0, 8).map((subItem: any) => (
                           <DropdownItem key={subItem.href} item={subItem} />
                         ))}
                       </div>
-                      {/* Uncomment if you want "View All" link */}
-                      {/* {item.seeAll && (
+                      {item.seeAll && (
                         <Link
                           href={item.seeAll}
                           className="block px-4 py-2 text-xs text-white/40 hover:text-white/70 transition-colors border-t border-white/5 mt-1 pt-2 text-center"
                         >
                           View All {item.label} →
                         </Link>
-                      )} */}
+                      )}
                     </div>
                   </div>
+                  )}
                 </>
               ) : (
                 <Link
@@ -374,13 +375,9 @@ export function Nav() {
                       </svg>
                     </button>
                   </div>
-                  <div
-                    className={`overflow-y-auto transition-all duration-300 ${
-                      activeDropdown === item.label ? "max-h-80" : "max-h-0"
-                    }`}
-                  >
-                    <div className="pl-4 pb-2">
-                      {item.items.map((subItem: any) => (
+                  {mobileMenuOpen && activeDropdown === item.label && (
+                    <div className="pl-4 pb-2 max-h-80 overflow-y-auto">
+                      {item.items.slice(0, 8).map((subItem: any) => (
                         <DropdownItem
                           key={subItem.href}
                           item={subItem}
@@ -397,7 +394,7 @@ export function Nav() {
                         </Link>
                       )}
                     </div>
-                  </div>
+                  )}
                 </>
               ) : (
                 <Link

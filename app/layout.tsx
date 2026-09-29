@@ -16,6 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://clickmastersapplicationdevelopment.com"),
   title: "Application development company USA - Clickmasters",
   description:
     "ClickMasters is a leading application development company USA providing app development services that build digital products, improve systems, and drive digital growth.",

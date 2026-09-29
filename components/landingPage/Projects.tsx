@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 
 const Helix = "/images/health.jpeg";
 const Lumen = "/images/fintech.jpeg";
@@ -191,9 +192,9 @@ export function Projects() {
         <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
           — Our Application Development Work
         </div>
-        <h2 className="text-white text-5xl md:text-7xl font-medium tracking-[-0.03em] leading-[1.02] max-w-3xl">
+        <ScopedHeading className="text-white text-5xl md:text-7xl font-medium tracking-[-0.03em] leading-[1.02] max-w-3xl">
           Work that solves real problems and creates useful results.
-        </h2>
+        </ScopedHeading>
         <p className="mt-6 text-white/55 leading-relaxed max-w-2xl">
           A strong application should solve a clear problem and create a useful
           result. Our case studies show how we approach real development

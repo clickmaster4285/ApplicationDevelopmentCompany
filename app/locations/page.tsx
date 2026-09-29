@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
@@ -599,6 +600,14 @@ export function LocationsPage() {
 
       {/* Grid */}
       <div ref={gridRef} className="w-full max-w-[85vw] mx-auto px-6 pb-16">
+        <h2 className="text-white text-3xl md:text-5xl font-medium tracking-[-0.03em] leading-[1.02] mb-4">
+          Studios and cities we serve
+        </h2>
+        <p className="mb-8 text-sm text-white/45">
+          <Link href="/locations/directory" className="underline underline-offset-4 hover:text-white">
+            Browse every city
+          </Link>
+        </p>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}

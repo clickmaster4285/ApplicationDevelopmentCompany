@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ScopedHeading, SingleH2Scope } from "@/components/landingPage/heading-level";
 import {
   ArrowUpRight,
   Box,
@@ -736,9 +737,9 @@ function renderLinkedText(text: string) {
 function SectionHeading({ title, text }: { title: string; text?: string }) {
   return (
     <div className="mb-10 grid gap-5 md:mb-12 lg:grid-cols-[0.95fr_1fr] lg:items-end">
-      <h2 className="text-chrome max-w-3xl text-3xl font-medium leading-[1.02] tracking-normal md:text-5xl">
+      <ScopedHeading className="text-chrome max-w-3xl text-3xl font-medium leading-[1.02] tracking-normal md:text-5xl">
         {title}
-      </h2>
+      </ScopedHeading>
       {text && (
         <p className="max-w-2xl text-[15px] leading-relaxed text-white/58 lg:justify-self-end">
           {renderLinkedText(text)}
@@ -935,6 +936,7 @@ function HeroVisual() {
 
 export default function ARVRDevelopment() {
   return (
+    <SingleH2Scope>
     <main className="relative overflow-hidden bg-[#050505] text-white antialiased">
       <div className="pointer-events-none fixed inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(255,255,255,.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.8)_1px,transparent_1px)] [background-size:80px_80px]" />
 
@@ -1177,7 +1179,7 @@ export default function ARVRDevelopment() {
           <div className="relative overflow-hidden rounded-lg border border-white/[0.06] bg-gradient-to-br from-[#161616] via-[#0e0e0e] to-[#0a0a0a] px-6 py-12 text-center md:py-20">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,#050505_90%)]" />
             <div className="relative">
-              <h2 className="text-chrome text-[clamp(2rem,6vw,4.5rem)] font-medium leading-[1.0] tracking-normal">Start Your AR VR Application Development Project</h2>
+              <ScopedHeading className="text-chrome text-[clamp(2rem,6vw,4.5rem)] font-medium leading-[1.0] tracking-normal">Start Your AR VR Application Development Project</ScopedHeading>
               <div className="mx-auto mt-8 max-w-2xl space-y-4 text-white/55 leading-relaxed text-[15px] md:text-base">
                 <p>Whether you need an augmented reality product visualization app, virtual reality training platform, spatial experience or custom XR application, clickmasters can help determine the appropriate platform, development approach and application architecture.</p>
                 <p>Our AR VR development services in the USA cover the journey from initial concept and prototype through immersive application development, integrations, testing, deployment and ongoing support.</p>
@@ -1212,5 +1214,6 @@ export default function ARVRDevelopment() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
     </main>
+    </SingleH2Scope>
   );
 }

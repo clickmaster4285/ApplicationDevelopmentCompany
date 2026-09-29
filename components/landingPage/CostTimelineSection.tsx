@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 
 const costFactors = [
   "Application type",
@@ -22,9 +23,9 @@ export function CostTimelineSection() {
         <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
           — Cost &amp; Timeline
         </div>
-        <h2 className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-3xl mb-16">
+        <ScopedHeading className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-3xl mb-16">
           App development cost &amp; timeline, explained.
-        </h2>
+        </ScopedHeading>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           {/* Cost */}

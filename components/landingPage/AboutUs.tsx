@@ -5,6 +5,7 @@ import { useRef, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 
 const aboutVideo = "/images/about.mp4";
 
@@ -126,12 +127,12 @@ export function About() {
             <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
               — Application Development Solutions
             </div>
-            <h2 className="text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] mb-8">
+            <ScopedHeading className="text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] mb-8">
               Solutions built{" "}
               <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
                 around your business.
               </span>
-            </h2>
+            </ScopedHeading>
 
             <p className="text-white/55 text-lg leading-relaxed">
               Every business has different processes, users, and goals. That is

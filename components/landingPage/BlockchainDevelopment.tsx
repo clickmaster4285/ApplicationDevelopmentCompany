@@ -2,6 +2,7 @@
 
 import { Fragment, type ReactNode } from "react";
 import Link from "next/link";
+import { ScopedHeading, SingleH2Scope } from "@/components/landingPage/heading-level";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -883,9 +884,9 @@ function SectionHeading({
             {kicker}
           </p>
         )}
-        <h2 className="text-chrome mt-5 max-w-3xl text-3xl font-medium leading-[1.02] tracking-normal md:text-5xl">
+        <ScopedHeading className="text-chrome mt-5 max-w-3xl text-3xl font-medium leading-[1.02] tracking-normal md:text-5xl">
           {title}
-        </h2>
+        </ScopedHeading>
       </div>
       {text && (
         <p className="max-w-2xl text-[15px] leading-relaxed text-white/58 lg:justify-self-end">
@@ -1188,6 +1189,7 @@ function HeroVisual() {
 
 export default function BlockchainDevelopment() {
   return (
+    <SingleH2Scope>
     <main className="relative overflow-hidden bg-[#050505] text-white antialiased">
       <div className="pointer-events-none fixed inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(255,255,255,.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.8)_1px,transparent_1px)] [background-size:80px_80px]" />
 
@@ -1384,9 +1386,9 @@ export default function BlockchainDevelopment() {
                   Get Started
                   <span className="h-px w-8 bg-gradient-to-l from-transparent to-chrome/80" />
                 </p>
-                <h2 className="text-chrome mt-6 text-[clamp(2rem,6vw,4.5rem)] font-medium leading-[1.0] tracking-normal">
+                <ScopedHeading className="text-chrome mt-6 text-[clamp(2rem,6vw,4.5rem)] font-medium leading-[1.0] tracking-normal">
                   Start Your Blockchain Development Project
-                </h2>
+                </ScopedHeading>
                 <div className="mx-auto mt-8 max-w-2xl space-y-4 text-white/55 leading-relaxed text-[15px] md:text-base">
                   <p>Whether you need a decentralized application, enterprise blockchain system, smart contract platform, blockchain integration or proof of concept, clickmasters can help determine the architecture that best fits your requirements.</p>
                   <p>Our blockchain development services in the USA support projects from feasibility analysis and architecture through blockchain app development, smart contracts, integration, testing, deployment and ongoing support.</p>
@@ -1428,5 +1430,6 @@ export default function BlockchainDevelopment() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
     </main>
+    </SingleH2Scope>
   );
 }

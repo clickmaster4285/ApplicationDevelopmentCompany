@@ -1,5 +1,6 @@
 import React from "react";
 import { CircularTestimonials } from "@/components/ui/testimonial-card";
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 
 const testimonials = [
   {
@@ -68,11 +69,11 @@ export const ShuffleCards = () => (
           <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
             — Client Testimonials
           </div>
-          <h2 className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-2xl">
+          <ScopedHeading className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-2xl">
             Real partnerships.
             <br />
             <span className="text-zinc-300">Real results.</span>
-          </h2>
+          </ScopedHeading>
         </div>
       </div>
     </div>

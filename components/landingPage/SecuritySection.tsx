@@ -1,4 +1,5 @@
 import { ShieldCheck, Network, PlugZap } from "lucide-react";
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 
 const pillars = [
   {
@@ -27,9 +28,9 @@ export function SecuritySection() {
             <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
               — Built For The Long Run
             </div>
-            <h2 className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-3xl">
+            <ScopedHeading className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-3xl">
               Secure, scalable, and integration&#8209;ready applications.
-            </h2>
+            </ScopedHeading>
           </div>
           <p className="max-w-md text-white/55 leading-relaxed">
             Modern applications need to do more than work on launch day. They

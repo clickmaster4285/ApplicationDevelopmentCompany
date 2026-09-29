@@ -314,9 +314,9 @@ export function PageTables({ pageData }: { pageData: PageData }) {
           — Overview
           <span className="w-12 h-px bg-white/10" />
         </div>
-        <h2 className="text-chrome text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[1.02]">
+        <h3 className="text-chrome text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[1.02]">
           What It Does for Your Business
-        </h2>
+        </h3>
       </div>
 
       <div className="space-y-8">
@@ -443,9 +443,9 @@ export function FAQSection({
             — Support
             <span className="w-12 h-px bg-white/10" />
           </div>
-          <h2 className="text-chrome text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[1.02]">
+          <h3 className="text-chrome text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[1.02]">
             Frequently Asked Questions
-          </h2>
+          </h3>
           <p className="mt-4 text-white/50 text-base max-w-2xl mx-auto">
             Can't find what you're looking for?{" "}
             <Link href="/contact" className="text-primary hover:text-white transition-colors inline-flex items-center gap-1">
@@ -507,14 +507,14 @@ export function CTASection({ pageData }: { pageData: PageData }) {
             </span>
           </motion.div>
 
-          <motion.h2
+          <motion.h3
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
             className="text-chrome text-2xl md:text-4xl lg:text-5xl xl:text-6xl font-medium leading-[1.05] tracking-[-0.02em] max-w-3xl mx-auto"
           >
             {ctaText.split("\n")[0] || ctaText}
-          </motion.h2>
+          </motion.h3>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -612,9 +612,9 @@ export function RelatedServices({
             viewport={{ once: true }}
             className="flex items-center gap-3 mb-12"
           >
-            <h2 className="text-chrome text-xl md:text-2xl lg:text-3xl font-medium tracking-tight">
+            <h3 className="text-chrome text-xl md:text-2xl lg:text-3xl font-medium tracking-tight">
               Related Services
-            </h2>
+            </h3>
             <div className="h-px flex-1 bg-gradient-to-r from-white/10 to-transparent max-w-md" />
           </motion.div>
 
@@ -761,9 +761,9 @@ export function FeatureGrid({
           — Features
           <span className="w-12 h-px bg-white/10" />
         </div>
-        <h2 className="text-chrome text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[1.02]">
+        <h3 className="text-chrome text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[1.02]">
           {title}
-        </h2>
+        </h3>
         {subtitle && (
           <p className="mt-4 text-white/50 text-base md:text-lg max-w-2xl mx-auto">
             {subtitle}
@@ -838,9 +838,9 @@ export function ProcessSteps({
           — Process
           <span className="w-12 h-px bg-white/10" />
         </div>
-        <h2 className="text-chrome text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[1.02]">
+        <h3 className="text-chrome text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[1.02]">
           {title}
-        </h2>
+        </h3>
         {subtitle && (
           <p className="mt-4 text-white/50 text-base md:text-lg max-w-2xl mx-auto">
             {subtitle}
@@ -984,9 +984,9 @@ export function TestimonialCarousel({
           — Testimonials
           <span className="w-12 h-px bg-white/10" />
         </div>
-        <h2 className="text-chrome text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[1.02]">
+        <h3 className="text-chrome text-4xl md:text-5xl lg:text-6xl font-medium tracking-[-0.03em] leading-[1.02]">
           Trusted by Industry Leaders
-        </h2>
+        </h3>
       </div>
 
       <div className="relative max-w-4xl mx-auto">

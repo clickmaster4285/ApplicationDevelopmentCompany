@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import AppServices from "@/components/landingPage/AppServices";
+import { canonicalUrl } from "@/lib/site";
 
 const SITE = "https://clickmastersapplicationdevelopment.com";
 
@@ -139,13 +140,13 @@ export const metadata: Metadata = {
     "application development services USA",
   ],
   alternates: {
-    canonical: "/services",
+    canonical: canonicalUrl("/services"),
   },
   openGraph: {
     title: "Application Development Services USA | clickmasters",
     description:
       "clickmasters provides application development services for web, mobile, AI, cloud and enterprise apps, from strategy and design to development and support.",
-    url: "https://clickmastersapplicationdevelopment.com/services",
+    url: canonicalUrl("/services"),
     type: "website",
   },
   twitter: {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 
 const techs = [
   {
@@ -110,9 +111,9 @@ export function Stack() {
             <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
               — Technologies
             </div>
-            <h2 className="text-chrome text-5xl md:text-7xl font-medium tracking-[-0.03em] leading-[1.02]">
+            <ScopedHeading className="text-chrome text-5xl md:text-7xl font-medium tracking-[-0.03em] leading-[1.02]">
               Technologies behind our app development services.
-            </h2>
+            </ScopedHeading>
             <p className="mt-8 text-white/55 max-w-md leading-relaxed">
               The right technology depends on what your application needs to
               do. Our development teams work across modern technologies for:

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScopedHeading, SingleH2Scope } from "@/components/landingPage/heading-level";
 import {
   ArrowUpRight,
   Check,
@@ -509,9 +510,9 @@ function SectionHeading({
             {eyebrow}
           </div>
         )}
-        <h2 className="text-chrome max-w-3xl text-3xl font-medium leading-[1.02] tracking-normal md:text-5xl">
+        <ScopedHeading className="text-chrome max-w-3xl text-3xl font-medium leading-[1.02] tracking-normal md:text-5xl">
           {title}
-        </h2>
+        </ScopedHeading>
       </div>
       {text && (
         <p className="max-w-2xl text-[15px] leading-relaxed text-white/58 lg:justify-self-end">
@@ -723,6 +724,7 @@ export default function AppServices() {
   }, []);
 
   return (
+    <SingleH2Scope>
     <main className="relative overflow-hidden bg-[#050505] text-white antialiased">
       <div className="pointer-events-none fixed inset-0 opacity-[0.035] [background-image:linear-gradient(rgba(255,255,255,.8)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.8)_1px,transparent_1px)] [background-size:80px_80px]" />
 
@@ -876,9 +878,9 @@ export default function AppServices() {
           <div className="mx-auto w-[min(92vw,1240px)] px-4">
           <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-start">
             <div>
-              <h2 className="text-chrome text-3xl md:text-5xl font-medium tracking-normal leading-[1.02]">
+              <ScopedHeading className="text-chrome text-3xl md:text-5xl font-medium tracking-normal leading-[1.02]">
                 Application Architecture Built Around Your Requirements
-              </h2>
+              </ScopedHeading>
               <p className="mt-6 text-white/60 leading-relaxed text-[15px] md:text-base">
                 There is no single architecture that works for every application.
               </p>
@@ -1084,9 +1086,9 @@ export default function AppServices() {
           </PremiumCard>
 
           <PremiumCard className="mt-6 p-6 md:p-8">
-            <h2 className="text-2xl md:text-3xl font-medium text-white tracking-normal">
+            <ScopedHeading className="text-2xl md:text-3xl font-medium text-white tracking-normal">
               How Long Does Application Development Take?
-            </h2>
+            </ScopedHeading>
             <div className="mt-4 max-w-3xl space-y-4 text-white/60 leading-relaxed text-[15px] md:text-base">
               <p>{timelineText}</p>
               <p>A focused MVP or internal business application can usually move through discovery, design and development faster than a complex enterprise platform involving multiple integrations, user groups, migration requirements and approval processes.</p>
@@ -1124,9 +1126,9 @@ export default function AppServices() {
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_40%,#050505_90%)]" />
             <div className="pointer-events-none absolute -top-20 left-1/2 h-48 w-48 -translate-x-1/2 rounded-full bg-[radial-gradient(circle,rgba(232,237,242,0.15),transparent_60%)] blur-2xl" />
             <div className="relative">
-              <h2 className="text-chrome text-[clamp(2rem,6vw,4.5rem)] font-medium leading-[1.0] tracking-normal">
+              <ScopedHeading className="text-chrome text-[clamp(2rem,6vw,4.5rem)] font-medium leading-[1.0] tracking-normal">
                 Start Your Application Development Project
-              </h2>
+              </ScopedHeading>
               <p className="mx-auto mt-8 max-w-2xl text-white/55 leading-relaxed text-[15px] md:text-base">
                 Whether you are planning a new application, developing an MVP,
                 modernizing existing software or adding new functionality to an
@@ -1167,5 +1169,6 @@ export default function AppServices() {
         </div>
       </section>
     </main>
+    </SingleH2Scope>
   );
 }

@@ -1,4 +1,5 @@
 import { Rocket, TrendingUp, Building2 } from "lucide-react";
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 
 const audiences = [
   {
@@ -27,9 +28,9 @@ export function AudienceSection() {
             <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
               — Who We Build For
             </div>
-            <h2 className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-3xl">
+            <ScopedHeading className="text-chrome text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] max-w-3xl">
               Custom applications for startups, businesses, and enterprises.
-            </h2>
+            </ScopedHeading>
           </div>
           <p className="max-w-md text-white/55 leading-relaxed">
             We work with organizations at different stages of growth.

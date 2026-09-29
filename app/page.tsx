@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { SingleH2Scope } from "@/components/landingPage/heading-level";
+import { canonicalUrl } from "@/lib/site";
 
 import { Nav } from "@/components/landingPage/Nav";
 import { Hero } from "@/components/landingPage/Hero";
@@ -34,6 +36,7 @@ export const metadata: Metadata = {
     description:
       "ClickMasters is a leading application development company USA providing app development services that build digital products, improve systems, and drive digital growth.",
     type: "website",
+    url: canonicalUrl("/"),
   },
 
   twitter: {
@@ -42,11 +45,15 @@ export const metadata: Metadata = {
     description:
       "ClickMasters is a leading application development company USA providing app development services that build digital products, improve systems, and drive digital growth.",
   },
+  alternates: {
+    canonical: canonicalUrl("/"),
+  },
 };
 
 export default function HomePage() {
   return (
     <main className="relative bg-[#050505] text-white antialiased">
+      <SingleH2Scope>
       <SmoothScroll />
       <Cursor />
 
@@ -93,6 +100,7 @@ export default function HomePage() {
 
       <FAQ />
       <CTA />
+      </SingleH2Scope>
     </main>
   );
 }

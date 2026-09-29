@@ -6,6 +6,7 @@ import {
 } from "../../../content/services";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
+import { canonicalUrl } from "@/lib/site";
 import {
   FAQSection,
   CTASection,
@@ -50,7 +51,7 @@ export async function generateMetadata({
     openGraph: {
       title: pageData.meta.title,
       description: pageData.meta.description,
-      url: `https://clickmastersapplicationdevelopment.com${pageData.url}`,
+      url: canonicalUrl(pageData.url),
       type: "website",
     },
     twitter: {
@@ -59,7 +60,7 @@ export async function generateMetadata({
       description: pageData.meta.description,
     },
     alternates: {
-      canonical: `https://clickmastersapplicationdevelopment.com${pageData.url}`,
+      canonical: canonicalUrl(pageData.url),
     },
   };
 }

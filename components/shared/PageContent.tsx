@@ -162,13 +162,13 @@ export function PageContent({
       const id = extractId(text);
       const cleanText = cleanHeading(text);
       return (
-        <h2
+        <h3
           id={id}
           className="font-display text-white text-xl md:text-2xl font-medium leading-[1.05] tracking-[-0.02em] mb-4"
           {...props}
         >
           {cleanText}
-        </h2>
+        </h3>
       );
     },
     h3: ({ children, ...props }: any) => {
@@ -325,7 +325,19 @@ export function PageContent({
   };
 
   if (sections.length === 0) {
-    return null;
+    const label = String(
+      pageData?.metadata?.primaryKeyword || pageData?.meta?.title || "",
+    ).trim();
+    if (!label) return null;
+    return (
+      <section className="relative py-16 md:py-32 border-t border-white/5">
+        <div className="mx-auto w-[85vw] px-6">
+          <h2 className="font-display text-white text-3xl md:text-4xl lg:text-5xl leading-[1.05] tracking-tight">
+            {label}
+          </h2>
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -389,6 +401,9 @@ export function PageContent({
                       </span>
                     </div>
                   </div>
+                  <h2 className="font-display text-white text-3xl md:text-4xl lg:text-5xl leading-[1.05] tracking-tight mb-6">
+                    {section.title}
+                  </h2>
                   
                   {hasMarkdownList && items.length > 0 ? (
                     <div className="space-y-5">

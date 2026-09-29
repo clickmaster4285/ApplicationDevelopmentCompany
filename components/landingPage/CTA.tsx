@@ -1,4 +1,5 @@
 import { MagneticButton } from "./MagneticButton";
+import { ScopedHeading } from "@/components/landingPage/heading-level";
 
 export function CTA() {
   return (
@@ -30,9 +31,9 @@ export function CTA() {
           <span className="h-1.5 w-1.5 rounded-full bg-chrome" />
           Application Development Company in USA
         </div>
-        <h2 className="mt-10 text-chrome text-[clamp(2.4rem,8vw,7rem)] font-medium tracking-[-0.04em] leading-[0.95]">
+        <ScopedHeading className="mt-10 text-chrome text-[clamp(2.4rem,8vw,7rem)] font-medium tracking-[-0.04em] leading-[0.95]">
           Have an Application Idea? <br /> Let&rsquo;s Build It.
-        </h2>
+        </ScopedHeading>
         <p className="mt-8 max-w-xl mx-auto text-white/55 text-lg leading-relaxed">
           Work with an app development company that can take your project from
           an early idea to a working application. Tell us what you want to
