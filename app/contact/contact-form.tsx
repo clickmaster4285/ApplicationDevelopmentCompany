@@ -2,7 +2,6 @@
 
 import { useState, type FormEvent } from "react";
 import { ArrowRight, LoaderCircle } from "lucide-react";
-import styles from "./contact.module.css";
 
 type SubmissionState = "idle" | "sending" | "success" | "error";
 
@@ -76,7 +75,7 @@ export function ContactForm() {
       </div>
 
       <button
-        className={`${styles.submitButton} group inline-flex h-13 w-full items-center justify-center gap-3 rounded-full border border-white/35 bg-gradient-to-r from-white via-[#e1e5e9] to-[#aab0b8] px-7 text-sm font-semibold text-[#080808] shadow-[0_8px_28px_-14px_rgba(255,255,255,0.65),inset_0_1px_0_rgba(255,255,255,0.9)] transition duration-300 hover:-translate-y-0.5 hover:brightness-105 hover:shadow-[0_12px_36px_-14px_rgba(255,255,255,0.75)] active:translate-y-0 disabled:cursor-wait disabled:opacity-60 sm:w-auto`}
+        className="group inline-flex h-13 w-full cursor-pointer items-center justify-center gap-3 rounded-full border border-white/35 bg-gradient-to-r from-white via-[#e1e5e9] to-[#aab0b8] px-7 text-sm font-semibold text-[#080808] shadow-[0_8px_28px_-14px_rgba(255,255,255,0.65),inset_0_1px_0_rgba(255,255,255,0.9)] transition duration-300 hover:-translate-y-0.5 hover:brightness-105 hover:shadow-[0_12px_36px_-14px_rgba(255,255,255,0.75)] active:translate-y-0 disabled:cursor-wait disabled:opacity-60 sm:w-auto"
         type="submit"
         disabled={status === "sending"}
       >
