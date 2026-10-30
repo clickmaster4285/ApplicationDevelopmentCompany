@@ -86,6 +86,14 @@ const techs = [
   },
 ];
 
+function getOrbitPoint(angle: number) {
+  const radians = (angle * Math.PI) / 180;
+  return {
+    x: Number((50 + 42 * Math.cos(radians)).toFixed(4)),
+    y: Number((50 + 42 * Math.sin(radians)).toFixed(4)),
+  };
+}
+
 export function Stack() {
   const ringRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -151,9 +159,7 @@ export function Stack() {
             {/* Nodes - removed backdrop-blur and gradient */}
             <div ref={ringRef} className="absolute inset-0">
               {techs.map((t) => {
-                const rad = (t.angle * Math.PI) / 180;
-                const x = 50 + 42 * Math.cos(rad);
-                const y = 50 + 42 * Math.sin(rad);
+                const { x, y } = getOrbitPoint(t.angle);
                 return (
                   <div
                     key={t.name}
@@ -186,9 +192,7 @@ export function Stack() {
               viewBox="0 0 100 100"
             >
               {techs.map((t) => {
-                const rad = (t.angle * Math.PI) / 180;
-                const x = 50 + 42 * Math.cos(rad);
-                const y = 50 + 42 * Math.sin(rad);
+                const { x, y } = getOrbitPoint(t.angle);
                 return (
                   <line
                     key={t.name}

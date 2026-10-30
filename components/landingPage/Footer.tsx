@@ -73,7 +73,7 @@ export function Footer() {
                   {c.links.map((l) => (
                     <li key={l}>
                       <a
-                        href="#"
+                        href={l === "Contact" ? "/contact" : "#"}
                         className="text-sm text-white/65 hover:text-white transition-colors"
                       >
                         {l}
@@ -88,10 +88,12 @@ export function Footer() {
             <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-5">
               Contact
             </div>
-            <p className="text-sm text-white/65 leading-relaxed">
-              sales@clickmastersdigitalmarketing.com
+            <p className="text-sm leading-relaxed text-white/65">
+              sales@applicationdevelopment.com
               <br />
               +44 7988 576086
+              <br />
+              +1 325 202 4074
               <br />
               San Francisco · Remote
             </p>

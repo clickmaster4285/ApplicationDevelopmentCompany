@@ -224,22 +224,22 @@ export function Nav() {
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-500 ${
         scrolled
-          ? "py-3 backdrop-blur-xl bg-black/40 border-b border-white/5"
-          : "py-6 bg-transparent"
+          ? "py-3 backdrop-blur-2xl bg-black/55 border-b border-white/[0.08] shadow-[0_12px_40px_-28px_rgba(255,255,255,0.28)]"
+          : "py-5 bg-gradient-to-b from-black/25 to-transparent"
       }`}
     >
-      <div className="mx-auto w-[85vw] px-6 flex items-center justify-between">
+      <div className="mx-auto flex w-[min(1440px,92vw)] items-center justify-between gap-5 px-3 sm:px-5">
         {/* Logo */}
         <Link href="/" className="flex items-center group">
           <img
             src={logo}
             alt="ClickMasters"
-            className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            className="h-9 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.025]"
           />
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden items-center gap-0.5 lg:flex">
           {mainNav.map((item) => (
             <div
               key={item.label}
@@ -251,7 +251,7 @@ export function Nav() {
                 <>
                   <Link
                     href={item.href}
-                    className={`px-4 py-2 text-xs uppercase tracking-[0.18em] transition-colors ${
+                    className={`rounded-full px-3 py-2.5 text-[10px] font-medium uppercase tracking-[0.16em] transition-colors duration-200 ${
                       isActivePath(item.href)
                         ? "text-white"
                         : "text-white/60 hover:text-white"
@@ -283,7 +283,7 @@ export function Nav() {
               ) : (
                 <Link
                   href={item.href}
-                  className={`px-4 py-2 text-xs uppercase tracking-[0.18em] transition-colors ${
+                  className={`rounded-full px-3 py-2.5 text-[10px] font-medium uppercase tracking-[0.16em] transition-colors duration-200 ${
                     isActivePath(item.href)
                       ? "text-white"
                       : "text-white/60 hover:text-white"
@@ -299,7 +299,7 @@ export function Nav() {
         {/* CTA Button */}
         <Link
           href="/contact"
-          className="hidden md:inline-block text-xs uppercase tracking-[0.18em] px-5 py-2.5 rounded-full bg-chrome text-[#050505] font-medium hover:shadow-[0_10px_40px_-10px_rgba(232,237,242,0.5)] transition-shadow"
+          className="hidden shrink-0 rounded-full border border-white/25 bg-chrome px-5 py-3 text-[10px] font-semibold uppercase tracking-[0.17em] text-[#050505] shadow-[inset_0_1px_0_rgba(255,255,255,0.8)] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_10px_34px_-12px_rgba(232,237,242,0.65)] md:inline-block"
         >
           Start a Project
         </Link>

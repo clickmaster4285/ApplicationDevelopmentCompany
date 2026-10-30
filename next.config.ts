@@ -26,6 +26,7 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ["192.168.88.62"],
   async headers() {
     const headers =
       process.env.NODE_ENV === "production"

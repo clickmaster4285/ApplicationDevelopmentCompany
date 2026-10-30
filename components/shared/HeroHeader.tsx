@@ -316,7 +316,7 @@ export function HeroHeader({
       <ParticleField />
 
       <div className="mx-auto w-full max-w-[85vw] px-4 md:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start lg:items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
           
           {/* Left side - Content */}
           <div className="flex flex-col gap-6 relative">
