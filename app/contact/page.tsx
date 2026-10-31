@@ -29,7 +29,7 @@ export default function ContactPage() {
                 <span className="h-1.5 w-1.5 rounded-full bg-[#e5e9ed] shadow-[0_0_14px_rgba(229,233,237,0.75)]" />
                 Start a project
               </div>
-              <h1 className="animate-in fade-in duration-1000 delay-100 text-[clamp(3.25rem,5.7vw,5.9rem)] font-medium leading-[0.88] tracking-[-0.072em] motion-reduce:animate-none">
+              <h1 className="animate-in fade-in duration-1000 delay-100 text-[clamp(3rem,5.2vw,5.5rem)] font-medium leading-[0.94] tracking-[-0.06em] motion-reduce:animate-none">
                 <span className="bg-gradient-to-b from-white via-[#d9dde2] to-[#777d85] bg-clip-text text-transparent">
                   Let&rsquo;s make
                   <br />

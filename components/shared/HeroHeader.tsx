@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { MagneticButton } from "../landingPage/MagneticButton";
 import { submitLeadToCrm } from "@/lib/crm";
+import { ContactForm } from "@/app/contact/contact-form";
 
 const Badge = ({ 
   children, 
@@ -165,8 +166,10 @@ function ParticleField() {
 export function HeroHeader({
   pageData,
   type = "Service",
+  useContactForm = false,
 }: {
   pageData: PageData;
+  useContactForm?: boolean;
   type?:
     | "Industry"
     | "Service"
@@ -296,7 +299,7 @@ export function HeroHeader({
   const handleBlur = () => setFocusedField(null);
 
   return (
-    <section className="relative min-h-screen w-full flex items-center overflow-hidden">
+    <section className="relative min-h-screen w-full flex items-center overflow-hidden pt-24 pb-12">
       {/* Background layers */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent pointer-events-none" />
       <FloatingOrb 
@@ -315,8 +318,8 @@ export function HeroHeader({
       <NoiseOverlay />
       <ParticleField />
 
-      <div className="mx-auto w-full max-w-[85vw] px-4 md:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
+      <div className={`mx-auto w-full ${useContactForm ? "max-w-[92vw]" : "max-w-[85vw]"} px-4 md:px-8 relative z-10`}>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start lg:items-center">
           
           {/* Left side - Content */}
           <div className="flex flex-col gap-6 relative">
@@ -399,7 +402,7 @@ export function HeroHeader({
           </div>
 
           {/* Right side - Premium Form */}
-          <div className="w-full max-w-lg mx-auto lg:mx-0 justify-self-end animate-[fade-slide-up_1s_ease-out_forwards]" style={{ animationDelay: '0.3s' }}>
+          <div className={`w-full ${useContactForm ? "max-w-xl" : "max-w-lg"} mx-auto lg:mx-0 justify-self-end animate-[fade-slide-up_1s_ease-out_forwards]`} style={{ animationDelay: '0.3s' }}>
             <div className="relative bg-white/5 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl hover:border-white/20 transition-all duration-500">
               {/* Glow accents */}
               <div className="pointer-events-none absolute -top-20 -right-20 h-64 w-64 rounded-full bg-primary/5 blur-3xl" />
@@ -409,14 +412,14 @@ export function HeroHeader({
               <div className="absolute -bottom-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
 
               <div className="relative">
-                <div className="flex items-center justify-between mb-6">
-                  <div>
+                <div className="mb-6 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="min-w-0">
                     <h3 className="text-white text-2xl font-semibold">Get Started Today</h3>
                     <p className="text-white/50 text-sm mt-1">
                       Fill out the form and we'll get back to you within 24 hours.
                     </p>
                   </div>
-                  <div className="flex -space-x-2">
+                  <div className="flex shrink-0 gap-2 self-end sm:self-auto">
                     <div className="w-8 h-8 rounded-full bg-primary/20 border-2 border-white/10 flex items-center justify-center">
                       <Users className="h-4 w-4 text-primary" />
                     </div>
@@ -429,7 +432,9 @@ export function HeroHeader({
                   </div>
                 </div>
 
-                {submitStatus === 'success' ? (
+                {useContactForm ? (
+                  <ContactForm compact />
+                ) : submitStatus === 'success' ? (
                   <div className="text-center py-12 animate-[fade-in_0.5s_ease-out]">
                     <div className="w-16 h-16 rounded-full bg-green-500/20 border border-green-500/30 flex items-center justify-center mx-auto mb-4">
                       <Check className="h-8 w-8 text-green-400" />

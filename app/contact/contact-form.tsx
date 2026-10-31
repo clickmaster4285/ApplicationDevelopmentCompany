@@ -8,7 +8,7 @@ type SubmissionState = "idle" | "sending" | "success" | "error";
 const inputClassName =
   "mt-2 h-12 w-full rounded-[13px] border border-white/[0.12] bg-black/30 px-4 text-sm text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] outline-none transition duration-200 placeholder:text-white/30 placeholder:transition-colors hover:border-white/20 focus:border-white/40 focus:bg-black/45 focus:ring-2 focus:ring-white/[0.07] focus:placeholder:text-white/40";
 
-export function ContactForm() {
+export function ContactForm({ compact = false }: { compact?: boolean }) {
   const [status, setStatus] = useState<SubmissionState>("idle");
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -38,8 +38,8 @@ export function ContactForm() {
   }
 
   return (
-    <form className="space-y-[18px]" onSubmit={handleSubmit}>
-      <div className="grid gap-5 sm:grid-cols-2">
+    <form className={compact ? "space-y-3" : "space-y-[18px]"} onSubmit={handleSubmit}>
+      <div className={`grid ${compact ? "gap-4" : "gap-5"} sm:grid-cols-2`}>
         <label className="block text-[11px] font-medium tracking-[0.015em] text-white/70">
           Your name <span className="text-white/35">*</span>
           <input className={inputClassName} name="name" autoComplete="name" placeholder="Alex Morgan" required />
@@ -49,7 +49,7 @@ export function ContactForm() {
           <input className={inputClassName} name="email" type="email" autoComplete="email" placeholder="alex@company.com" required />
         </label>
       </div>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className={`grid ${compact ? "gap-4" : "gap-5"} sm:grid-cols-2`}>
         <label className="block text-[11px] font-medium tracking-[0.015em] text-white/70">
           Phone <span className="text-white/35">(optional)</span>
           <input className={inputClassName} name="phone" type="tel" autoComplete="tel" placeholder="+1 (555) 000-0000" />
@@ -62,14 +62,14 @@ export function ContactForm() {
       <label className="block text-[11px] font-medium tracking-[0.015em] text-white/70">
         What are you looking to build? <span className="text-white/35">*</span>
         <textarea
-          className="mt-2 min-h-36 w-full resize-y rounded-[13px] border border-white/[0.12] bg-black/30 px-4 py-3 text-sm leading-6 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] outline-none transition duration-200 placeholder:text-white/30 placeholder:transition-colors hover:border-white/20 focus:border-white/40 focus:bg-black/45 focus:ring-2 focus:ring-white/[0.07] focus:placeholder:text-white/40"
+          className={`${compact ? "mt-2 min-h-28" : "mt-2 min-h-36"} w-full resize-y rounded-[13px] border border-white/[0.12] bg-black/30 px-4 py-3 text-sm leading-6 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.025)] outline-none transition duration-200 placeholder:text-white/30 placeholder:transition-colors hover:border-white/20 focus:border-white/40 focus:bg-black/45 focus:ring-2 focus:ring-white/[0.07] focus:placeholder:text-white/40`}
           name="message"
           placeholder="Tell us about the idea, the challenge, or what you need help with..."
           required
         />
       </label>
 
-      <div aria-live="polite" className="min-h-5 text-sm">
+      <div aria-live="polite" className={compact ? "text-sm" : "min-h-5 text-sm"}>
         {status === "success" && <p className="text-emerald-300">Thanks for reaching out. Your message has been sent.</p>}
         {status === "error" && <p className="text-rose-300">We couldn&rsquo;t send your message. Please try again or email us directly.</p>}
       </div>

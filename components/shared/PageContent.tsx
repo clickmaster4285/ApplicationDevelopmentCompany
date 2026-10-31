@@ -501,9 +501,21 @@ export function PageContent({
                           <div className="w-10 h-10 rounded-xl border border-primary/30 bg-primary/10 grid place-items-center flex-shrink-0 text-primary group-hover:bg-primary group-hover:border-primary group-hover:text-[#050505] transition-all">
                             <Check className="w-5 h-5" />
                           </div>
-                          <p className="text-sm md:text-base text-white/60 leading-relaxed flex-1">
-                            {item}
-                          </p>
+                          <div className="flex-1 text-sm leading-relaxed text-white/60 md:text-base">
+                            <ReactMarkdown
+                              remarkPlugins={[remarkGfm]}
+                              components={{
+                                ...introMarkdownComponents,
+                                p: ({ children, ...props }: any) => (
+                                  <p className="m-0 text-sm leading-relaxed text-white/60 md:text-base" {...props}>
+                                    {children}
+                                  </p>
+                                ),
+                              }}
+                            >
+                              {item}
+                            </ReactMarkdown>
+                          </div>
                         </div>
                         <motion.div
                           className="absolute top-6 right-6 w-8 h-8 rounded-lg bg-white/[0.03] grid place-items-center"

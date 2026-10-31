@@ -116,7 +116,11 @@ export default async function ServicePage({
 
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-white/20">
-      <HeroHeader pageData={pageData} type="Service" />
+      <HeroHeader
+        pageData={pageData}
+        type="Service"
+        useContactForm={slug === "web-application-development"}
+      />
       <MainContent pageData={pageData} />
       <FAQSection pageData={pageData} />
       <CTASection pageData={pageData} />
