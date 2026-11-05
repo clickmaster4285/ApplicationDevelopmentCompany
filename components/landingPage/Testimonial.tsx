@@ -8,56 +8,56 @@ const testimonials = [
       "Clickmasters turned our rough idea into a fully functional mobile app that exceeded expectations. The UI/UX, performance, and stability were top-tier.",
     name: "Sarah Mitchell",
     designation: "Founder, FitTrack",
-    src: "https://images.unsplash.com/photo-1512316609839-ce289d3eba0a?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    src: "/images/unsplash-photo-1512316609839-ce289d3eba0a-1368xauto.webp",
   },
   {
     quote:
       "Their team delivered our MVP incredibly fast without compromising quality. The app is smooth, scalable, and exactly what we envisioned.",
     name: "David Chen",
     designation: "CEO, Nexa Solutions",
-    src: "https://images.unsplash.com/photo-1628749528992-f5702133b686?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
+    src: "/images/unsplash-photo-1628749528992-f5702133b686-1368xauto.webp",
   },
   {
     quote:
       "From UI/UX design to deployment, Clickmasters handled everything perfectly. User engagement increased significantly after launch.",
     name: "Emily Rodriguez",
     designation: "Product Manager, BrightLabs",
-    src: "https://images.unsplash.com/photo-1524267213992-b76e8577d046?q=80&w=1368&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fA%3D%3D",
+    src: "/images/unsplash-photo-1524267213992-b76e8577d046-1368xauto.webp",
   },
   {
     quote:
       "The technical expertise and attention to detail were outstanding. They built a scalable system that supports our rapid growth.",
     name: "Michael Carter",
     designation: "CTO, ScaleFlow",
-    src: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=1368&auto=format&fit=crop",
+    src: "/images/unsplash-photo-1506794778202-cad84cf45f1d-1368xauto.webp",
   },
   {
     quote:
       "Working with Clickmasters felt like having an in-house development team. Communication was smooth and delivery was always on time.",
     name: "Olivia Brooks",
     designation: "Operations Director, NovaTech",
-    src: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1368&auto=format&fit=crop",
+    src: "/images/unsplash-photo-1544005313-94ddf0286df2-1368xauto.webp",
   },
   {
     quote:
       "They transformed our complex workflow into a simple, intuitive application that saves us hours every day.",
     name: "James Wilson",
     designation: "Founder, TaskBridge",
-    src: "https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=1368&auto=format&fit=crop",
+    src: "/images/unsplash-photo-1519345182560-3f2917c472ef-1368xauto.webp",
   },
   {
     quote:
       "The UI/UX alone was worth the investment. Our conversion rate improved immediately after launch.",
     name: "Sophia Turner",
     designation: "Head of Digital, Elevate Commerce",
-    src: "https://images.unsplash.com/photo-1554151228-14d9def656e4?q=80&w=1368&auto=format&fit=crop",
+    src: "/images/unsplash-photo-1554151228-14d9def656e4-1368xauto.webp",
   },
   {
     quote:
       "If you're building a serious digital product, Clickmasters is the team you want. Reliable, skilled, and highly professional.",
     name: "Daniel Foster",
     designation: "CEO, InnovateX",
-    src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1368&auto=format&fit=crop",
+    src: "/images/unsplash-photo-1507003211169-0a1dd7228f2d-1368xauto.webp",
   },
 ];
 

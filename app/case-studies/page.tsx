@@ -9,13 +9,13 @@ gsap.registerPlugin(ScrollTrigger);
 // Image URLs (using Unsplash for high-quality placeholders)
 const images = {
   helix:
-    "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&h=600&fit=crop",
+    "/images/unsplash-photo-1576091160550-2173dba999ef-800x600.webp",
   lumen:
-    "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=800&h=600&fit=crop",
+    "/images/unsplash-photo-1611974789855-9c2a0a7236a3-800x600.webp",
   atelier:
-    "https://images.unsplash.com/photo-1557821552-17105176677c?w=800&h=600&fit=crop",
+    "/images/unsplash-photo-1557821552-17105176677c-800x600.webp",
   sapien:
-    "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=800&h=600&fit=crop",
+    "/images/unsplash-photo-1509062522246-3755977927d7-800x600.webp",
 };
 
 interface Project {
@@ -305,10 +305,10 @@ export function CaseStudies() {
           </span>
           <span className="h-px w-12 bg-white/10" />
         </div>
-        <h2 className="text-white text-4xl md:text-6xl lg:text-7xl font-medium tracking-[-0.03em] leading-[1.02] max-w-4xl">
+        <h1 className="text-white text-4xl md:text-6xl lg:text-7xl font-medium tracking-[-0.03em] leading-[1.02] max-w-4xl">
           Where vision meets
           <span className="block text-white/20">execution.</span>
-        </h2>
+        </h1>
         <p className="text-white/30 text-sm md:text-base max-w-xl mt-4">
           Deep dives into products that redefined industries—from healthcare to
           fintech, education to luxury commerce.

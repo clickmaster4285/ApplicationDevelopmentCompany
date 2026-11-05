@@ -29,12 +29,12 @@ import { PostLaunchSection } from "@/components/landingPage/PostLaunchSection";
 export const metadata: Metadata = {
   title: "Application development company USA - Clickmasters",
   description:
-    "ClickMasters is a leading application development company USA providing app development services that build digital products, improve systems, and drive digital growth.",
+    "ClickMasters is a US application development company building digital products, improving business systems, and supporting growth.",
 
   openGraph: {
     title: "Application development company USA - Clickmasters",
     description:
-      "ClickMasters is a leading application development company USA providing app development services that build digital products, improve systems, and drive digital growth.",
+      "ClickMasters is a US application development company building digital products, improving business systems, and supporting growth.",
     type: "website",
     url: canonicalUrl("/"),
   },
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Application development company USA - Clickmasters",
     description:
-      "ClickMasters is a leading application development company USA providing app development services that build digital products, improve systems, and drive digital growth.",
+      "ClickMasters is a US application development company building digital products, improving business systems, and supporting growth.",
   },
   alternates: {
     canonical: canonicalUrl("/"),

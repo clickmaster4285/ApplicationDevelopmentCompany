@@ -13,61 +13,46 @@ const stats = [
   { value: 10, label: "Users Impacted", suffix: "M+" },
 ];
 
-// Counter animation function that runs from current value to target
 const animateToTarget = (
   element: HTMLElement,
   target: number,
   suffix: string,
   duration: number = 1800,
+  animations: Map<HTMLElement, gsap.core.Tween>,
 ) => {
-  // Get current displayed number (remove suffix and commas)
   const currentText =
     element.textContent?.replace(suffix, "").replace(/,/g, "") || "0";
   const start = parseInt(currentText, 10) || 0;
 
+  animations.get(element)?.kill();
   if (start === target) return;
 
-  const range = target - start;
-  const increment = range / (duration / 16); // ~60fps
-  let current = start;
-
-  // Clear any existing interval
-  if ((element as any)._counterInterval) {
-    clearInterval((element as any)._counterInterval);
-  }
-
-  const timer = setInterval(() => {
-    current += increment;
-    if (
-      (increment > 0 && current >= target) ||
-      (increment < 0 && current <= target)
-    ) {
-      current = target;
+  const counter = { value: start };
+  const tween = gsap.to(counter, {
+    value: target,
+    duration: duration / 1000,
+    ease: "power1.out",
+    onUpdate: () => {
+      element.textContent = Math.floor(counter.value).toLocaleString() + suffix;
+    },
+    onComplete: () => {
       element.textContent = target.toLocaleString() + suffix;
-      clearInterval(timer);
-      (element as any)._counterInterval = null;
-    } else {
-      element.textContent = Math.floor(current).toLocaleString() + suffix;
-    }
-  }, 16);
-
-  (element as any)._counterInterval = timer;
+      animations.delete(element);
+    },
+  });
+  animations.set(element, tween);
 };
 
 export function Stats() {
   const ref = useRef<HTMLDivElement>(null);
   const numberRefs = useRef<(HTMLDivElement | null)[]>([]);
   const scrollTriggersRef = useRef<ScrollTrigger[]>([]);
+  const counterAnimationsRef = useRef(new Map<HTMLElement, gsap.core.Tween>());
 
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Set initial values to 0
-      numberRefs.current.forEach((el, idx) => {
-        if (el) {
-          el.textContent = "0" + stats[idx].suffix;
-        }
-      });
+    const counterAnimations = counterAnimationsRef.current;
 
+    const ctx = gsap.context(() => {
       // Kill any existing triggers
       scrollTriggersRef.current.forEach((trigger) => trigger.kill());
       scrollTriggersRef.current = [];
@@ -81,23 +66,26 @@ export function Stats() {
           start: "top 85%",
           end: "bottom 15%",
           onEnter: () => {
-            // Animate to target when scrolling down into view
             const targetValue = stats[idx].value;
-            animateToTarget(el, targetValue, stats[idx].suffix);
-          },
-          onLeaveBack: () => {
-            // Animate back to 0 when scrolling up and leaving
-            animateToTarget(el, 0, stats[idx].suffix, 1200);
+            el.textContent = "0" + stats[idx].suffix;
+            animateToTarget(
+              el,
+              targetValue,
+              stats[idx].suffix,
+              1800,
+              counterAnimations,
+            );
           },
           onEnterBack: () => {
-            // Animate to target again when scrolling back down into view
             const targetValue = stats[idx].value;
-            animateToTarget(el, targetValue, stats[idx].suffix);
-          },
-          onLeave: () => {
-            // Optional: animate to 0 when scrolling up past the element
-            // Uncomment if you want it to reset when scrolling past (not just leaving back)
-            // animateToTarget(el, 0, stats[idx].suffix, 1200);
+            el.textContent = "0" + stats[idx].suffix;
+            animateToTarget(
+              el,
+              targetValue,
+              stats[idx].suffix,
+              1800,
+              counterAnimations,
+            );
           },
         });
 
@@ -116,6 +104,8 @@ export function Stats() {
 
     return () => {
       scrollTriggersRef.current.forEach((trigger) => trigger.kill());
+      counterAnimations.forEach((animation) => animation.kill());
+      counterAnimations.clear();
       ctx.revert();
     };
   }, []);
@@ -136,7 +126,8 @@ export function Stats() {
                 data-stat
                 className="text-chrome-shine text-[clamp(4rem,12vw,11rem)] leading-[0.9] font-medium tracking-[-0.05em]"
               >
-                0{s.suffix}
+                {s.value.toLocaleString()}
+                {s.suffix}
               </div>
               <div className="mt-4 text-xs uppercase tracking-[0.4em] text-white/50">
                 {s.label}

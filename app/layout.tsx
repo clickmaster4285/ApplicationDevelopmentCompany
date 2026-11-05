@@ -19,11 +19,11 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://clickmastersapplicationdevelopment.com"),
   title: "Application development company USA - Clickmasters",
   description:
-    "ClickMasters is a leading application development company USA providing app development services that build digital products, improve systems, and drive digital growth.",
+    "ClickMasters is a US application development company building digital products, improving business systems, and supporting growth.",
   icons: {
-    icon: "/images/logo-app.png",
-    shortcut: "/images/logo-app.png",
-    apple: "/images/logo-app.png",
+    icon: "/images/logo-app.webp",
+    shortcut: "/images/logo-app.webp",
+    apple: "/images/logo-app.webp",
   },
   verification: {
     google: "gNfCYQJTRuy2Ot2iF5ME4PmBagxr1Z1rHWzO1_ptOvc",
@@ -41,8 +41,8 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <head>
-        <link rel="icon" href="/images/logo-app.png" sizes="any" />
-        <link rel="apple-touch-icon" href="/images/logo-app.png" />
+        <link rel="icon" href="/images/logo-app.webp" sizes="any" />
+        <link rel="apple-touch-icon" href="/images/logo-app.webp" />
         <meta name="theme-color" content="#000000" />
         
         {/* Google Site Verification */}

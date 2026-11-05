@@ -3,6 +3,8 @@ import locationData from "@/content/locations";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { canonicalUrl } from "@/lib/site";
+import { limitSeoText } from "@/lib/seo";
+import { isLocationPageIndexable } from "@/lib/location-indexing";
 import {
   FAQSection,
   CTASection,
@@ -46,18 +48,21 @@ export async function generateMetadata({
   }
 
   return {
-    title: pageData.meta.title,
-    description: pageData.meta.description,
+    title: limitSeoText(pageData.meta.title, 60),
+    description: limitSeoText(pageData.meta.description, 160),
+    robots: isLocationPageIndexable(pageData)
+      ? { index: true, follow: true }
+      : { index: false, follow: true },
     openGraph: {
-      title: pageData.meta.title,
-      description: pageData.meta.description,
+      title: limitSeoText(pageData.meta.title, 60),
+      description: limitSeoText(pageData.meta.description, 160),
       url: canonicalUrl(pageData.url),
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: pageData.meta.title,
-      description: pageData.meta.description,
+      title: limitSeoText(pageData.meta.title, 60),
+      description: limitSeoText(pageData.meta.description, 160),
     },
     alternates: {
       canonical: canonicalUrl(pageData.url),
@@ -86,15 +91,16 @@ export default async function LocationPage({
 
   // Extract FAQs directly from pageData
   const faqs = extractFAQs(pageData);
+  const isIndexable = isLocationPageIndexable(pageData);
 
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-white/20">
       <HeroHeader pageData={pageData} type="Location" />
       <MainContent pageData={pageData} />
-      <FAQSection pageData={pageData} />
+      {isIndexable && <FAQSection pageData={pageData} />}
       <CTASection pageData={pageData} />
       <StructuredData pageData={pageData} />
-      <FAQSchema faqs={faqs} />
+      {isIndexable && <FAQSchema faqs={faqs} />}
     </div>
   );
 }

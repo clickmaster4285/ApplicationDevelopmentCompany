@@ -688,7 +688,7 @@ export default function DesktopApplicationDevelopment() {
             <PremiumCard className="min-h-[520px] p-3">
               <div className="relative h-[496px] overflow-hidden rounded-md">
                 <Image
-                  src="/images/ui-ux.jpeg"
+                  src="/images/ui-ux.webp"
                   alt="Desktop application development"
                   fill
                   priority

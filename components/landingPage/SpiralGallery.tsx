@@ -8,11 +8,11 @@ import {
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, MousePointer2, Sparkles } from "lucide-react";
 
-const p1 = "/images/p1.jpeg";
-const p2 = "/images/p2.jpeg";
-const p3 = "/images/p3.jpeg";
-const p4 = "/images/p4.jpeg";
-const p5 = "/images/p5.jpeg";
+const p1 = "/images/p1.webp";
+const p2 = "/images/p2.webp";
+const p3 = "/images/p3.webp";
+const p4 = "/images/p4.webp";
+const p5 = "/images/p5.webp";
 
 const galleryItems: GalleryItem[] = [
   { image: p3, text: "Discovery & Planning" },

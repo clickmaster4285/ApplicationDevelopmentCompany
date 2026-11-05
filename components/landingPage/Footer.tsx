@@ -89,7 +89,7 @@ export function Footer() {
               Contact
             </div>
             <p className="text-sm leading-relaxed text-white/65">
-              sales@applicationdevelopment.com
+              sales@clickmastersapplicationdevelopment.com
               <br />
               +44 7988 576086
               <br />

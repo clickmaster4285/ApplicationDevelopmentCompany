@@ -510,7 +510,7 @@ export default function CustomApplicationDevelopment() {
 
             <PremiumCard className="min-h-[520px] p-3">
               <div className="relative h-[496px] overflow-hidden rounded-md">
-                <Image src="/images/application.jpeg" alt="Custom application development" fill priority sizes="(min-width: 1024px) 48vw, 92vw" className="object-cover" />
+                <Image src="/images/application.webp" alt="Custom application development" fill priority sizes="(min-width: 1024px) 48vw, 92vw" className="object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/45 to-transparent" />
               </div>
             </PremiumCard>

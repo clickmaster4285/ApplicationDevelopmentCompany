@@ -7,6 +7,7 @@ import {
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { canonicalUrl } from "@/lib/site";
+import { limitSeoText } from "@/lib/seo";
 import {
   FAQSection,
   CTASection,
@@ -46,18 +47,18 @@ export async function generateMetadata({
   }
 
   return {
-    title: pageData.meta.title,
-    description: pageData.meta.description,
+    title: limitSeoText(pageData.meta.title, 60),
+    description: limitSeoText(pageData.meta.description, 160),
     openGraph: {
-      title: pageData.meta.title,
-      description: pageData.meta.description,
+      title: limitSeoText(pageData.meta.title, 60),
+      description: limitSeoText(pageData.meta.description, 160),
       url: canonicalUrl(pageData.url),
       type: "website",
     },
     twitter: {
       card: "summary_large_image",
-      title: pageData.meta.title,
-      description: pageData.meta.description,
+      title: limitSeoText(pageData.meta.title, 60),
+      description: limitSeoText(pageData.meta.description, 160),
     },
     alternates: {
       canonical: canonicalUrl(pageData.url),
@@ -116,7 +117,11 @@ export default async function ServicePage({
 
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-white/20">
-      <HeroHeader pageData={pageData} type="Service" />
+      <HeroHeader
+        pageData={pageData}
+        type="Service"
+        useContactForm={slug === "web-application-development"}
+      />
       <MainContent pageData={pageData} />
       <FAQSection pageData={pageData} />
       <CTASection pageData={pageData} />

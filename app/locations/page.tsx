@@ -54,7 +54,7 @@ const locations: Location[] = [
     description:
       "Our global headquarters where we build institutional-grade trading platforms and portfolio analytics for the world's leading financial institutions.",
     image:
-      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&h=800&fit=crop",
+      "/images/unsplash-photo-1486406146926-c627a92ad1ab-1200x800.webp",
     teamSize: 52,
     founded: "2018",
     specialties: ["Fintech", "Trading Systems", "Analytics"],
@@ -71,7 +71,7 @@ const locations: Location[] = [
     description:
       "Our European fintech hub, focused on algorithmic trading, risk management, and regulatory technology for the UK and European markets.",
     image:
-      "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=1200&h=800&fit=crop",
+      "/images/unsplash-photo-1513635269975-59663e0ac1ad-1200x800.webp",
     teamSize: 34,
     founded: "2020",
     specialties: ["Algorithmic Trading", "Risk", "RegTech"],
@@ -87,7 +87,7 @@ const locations: Location[] = [
     description:
       "Our Asia-Pacific headquarters, specializing in high-frequency trading infrastructure and AI-driven market intelligence.",
     image:
-      "https://images.unsplash.com/photo-1534880606858-29b0e8a24e8d?w=1200&h=800&fit=crop",
+      "/images/unsplash-photo-1534880606858-29b0e8a24e8d-1200x800.webp",
     teamSize: 28,
     founded: "2021",
     specialties: ["HFT", "AI", "Market Intelligence"],
@@ -103,7 +103,7 @@ const locations: Location[] = [
     description:
       "Our US trading technology hub, located in the heart of America's financial derivatives market. Home to our latency optimization team.",
     image:
-      "https://images.unsplash.com/photo-1494522358652-f30e61a60313?w=1200&h=800&fit=crop",
+      "/images/unsplash-photo-1494522358652-f30e61a60313-1200x800.webp",
     teamSize: 22,
     founded: "2022",
     specialties: ["Derivatives", "Latency", "Infrastructure"],
@@ -120,7 +120,7 @@ const locations: Location[] = [
     description:
       "Our Japanese studio, focused on fintech innovation, mobile trading, and blockchain-based settlement systems for Asian markets.",
     image:
-      "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=1200&h=800&fit=crop",
+      "/images/unsplash-photo-1540959733332-eab4deabeeaf-1200x800.webp",
     teamSize: 18,
     founded: "2023",
     specialties: ["Mobile Trading", "Blockchain", "Settlement"],
@@ -136,7 +136,7 @@ const locations: Location[] = [
     description:
       "Our newest studio, building next-generation wealth management platforms and sustainable finance solutions for the Asia-Pacific region.",
     image:
-      "https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=1200&h=800&fit=crop",
+      "/images/unsplash-photo-1506973035872-a4ec16b8e8d9-1200x800.webp",
     teamSize: 14,
     founded: "2024",
     specialties: ["Wealth Management", "Sustainable Finance", "APAC"],
