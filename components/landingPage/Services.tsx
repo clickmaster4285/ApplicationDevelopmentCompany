@@ -11,12 +11,12 @@ import {
   ArrowUpRight,
 } from "lucide-react";
 
-const svcMobile = "/images/mobile.jpeg";
-const svcWeb = "/images/web.jpeg";
-const svcUi = "/images/ui-ux.jpeg";
-const svcSaas = "/images/saas.jpeg";
-const svcApi = "/images/api.jpeg";
-const svcMaint = "/images/application.jpeg";
+const svcMobile = "/images/mobile.webp";
+const svcWeb = "/images/web.webp";
+const svcUi = "/images/ui-ux.webp";
+const svcSaas = "/images/saas.webp";
+const svcApi = "/images/api.webp";
+const svcMaint = "/images/application.webp";
 
 import { useRef } from "react";
 import Link from "next/link";

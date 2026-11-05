@@ -7,6 +7,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import { ScopedHeading } from "@/components/landingPage/heading-level";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const aboutVideo = "/images/about.mp4";
 
 // Counter component for stats
@@ -26,10 +28,11 @@ function Counter({ to, suffix }: { to: number; suffix: string }) {
           duration: 2,
           ease: "power2.out",
           snap: { innerText: 1 },
+          immediateRender: false,
           scrollTrigger: {
             trigger: el,
             start: "top 80%",
-            toggleActions: "play none none reverse",
+            toggleActions: "play none none none",
           },
           onUpdate: function () {
             el.innerText = Math.floor(Number(el.innerText)).toString();
@@ -43,7 +46,7 @@ function Counter({ to, suffix }: { to: number; suffix: string }) {
 
   return (
     <>
-      <span ref={ref}>0</span>
+      <span ref={ref}>{to.toLocaleString()}</span>
       {suffix}
     </>
   );
@@ -94,7 +97,7 @@ function Reveal({
   );
 }
 
-export function About() {
+export function About({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
@@ -127,7 +130,10 @@ export function About() {
             <div className="text-[10px] uppercase tracking-[0.4em] text-white/40 mb-5">
               — Application Development Solutions
             </div>
-            <ScopedHeading className="text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] mb-8">
+            <ScopedHeading
+              as={headingLevel}
+              className="text-5xl md:text-7xl font-medium leading-[1.02] tracking-[-0.03em] mb-8"
+            >
               Solutions built{" "}
               <span className="bg-gradient-to-r from-white to-white/60 bg-clip-text text-transparent">
                 around your business.

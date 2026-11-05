@@ -7,10 +7,10 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import { ScopedHeading } from "@/components/landingPage/heading-level";
 
-const Helix = "/images/health.jpeg";
-const Lumen = "/images/fintech.jpeg";
-const Atelier = "/images/atelier.jpeg";
-const Sapien = "/images/sapien.jpeg";
+const Helix = "/images/health.webp";
+const Lumen = "/images/fintech.webp";
+const Atelier = "/images/atelier.webp";
+const Sapien = "/images/sapien.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 

@@ -33,6 +33,10 @@ export async function GET() {
     <lastmod>${lastModified}</lastmod>
   </sitemap>
   <sitemap>
+    <loc>${siteUrl}/sitemap_compare.xml</loc>
+    <lastmod>${lastModified}</lastmod>
+  </sitemap>
+  <sitemap>
     <loc>${siteUrl}/sitemap_ebooks.xml</loc>
     <lastmod>${lastModified}</lastmod>
   </sitemap>

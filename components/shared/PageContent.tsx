@@ -72,6 +72,40 @@ function sectionHasMarkdownList(text: string) {
   return /^[-*]\s+|^\d+\.\s+/m.test(text);
 }
 
+function repairMissingMarkdownLinkOpeners(text: string) {
+  return text
+    .split("\n")
+    .map((line) => {
+      const insertions: number[] = [];
+      const linkPattern = /\]\((?:\/|https?:\/\/)[^)]+\)/g;
+      let match: RegExpExecArray | null;
+
+      while ((match = linkPattern.exec(line)) !== null) {
+        const closingBracket = match.index;
+        const previousOpeningBracket = line.lastIndexOf("[", closingBracket);
+        const previousClosingBracket = line.lastIndexOf("]", closingBracket - 1);
+
+        if (previousOpeningBracket <= previousClosingBracket) {
+          const listMarker = line.match(/^\s*[-*]\s+/);
+          const labelStart = listMarker
+            ? listMarker[0].length
+            : Math.max(
+                line.lastIndexOf(" ", closingBracket - 1),
+                line.lastIndexOf("\t", closingBracket - 1),
+              ) + 1;
+          insertions.push(labelStart);
+        }
+      }
+
+      for (const index of insertions.reverse()) {
+        line = `${line.slice(0, index)}[${line.slice(index)}`;
+      }
+
+      return line;
+    })
+    .join("\n");
+}
+
 export function PageContent({
   content,
   pageData,
@@ -79,7 +113,10 @@ export function PageContent({
   content?: string;
   pageData?: { content?: string; [key: string]: any };
 }) {
-  const rawContent = content || pageData?.content || "";
+  const pageMarkdown = content || pageData?.content || "";
+  const rawContent = repairMissingMarkdownLinkOpeners(
+    pageMarkdown.replace(/^\s*\[LOCAL DATA MODULE\b[^\n]*\]\s*$/gim, ""),
+  );
 
   const contentAfterTitle = rawContent.replace(/^# .+\n?/, "").trimStart();
   const firstSectionIndex = contentAfterTitle.search(/^##\s+/m);
@@ -371,13 +408,6 @@ export function PageContent({
 
             // First section: full-width hero layout
             if (isFirst) {
-              const stripMarkdown = (text: string) =>
-                text
-                  .replace(/\*/g, "")
-                  .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-                  .replace(/^-\s+/gm, "")
-                  .trim();
-
               return (
                 <motion.div
                   key={index}
@@ -408,9 +438,14 @@ export function PageContent({
                   {hasMarkdownList && items.length > 0 ? (
                     <div className="space-y-5">
                       {intro && (
-                        <p className="text-lg md:text-xl text-white/55 leading-relaxed max-w-3xl">
-                          {stripMarkdown(intro)}
-                        </p>
+                        <div className="text-lg md:text-xl text-white/55 leading-relaxed max-w-3xl">
+                          <ReactMarkdown
+                            remarkPlugins={[remarkGfm]}
+                            components={introMarkdownComponents}
+                          >
+                            {intro}
+                          </ReactMarkdown>
+                        </div>
                       )}
                       <ul className="space-y-4">
                         {items.map((item, itemIndex) => (
@@ -425,19 +460,37 @@ export function PageContent({
                             <div className="w-10 h-10 rounded-xl border border-primary/30 bg-primary/10 grid place-items-center flex-shrink-0 text-primary group-hover:bg-primary group-hover:border-primary group-hover:text-[#050505] transition-all">
                               <Check className="w-5 h-5" />
                             </div>
-                            <span className="text-lg md:text-xl text-white/60 leading-relaxed pt-1">
-                              {stripMarkdown(item)}
-                            </span>
+                            <div className="text-lg md:text-xl text-white/60 leading-relaxed pt-1">
+                              <ReactMarkdown
+                                remarkPlugins={[remarkGfm]}
+                                components={{
+                                  ...introMarkdownComponents,
+                                  p: ({ children, ...props }: any) => (
+                                    <p
+                                      className="m-0 text-lg leading-relaxed text-white/60 md:text-xl"
+                                      {...props}
+                                    >
+                                      {children}
+                                    </p>
+                                  ),
+                                }}
+                              >
+                                {item}
+                              </ReactMarkdown>
+                            </div>
                           </motion.li>
                         ))}
                       </ul>
                     </div>
                   ) : (
-                    <p className="text-lg md:text-xl text-white/55 leading-relaxed max-w-3xl">
-                      {stripMarkdown(
-                        sectionBody,
-                      )}
-                    </p>
+                    <div className="text-lg md:text-xl text-white/55 leading-relaxed max-w-3xl">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={introMarkdownComponents}
+                      >
+                        {sectionBody}
+                      </ReactMarkdown>
+                    </div>
                   )}
                 </motion.div>
               );

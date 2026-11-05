@@ -693,12 +693,12 @@ function ServiceCard({ s, index }: { s: (typeof services)[number]; index: number
 }
 
 const imageShowcase = [
-  { src: "/images/mobile.jpeg", title: "Mobile Applications" },
-  { src: "/images/web.jpeg", title: "Web Applications" },
-  { src: "/images/ui-ux.jpeg", title: "UI/UX Design" },
-  { src: "/images/saas.jpeg", title: "SaaS Applications" },
-  { src: "/images/api.jpeg", title: "API Development" },
-  { src: "/images/application.jpeg", title: "Application Development" },
+  { src: "/images/mobile.webp", title: "Mobile Applications" },
+  { src: "/images/web.webp", title: "Web Applications" },
+  { src: "/images/ui-ux.webp", title: "UI/UX Design" },
+  { src: "/images/saas.webp", title: "SaaS Applications" },
+  { src: "/images/api.webp", title: "API Development" },
+  { src: "/images/application.webp", title: "Application Development" },
 ];
 
 // ============================================================
@@ -754,7 +754,7 @@ export default function AppServices() {
             <PremiumCard className="min-h-[520px] p-3" reveal={false}>
               <div className="relative h-[496px] overflow-hidden rounded-md">
                 <Image
-                  src="/images/application.jpeg"
+                  src="/images/application.webp"
                   alt="Application development workspace"
                   fill
                   priority

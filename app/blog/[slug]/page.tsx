@@ -3,6 +3,7 @@ import blogsData from "@/content/blogs";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { canonicalUrl } from "@/lib/site";
+import { limitSeoText } from "@/lib/seo";
 import {
   FAQSection,
   CTASection,
@@ -42,11 +43,11 @@ export async function generateMetadata({
   }
 
   return {
-    title: pageData.meta.title,
-    description: pageData.meta.description,
+    title: limitSeoText(pageData.meta.title, 60),
+    description: limitSeoText(pageData.meta.description, 160),
     openGraph: {
-      title: pageData.meta.title,
-      description: pageData.meta.description,
+      title: limitSeoText(pageData.meta.title, 60),
+      description: limitSeoText(pageData.meta.description, 160),
       url: canonicalUrl(pageData.url),
       type: "article",
       publishedTime: pageData.blog.publishDate,
@@ -55,8 +56,8 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: pageData.meta.title,
-      description: pageData.meta.description,
+      title: limitSeoText(pageData.meta.title, 60),
+      description: limitSeoText(pageData.meta.description, 160),
     },
     alternates: {
       canonical: canonicalUrl(pageData.url),

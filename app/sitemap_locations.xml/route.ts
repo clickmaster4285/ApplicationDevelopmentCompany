@@ -1,4 +1,5 @@
 import locationData from "@/content/locations";
+import { isLocationPageIndexable } from "@/lib/location-indexing";
 import { NextResponse } from "next/server";
 
 // Base URL for your site
@@ -16,13 +17,15 @@ interface LocationPage {
 
 export async function GET() {
   // Get all location URLs from the data with proper typing
-  const locationUrls: string[] = locationData.pages.map((page: LocationPage) => {
-    // Clean up the URL (remove leading/trailing slashes and ensure proper format)
-    const cleanUrl: string = page.url
-      .replace(/^\/+|\/+$/g, '')
-      .replace('locations/', '');
-    return `${siteUrl}/locations/${cleanUrl}`;
-  });
+  const locationUrls: string[] = locationData.pages
+    .filter(isLocationPageIndexable)
+    .map((page: LocationPage) => {
+      // Clean up the URL (remove leading/trailing slashes and ensure proper format)
+      const cleanUrl: string = page.url
+        .replace(/^\/+|\/+$/g, '')
+        .replace('locations/', '');
+      return `${siteUrl}/locations/${cleanUrl}`;
+    });
 
   // Add the main locations page manually
   const allUrls: string[] = [

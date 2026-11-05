@@ -5,12 +5,12 @@ import { TravelRouteCard } from "@/components/ui/whyUsCard";
 import { Zap, Layers, Cpu, Shield, Headphones, Gauge } from "lucide-react";
 import { ScopedHeading } from "@/components/landingPage/heading-level";
 
-const whyUs1 = "/images/whyUs1.jpeg";
-const whyUs2 = "/images/whyUs2.jpeg";
-const whyUs3 = "/images/whyUs3.jpeg";
-const whyUs4 = "/images/whyUs4.jpeg";
-const whyUs5 = "/images/whyUs5.jpeg";
-const whyUs6 = "/images/whyUs6.jpeg";
+const whyUs1 = "/images/whyUs1.webp";
+const whyUs2 = "/images/whyUs2.webp";
+const whyUs3 = "/images/whyUs3.webp";
+const whyUs4 = "/images/whyUs4.webp";
+const whyUs5 = "/images/whyUs5.webp";
+const whyUs6 = "/images/whyUs6.webp";
 
 const items = [
   {

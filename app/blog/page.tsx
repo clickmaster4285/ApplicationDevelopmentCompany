@@ -34,7 +34,7 @@ const blogPosts: BlogPost[] = [
     author: "Dr. Sarah Chen",
     authorRole: "CTO, Lumen Studio",
     image:
-      "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=1200&h=800&fit=crop",
+      "/images/unsplash-photo-1555255707-c07966088b7b-1200x800.webp",
     tags: ["Security", "Healthcare", "Scalability"],
     featured: true,
   },
@@ -49,7 +49,7 @@ const blogPosts: BlogPost[] = [
     author: "Marcus Aurelius",
     authorRole: "Design Director",
     image:
-      "https://images.unsplash.com/photo-1557821552-17105176677c?w=1200&h=800&fit=crop",
+      "/images/unsplash-photo-1557821552-17105176677c-1200x800.webp",
     tags: ["UX", "Luxury", "E-commerce"],
   },
   {
@@ -63,7 +63,7 @@ const blogPosts: BlogPost[] = [
     author: "Elena Vogt",
     authorRole: "Head of Product",
     image:
-      "https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1200&h=800&fit=crop",
+      "/images/unsplash-photo-1509062522246-3755977927d7-1200x800.webp",
     tags: ["EdTech", "Retention", "AI"],
   },
   {
@@ -77,7 +77,7 @@ const blogPosts: BlogPost[] = [
     author: "James Okonkwo",
     authorRole: "Lead Engineer",
     image:
-      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&h=800&fit=crop",
+      "/images/unsplash-photo-1611974789855-9c2a0a7236a3-1200x800.webp",
     tags: ["Fintech", "Performance", "Systems"],
   },
   {
@@ -91,7 +91,7 @@ const blogPosts: BlogPost[] = [
     author: "Isabella Rossi",
     authorRole: "Senior Designer",
     image:
-      "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=1200&h=800&fit=crop",
+      "/images/unsplash-photo-1541701494587-cb58502866ab-1200x800.webp",
     tags: ["Psychology", "Branding", "Interaction"],
   },
   {
@@ -105,7 +105,7 @@ const blogPosts: BlogPost[] = [
     author: "Dr. Sarah Chen",
     authorRole: "CTO, Lumen Studio",
     image:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&h=800&fit=crop",
+      "/images/unsplash-photo-1576091160550-2173dba999ef-1200x800.webp",
     tags: ["AI", "Machine Learning", "Production"],
   },
 ];

@@ -37,7 +37,7 @@ const ebooks: Ebook[] = [
     coverColor: "#0a0e14",
     coverGradient: "from-[#0a0e14] to-[#1a1f2e]",
     image:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1200&h=1600&fit=crop",
+      "/images/unsplash-photo-1558494949-ef010cbdcc31-1200x1600.webp",
     authors: ["Dr. Sarah Chen", "Marcus Aurelius"],
     tags: ["Security", "Architecture", "DevOps"],
     featured: true,
@@ -55,7 +55,7 @@ const ebooks: Ebook[] = [
     coverColor: "#1a0e0a",
     coverGradient: "from-[#1a0e0a] to-[#2e1a14]",
     image:
-      "https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=1200&h=1600&fit=crop",
+      "/images/unsplash-photo-1541701494587-cb58502866ab-1200x1600.webp",
     authors: ["Isabella Rossi", "Elena Vogt"],
     tags: ["UX", "Psychology", "Design"],
     releaseDate: "May 2026",
@@ -72,7 +72,7 @@ const ebooks: Ebook[] = [
     coverColor: "#0e1a14",
     coverGradient: "from-[#0e1a14] to-[#1a2e24]",
     image:
-      "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1200&h=1600&fit=crop",
+      "/images/unsplash-photo-1611974789855-9c2a0a7236a3-1200x1600.webp",
     authors: ["James Okonkwo", "Marcus Aurelius"],
     tags: ["Fintech", "Performance", "Systems"],
     releaseDate: "April 2026",
@@ -89,7 +89,7 @@ const ebooks: Ebook[] = [
     coverColor: "#14100e",
     coverGradient: "from-[#14100e] to-[#2e1e14]",
     image:
-      "https://images.unsplash.com/photo-1555255707-c07966088b7b?w=1200&h=1600&fit=crop",
+      "/images/unsplash-photo-1555255707-c07966088b7b-1200x1600.webp",
     authors: ["Dr. Sarah Chen", "Elena Vogt"],
     tags: ["AI", "Product", "Machine Learning"],
     releaseDate: "March 2026",
@@ -106,7 +106,7 @@ const ebooks: Ebook[] = [
     coverColor: "#0e0e14",
     coverGradient: "from-[#0e0e14] to-[#1e1e2e]",
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=1600&fit=crop",
+      "/images/unsplash-photo-1551288049-bebda4e38f71-1200x1600.webp",
     authors: ["James Okonkwo", "Marcus Aurelius"],
     tags: ["Scalability", "Infrastructure", "DevOps"],
     releaseDate: "February 2026",
@@ -123,7 +123,7 @@ const ebooks: Ebook[] = [
     coverColor: "#1a0e1a",
     coverGradient: "from-[#1a0e1a] to-[#2e1a2e]",
     image:
-      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=1200&h=1600&fit=crop",
+      "/images/unsplash-photo-1512941937669-90a1b58e7e9c-1200x1600.webp",
     authors: ["Isabella Rossi"],
     tags: ["Accessibility", "Inclusion", "Design"],
     releaseDate: "January 2026",

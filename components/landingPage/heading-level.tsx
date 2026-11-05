@@ -17,18 +17,23 @@ export function SingleH2Scope({ children }: { children: ReactNode }) {
     used.current = true;
     return "h2";
   });
+  // Keep the claim function stable for the lifetime of this scope.
+  // eslint-disable-next-line react-hooks/refs
+  const headingClaim = claim.current;
 
   return (
-    <HeadingClaimContext.Provider value={claim.current}>
+    <HeadingClaimContext.Provider value={headingClaim}>
       {children}
     </HeadingClaimContext.Provider>
   );
 }
 
 export function ScopedHeading({
+  as,
   className,
   children,
 }: {
+  as?: "h1" | "h2" | "h3";
   className?: string;
   children: ReactNode;
 }) {
@@ -37,6 +42,8 @@ export function ScopedHeading({
   if (tagRef.current === null) {
     tagRef.current = claim ? claim() : "h2";
   }
-  const Tag = tagRef.current;
+  // The ref keeps the assigned heading level stable across rerenders.
+  // eslint-disable-next-line react-hooks/refs
+  const Tag = as ?? tagRef.current;
   return <Tag className={className}>{children}</Tag>;
 }

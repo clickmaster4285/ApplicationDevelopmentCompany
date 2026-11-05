@@ -390,13 +390,19 @@ export function HeroHeader({
 
             <div className="animate-[fade-slide-up_0.8s_ease-out_forwards]" style={{ animationDelay: '0.6s' }}>
               <div className="flex flex-wrap gap-3">
-                <MagneticButton variant="chrome" className="group">
+                <MagneticButton
+                  href="/contact"
+                  variant="chrome"
+                  className="group"
+                >
                   <span className="relative z-10 flex items-center gap-2">
-                    Start Free Trial
+                    Start Your Project
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </span>
                 </MagneticButton>
-                <MagneticButton variant="ghost">Schedule Demo</MagneticButton>
+                <MagneticButton href="/contact" variant="ghost">
+                  Schedule a Call
+                </MagneticButton>
               </div>
             </div>
           </div>

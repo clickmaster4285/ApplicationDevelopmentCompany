@@ -1,16 +1,52 @@
 import { Metadata } from "next";
-import { Projects } from "@/components/landingPage/Projects";
+import Link from "next/link";
+import solutionsData from "@/content/solutions";
 import { canonicalUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
-  title: "Our Portfolio | ClickMasters",
+  title: "Application Solutions | ClickMasters",
   description:
-    "Explore ClickMasters' portfolio of successful web development, SEO, digital marketing, branding, and AI projects delivered for businesses across various industries.",
+    "Explore custom application solutions for business operations, customer experiences, and connected systems, built around real workflows and goals.",
   alternates: {
     canonical: canonicalUrl("/solutions"),
   },
 };
 
 export default function Page() {
-  return <Projects />;
+  return (
+    <main className="min-h-screen bg-[#050505] px-6 pb-24 pt-32 text-white">
+      <div className="mx-auto max-w-6xl">
+        <p className="mb-4 text-xs uppercase tracking-[0.3em] text-white/40">
+          Application development
+        </p>
+        <h1 className="text-4xl font-medium tracking-tight md:text-6xl">
+          Application Solutions
+        </h1>
+        <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/60">
+          Explore custom software solutions for business operations, customer
+          experiences, and connected systems.
+        </p>
+        <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {solutionsData.pages.map((page) => {
+            const title =
+              page.content.match(/^#\s+(.+)$/m)?.[1] ?? page.meta.title;
+
+            return (
+              <li key={page.url}>
+                <Link
+                  href={page.url}
+                  className="block rounded-xl border border-white/10 p-5 text-white/80 transition-colors hover:border-white/30 hover:text-white"
+                >
+                  <span className="block">{title}</span>
+                  <span className="mt-3 block text-sm leading-relaxed text-white/50">
+                    {page.meta.description}
+                  </span>
+                </Link>
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    </main>
+  );
 }
