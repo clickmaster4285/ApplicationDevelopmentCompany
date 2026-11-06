@@ -48,7 +48,7 @@ export interface EbookData {
   ebook: {
     title: string;
     subtitle: string;
-    coverImage: string;
+    coverImage?: string;
     author: string;
     authorTitle: string;
     authorImage?: string;
@@ -347,10 +347,8 @@ Yes—we encourage internal sharing to help your team align on AI strategy.
         title: "AI for Business: A Practical Guide to Implementation",
         subtitle:
           "A framework for identifying opportunities, building the business case, and implementing AI that delivers ROI",
-        coverImage: "/images/ebooks/ai-for-business-cover.jpg",
         author: "Alex Rivera",
         authorTitle: "AI Engineering Lead",
-        authorImage: "/images/authors/alex-rivera.jpg",
         publishDate: "2026-07-28",
         pages: 85,
         format: "PDF",
@@ -693,10 +691,8 @@ Get instant access to the complete guide:
         title: "Custom Software Cost Guide: Pricing Your Project",
         subtitle:
           "The complete guide to understanding software costs, budgeting effectively, and evaluating vendor quotes",
-        coverImage: "/images/ebooks/cost-guide-cover.jpg",
         author: "David Park",
         authorTitle: "VP of Client Services",
-        authorImage: "/images/authors/david-park.jpg",
         publishDate: "2026-07-25",
         pages: 95,
         format: "PDF",
@@ -1024,10 +1020,8 @@ Get instant access to the complete guide:
         title: "Scaling Your Startup's Technology: A Founder's Guide",
         subtitle:
           "A practical roadmap for transitioning from MVP to scalable product",
-        coverImage: "/images/ebooks/startup-scaling-cover.jpg",
         author: "Michael Chen",
         authorTitle: "CTO & Software Architect",
-        authorImage: "/images/authors/michael-chen.jpg",
         publishDate: "2026-07-20",
         pages: 78,
         format: "PDF",

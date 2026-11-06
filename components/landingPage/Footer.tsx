@@ -1,24 +1,35 @@
+import Link from "next/link";
+
 const logo = "/images/logo-white.webp";
 
 const cols = [
   {
     title: "Services",
     links: [
-      "Mobile Apps",
-      "Web Apps",
-      "UI/UX Design",
-      "SaaS",
-      "API Integration",
-      "Maintenance",
+      { label: "Mobile Apps", href: "/services/mobile-app-development" },
+      { label: "Web Apps", href: "/services/web-application-development" },
+      { label: "UI/UX Design", href: "/services/ui-ux-design" },
+      { label: "SaaS", href: "/services/saas-development" },
+      { label: "API Integration", href: "/services/api-development" },
+      { label: "Maintenance", href: "/services/software-maintenance-support" },
     ],
   },
   {
     title: "Company",
-    links: ["About", "Process", "Careers", "Press", "Contact"],
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Process", href: "/process" },
+      { label: "Contact", href: "/contact" },
+    ],
   },
   {
     title: "Resources",
-    links: ["Case Studies", "Journal", "Engineering", "Brand Kit"],
+    links: [
+      { label: "Case Studies", href: "/case-studies" },
+      { label: "Blog", href: "/blog" },
+      { label: "Guides", href: "/resources" },
+      { label: "Engineering", href: "/resources/software-engineering" },
+    ],
   },
 ];
 
@@ -71,13 +82,13 @@ export function Footer() {
                 </div>
                 <ul className="space-y-3">
                   {c.links.map((l) => (
-                    <li key={l}>
-                      <a
-                        href={l === "Contact" ? "/contact" : "#"}
+                    <li key={l.href}>
+                      <Link
+                        href={l.href}
                         className="text-sm text-white/65 hover:text-white transition-colors"
                       >
-                        {l}
-                      </a>
+                        {l.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -97,17 +108,6 @@ export function Footer() {
               <br />
               San Francisco · Remote
             </p>
-            <div className="mt-8 flex gap-3">
-              {["Tw", "In", "Gh", "Dr"].map((s) => (
-                <a
-                  key={s}
-                  href="#"
-                  className="h-9 w-9 rounded-full border border-white/10 grid place-items-center text-xs text-white/70 hover:bg-white/5 hover:text-white transition-colors"
-                >
-                  {s}
-                </a>
-              ))}
-            </div>
           </div>
         </div>
 
@@ -117,15 +117,15 @@ export function Footer() {
             All rights reserved.
           </div>
           <div className="flex gap-6">
-            <a href="#" className="hover:text-white/70">
+            <Link href="/privacy" className="hover:text-white/70">
               Privacy
-            </a>
-            <a href="#" className="hover:text-white/70">
+            </Link>
+            <Link href="/terms" className="hover:text-white/70">
               Terms
-            </a>
-            <a href="#" className="hover:text-white/70">
+            </Link>
+            <Link href="/about/security" className="hover:text-white/70">
               Security
-            </a>
+            </Link>
           </div>
         </div>
       </div>

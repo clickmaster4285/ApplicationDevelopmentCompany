@@ -11,8 +11,8 @@ interface TravelRouteCardProps extends ComponentPropsWithoutRef<"div"> {
 export function TravelRouteCard({
   title,
   author,
-  distance = "—",
-  initialLikes = 0,
+  distance,
+  initialLikes,
   imageUrl,
   className = "",
   ...props
@@ -32,13 +32,17 @@ export function TravelRouteCard({
         </div>
       ) : null}
       <div className="space-y-3 p-6">
-        <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/40">
-          <span>Featured</span>
-          <span>{distance}</span>
-        </div>
+        {distance ? (
+          <div className="flex items-center justify-between text-[10px] uppercase tracking-[0.3em] text-white/40">
+            <span>Featured</span>
+            <span>{distance}</span>
+          </div>
+        ) : null}
         <h3 className="text-xl font-medium text-white">{title}</h3>
         <p className="text-sm leading-relaxed text-white/60">{author}</p>
-        <div className="pt-2 text-sm text-white/50">{initialLikes} likes</div>
+        {initialLikes !== undefined ? (
+          <div className="pt-2 text-sm text-white/50">{initialLikes} likes</div>
+        ) : null}
       </div>
     </div>
   );

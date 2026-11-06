@@ -356,7 +356,6 @@ Teams optimize cost without measuring quality impact. The result: you save money
       blog: {
         author: "Alex Rivera",
         authorTitle: "AI Engineering Lead",
-        authorImage: "/images/authors/alex-rivera.jpg",
         publishDate: "2026-07-28",
         readTime: "8 min",
         category: "AI Development",
@@ -658,7 +657,6 @@ The best software fails if people don't use it.
       blog: {
         author: "Sarah Thompson",
         authorTitle: "Operations & Implementation Lead",
-        authorImage: "/images/authors/sarah-thompson.jpg",
         publishDate: "2026-07-25",
         readTime: "10 min",
         category: "Digital Transformation",
@@ -1001,7 +999,6 @@ The highest debt areas:
       blog: {
         author: "Michael Chen",
         authorTitle: "CTO & Software Architect",
-        authorImage: "/images/authors/michael-chen.jpg",
         publishDate: "2026-07-22",
         readTime: "12 min",
         category: "Startups",

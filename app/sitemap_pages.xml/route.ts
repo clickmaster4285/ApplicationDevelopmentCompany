@@ -14,6 +14,9 @@ export async function GET() {
     "ebooks",
     "industries",
     "locations",
+    "process",
+    "privacy",
+    "terms",
     "resources",
     "solutions",
   ];

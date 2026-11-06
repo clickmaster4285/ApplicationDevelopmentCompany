@@ -47,6 +47,24 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Legacy JPEG/PNG images were converted to WebP. Redirect old URLs
+      // (still referenced by cached HTML, crawlers and image search).
+      {
+        source:
+          "/images/:name(api|application|atelier|fintech|health|mobile|p1|p2|p3|p4|p5|saas|sapien|ui-ux|web|whyUs1|whyUs2|whyUs3|whyUs4|whyUs5|whyUs6).jpeg",
+        destination: "/images/:name.webp",
+        permanent: true,
+      },
+      {
+        source: "/security",
+        destination: "/about/security",
+        permanent: true,
+      },
+      {
+        source: "/images/logo-app.png",
+        destination: "/images/logo-app.webp",
+        permanent: true,
+      },
       {
         source: "/:path*",
         has: [

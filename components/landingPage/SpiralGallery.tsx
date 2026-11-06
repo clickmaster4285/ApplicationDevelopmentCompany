@@ -7,6 +7,8 @@ import {
 } from "@/components/ui/circular-gallery";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, MousePointer2, Sparkles } from "lucide-react";
+import { PROJECTS_LABEL, YEARS_LABEL } from "@/lib/company";
+import { PROCESS_STEPS as processSteps } from "@/lib/process-steps";
 
 const p1 = "/images/p1.webp";
 const p2 = "/images/p2.webp";
@@ -23,32 +25,6 @@ const galleryItems: GalleryItem[] = [
   { image: p3, text: "Maintenance & Improvement" },
 ];
 
-const processSteps = [
-  {
-    title: "Discovery & Planning",
-    desc: "We start by understanding your idea, users, goals, required features, technical needs, and project scope.",
-  },
-  {
-    title: "UI/UX Design & Prototyping",
-    desc: "Our team plans the user journey and creates clear interfaces that make the application simple and easy to use.",
-  },
-  {
-    title: "Application Development",
-    desc: "Our developers turn approved designs and requirements into a working application using suitable technologies and development methods.",
-  },
-  {
-    title: "Quality Assurance & Testing",
-    desc: "We test features, usability, performance, security, and compatibility before the application goes live.",
-  },
-  {
-    title: "Deployment",
-    desc: "Once the application is ready, we prepare it for launch and help deploy it to the required environment or platform.",
-  },
-  {
-    title: "Maintenance & Improvement",
-    desc: "After launch, we can support updates, fixes, performance improvements, security changes, and new features as your needs grow.",
-  },
-];
 
 /**
  * Enhanced SpiralGallery with better visual design and interactions
@@ -198,8 +174,8 @@ export default function SpiralGallery() {
       >
         <div className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-8">
           <StatItem value="6" label="Phases" />
-          <StatItem value="12+" label="Years Experience" />
-          <StatItem value="500+" label="Projects Delivered" />
+          <StatItem value={YEARS_LABEL} label="Years Experience" />
+          <StatItem value={PROJECTS_LABEL} label="Projects Delivered" />
           <StatItem value="98%" label="Client Satisfaction" />
           <StatItem value="24/7" label="Support Available" />
         </div>

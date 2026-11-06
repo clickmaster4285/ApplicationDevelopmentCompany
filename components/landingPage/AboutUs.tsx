@@ -6,6 +6,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ArrowUpRight } from "lucide-react";
 import { ScopedHeading } from "@/components/landingPage/heading-level";
+import { COUNTRIES_SERVED, FOUNDED_YEAR, HAPPY_CLIENTS, PROJECTS_DELIVERED, YEARS_EXPERIENCE } from "@/lib/company";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -167,10 +168,10 @@ export function About({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" }) {
             {/* Stats grid - no cards */}
             <div className="mt-12 grid grid-cols-2 gap-8">
               {[
-                { n: 150, s: "+", l: "Projects Delivered" },
-                { n: 120, s: "+", l: "Happy Clients" },
-                { n: 32, s: "", l: "Countries Served" },
-                { n: 11, s: "", l: "Years Experience" },
+                { n: PROJECTS_DELIVERED, s: "+", l: "Projects Delivered" },
+                { n: HAPPY_CLIENTS, s: "+", l: "Happy Clients" },
+                { n: COUNTRIES_SERVED, s: "", l: "Countries Served" },
+                { n: YEARS_EXPERIENCE, s: "+", l: "Years Experience" },
               ].map((stat) => (
                 <div key={stat.l}>
                   <div className="text-4xl md:text-5xl font-medium text-white tracking-tight">
@@ -205,7 +206,7 @@ export function About({ headingLevel = "h2" }: { headingLevel?: "h1" | "h2" }) {
                 Established
               </div>
               <div className="text-sm font-medium tracking-tight text-white/80">
-                2014
+                {FOUNDED_YEAR}
               </div>
             </div>
           </div>

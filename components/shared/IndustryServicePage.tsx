@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { FAQAccordion } from "./FAQAccordion";
 import { PageContent } from "./PageContent";
+import { PROJECTS_LABEL } from "@/lib/company";
 
 // ============================================================
 // TYPES
@@ -570,7 +571,7 @@ export function CTASection({ pageData }: { pageData: PageData }) {
             <span className="w-px h-5 bg-white/10" />
             <span className="flex items-center gap-1.5">
               <Award className="h-3.5 w-3.5 text-primary" />
-              500+ Projects
+              {PROJECTS_LABEL} Projects
             </span>
             <span className="w-px h-5 bg-white/10" />
             <span className="flex items-center gap-1.5">

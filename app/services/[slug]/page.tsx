@@ -18,6 +18,7 @@ import {
 } from "@/components/shared/IndustryServicePage";
 import { extractFAQs } from "@/components/shared/IndustryServicePageUtils";
 import { HeroHeader } from "@/components/shared/HeroHeader";
+import { RelatedPages } from "@/components/shared/RelatedPages";
 import CustomApplicationDevelopment from "@/components/landingPage/CustomApplicationDevelopment";
 import DesktopApplicationDevelopment from "@/components/landingPage/DesktopApplicationDevelopment";
 import IoTDevelopment from "@/components/landingPage/IoTDevelopment";
@@ -129,6 +130,7 @@ export default async function ServicePage({
         siblingServices={siblingServices}
         parentService={parentService}
       />
+      <RelatedPages url={pageData.url} />
       <StructuredData pageData={pageData} />
       <FAQSchema faqs={faqs} />
     </div>

@@ -11,6 +11,7 @@ import {
 import { MagneticButton } from "../landingPage/MagneticButton";
 import { submitLeadToCrm } from "@/lib/crm";
 import { ContactForm } from "@/app/contact/contact-form";
+import { CLIENTS_LABEL } from "@/lib/company";
 
 const Badge = ({ 
   children, 
@@ -366,7 +367,7 @@ export function HeroHeader({
                 </div>
                 <div className="flex items-center gap-2 text-white/50 text-sm">
                   <Users className="h-4 w-4 text-primary" />
-                  <span>500+ Clients</span>
+                  <span>{CLIENTS_LABEL} Clients</span>
                 </div>
                 <div className="flex items-center gap-2 text-white/50 text-sm">
                   <Award className="h-4 w-4 text-primary" />
@@ -554,7 +555,7 @@ export function HeroHeader({
                     <div className="flex items-center gap-3 text-white/40">
                       <span className="flex items-center gap-1.5">
                         <Award className="h-3.5 w-3.5 text-primary" />
-                        Trusted by 500+
+                        Trusted by {CLIENTS_LABEL} clients
                       </span>
                       <span className="flex items-center gap-1.5">
                         <Star className="h-3.5 w-3.5 text-yellow-500 fill-yellow-500" />
@@ -571,7 +572,7 @@ export function HeroHeader({
                     4.9/5
                   </span>
                   <span className="w-px h-4 bg-white/10" />
-                  <span>500+ Happy Clients</span>
+                  <span>{CLIENTS_LABEL} Happy Clients</span>
                   <span className="w-px h-4 bg-white/10" />
                   <span className="flex items-center gap-1">
                     <TrendingUp className="h-3.5 w-3.5 text-primary" />

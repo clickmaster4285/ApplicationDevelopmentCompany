@@ -13,6 +13,7 @@ import {
 } from "@/components/shared/IndustryServicePage";
 import { extractFAQs } from "@/components/shared/IndustryServicePageUtils";
 import { HeroHeader } from "@/components/shared/HeroHeader";
+import { RelatedPages } from "@/components/shared/RelatedPages";
 
 // Generate static params
 export async function generateStaticParams() {
@@ -95,6 +96,7 @@ export default async function SolutionPage({
       <MainContent pageData={pageData} />
       <FAQSection pageData={pageData} />
       <CTASection pageData={pageData} />
+      <RelatedPages url={pageData.url} />
       <StructuredData pageData={pageData} />
       <FAQSchema faqs={faqs} />
     </div>

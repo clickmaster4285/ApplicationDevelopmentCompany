@@ -81,8 +81,6 @@ export function WhyUs() {
                 key={index}
                 title={item.title}
                 author={item.desc}
-                distance="12K"
-                initialLikes={1527}
                 imageUrl={item.imageUrl}
                 className="w-full max-w-none" // Override the max-w-md
               />

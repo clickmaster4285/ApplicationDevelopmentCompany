@@ -3,11 +3,12 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { PROJECTS_DELIVERED } from "@/lib/company";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { value: 150, label: "Projects Delivered", suffix: "+" },
+  { value: PROJECTS_DELIVERED, label: "Projects Delivered", suffix: "+" },
   { value: 98, label: "Client Satisfaction", suffix: "%" },
   { value: 40, label: "Enterprise Clients", suffix: "+" },
   { value: 10, label: "Users Impacted", suffix: "M+" },
