@@ -1,6 +1,5 @@
 // app/blog/[slug]/page.tsx
 import blogsData from "@/content/blogs";
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { canonicalUrl } from "@/lib/site";
 import { limitSeoText } from "@/lib/seo";
@@ -13,6 +12,8 @@ import {
 } from "@/components/shared/IndustryServicePage";
 import { extractFAQs } from "@/components/shared/IndustryServicePageUtils";
 import { HeroHeader } from "@/components/shared/HeroHeader";
+import { cmsMetadataOr, renderCmsPageOrNotFound } from "@/components/cms/CmsRoute";
+import { withEditedSeo } from "@/lib/cms/metadata";
 // Generate static params
 export async function generateStaticParams() {
   return blogsData.pages.map((page: any) => ({
@@ -29,6 +30,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const cmsPath = `/blog/${slug}`;
 
   const pageData = blogsData.pages.find((page: any) => {
     const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("blog/", "");
@@ -36,13 +38,13 @@ export async function generateMetadata({
   });
 
   if (!pageData) {
-    return {
+    return cmsMetadataOr(cmsPath, {
       title: "Blog Post Not Found",
       description: "The requested blog post could not be found.",
-    };
+    });
   }
 
-  return {
+  return withEditedSeo(cmsPath, {
     title: limitSeoText(pageData.meta.title, 60),
     description: limitSeoText(pageData.meta.description, 160),
     openGraph: {
@@ -62,7 +64,7 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl(pageData.url),
     },
-  };
+  });
 }
 
 // Main page component
@@ -79,7 +81,7 @@ export default async function BlogPage({
   });
 
   if (!pageData) {
-    notFound();
+    return renderCmsPageOrNotFound(`/blog/${slug}`);
   }
 
   // Extract FAQs directly from pageData

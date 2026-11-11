@@ -1,5 +1,16 @@
 import type { NextConfig } from "next";
 
+// ERP CMS origin (optional) — allowed as a form target for CMS contact /
+// newsletter sections. The browser never fetches the ERP directly (edits go
+// through /api/cms/page-edits), so connect-src is unchanged.
+const cmsOrigin = (() => {
+  try {
+    return process.env.CMS_API_URL ? new URL(process.env.CMS_API_URL).origin : "";
+  } catch {
+    return "";
+  }
+})();
+
 const contentSecurityPolicy = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com",
@@ -8,10 +19,12 @@ const contentSecurityPolicy = [
   "img-src 'self' data: blob: https:",
   "font-src 'self' data: https://fonts.gstatic.com",
   "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://stats.g.doubleclick.net",
-  "frame-src https://www.googletagmanager.com",
+  // YouTube / Vimeo embeds are used by CMS video sections.
+  "frame-src https://www.googletagmanager.com https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com",
+  "media-src 'self' https:",
   "object-src 'none'",
   "base-uri 'self'",
-  "form-action 'self'",
+  `form-action 'self'${cmsOrigin ? ` ${cmsOrigin}` : ""}`,
   "frame-ancestors 'self'",
 ].join("; ");
 

@@ -1,6 +1,5 @@
 // app/resources/[services]/page.tsx
 import resourcesData from "@/content/resources";
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { canonicalUrl } from "@/lib/site";
 import { limitSeoText } from "@/lib/seo";
@@ -14,6 +13,8 @@ import {
 import { extractFAQs } from "@/components/shared/IndustryServicePageUtils";
 import { HeroHeader } from "@/components/shared/HeroHeader";
 import { RelatedPages } from "@/components/shared/RelatedPages";
+import { cmsMetadataOr, renderCmsPageOrNotFound } from "@/components/cms/CmsRoute";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
 // Generate static params
 export async function generateStaticParams() {
@@ -43,6 +44,7 @@ export async function generateMetadata({
   params: Promise<{ services: string }>;
 }): Promise<Metadata> {
   const { services } = await params;
+  const cmsPath = `/resources/${services}`;
 
   const pageData = resourcesData.pages.find((page: any) => {
     const cleanUrl = page.url
@@ -52,13 +54,13 @@ export async function generateMetadata({
   });
 
   if (!pageData) {
-    return {
+    return cmsMetadataOr(cmsPath, {
       title: "Resource Not Found",
       description: "The requested resource page could not be found.",
-    };
+    });
   }
 
-  return {
+  return withEditedSeo(cmsPath, {
     title: limitSeoText(pageData.meta.title, 60),
     description: limitSeoText(pageData.meta.description, 160),
     openGraph: {
@@ -75,7 +77,7 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl(pageData.url),
     },
-  };
+  });
 }
 
 // Main page component
@@ -96,7 +98,7 @@ export default async function ResourcesPage({
   });
 
   if (!pageData) {
-    notFound();
+    return renderCmsPageOrNotFound(`/resources/${services}`);
   }
 
   const faqs = extractFAQs(pageData);

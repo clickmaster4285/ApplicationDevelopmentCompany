@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { canonicalUrl } from "@/lib/site";
 import { directoryLetters } from "@/lib/location-directory";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: "Cities We Serve | ClickMasters",
   description:
     "Browse application development locations by city. ClickMasters builds software for businesses across the USA and worldwide.",
@@ -11,6 +12,10 @@ export const metadata: Metadata = {
     canonical: canonicalUrl("/locations/directory"),
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withEditedSeo("/locations/directory", baseMetadata);
+}
 
 export default function LocationDirectoryPage() {
   const letters = directoryLetters();

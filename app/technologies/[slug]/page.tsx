@@ -1,6 +1,5 @@
 // app/technologies/[slug]/page.tsx
 import techData from "@/content/technologies";
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { canonicalUrl } from "@/lib/site";
 import { limitSeoText } from "@/lib/seo";
@@ -14,6 +13,8 @@ import {
 import { extractFAQs } from "@/components/shared/IndustryServicePageUtils";
 import { HeroHeader } from "@/components/shared/HeroHeader";
 import { RelatedPages } from "@/components/shared/RelatedPages";
+import { cmsMetadataOr, renderCmsPageOrNotFound } from "@/components/cms/CmsRoute";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
 // Generate static params
 export async function generateStaticParams() {
@@ -31,6 +32,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const cmsPath = `/technologies/${slug}`;
 
   const pageData = techData.pages.find((page: any) => {
     const cleanUrl = page.url
@@ -40,13 +42,13 @@ export async function generateMetadata({
   });
 
   if (!pageData) {
-    return {
+    return cmsMetadataOr(cmsPath, {
       title: "Technology Not Found",
       description: "The requested technology page could not be found.",
-    };
+    });
   }
 
-  return {
+  return withEditedSeo(cmsPath, {
     title: limitSeoText(pageData.meta.title, 60),
     description: limitSeoText(pageData.meta.description, 160),
     openGraph: {
@@ -63,7 +65,7 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl(pageData.url),
     },
-  };
+  });
 }
 
 // Main page component
@@ -82,7 +84,7 @@ export default async function TechPage({
   });
 
   if (!pageData) {
-    notFound();
+    return renderCmsPageOrNotFound(`/technologies/${slug}`);
   }
 
   // Extract FAQs directly from pageData

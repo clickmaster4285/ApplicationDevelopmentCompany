@@ -1,6 +1,5 @@
 // app/solutions/[slug]/page.tsx
 import solutionData from "@/content/solutions";
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { canonicalUrl } from "@/lib/site";
 import { limitSeoText } from "@/lib/seo";
@@ -14,6 +13,8 @@ import {
 import { extractFAQs } from "@/components/shared/IndustryServicePageUtils";
 import { HeroHeader } from "@/components/shared/HeroHeader";
 import { RelatedPages } from "@/components/shared/RelatedPages";
+import { cmsMetadataOr, renderCmsPageOrNotFound } from "@/components/cms/CmsRoute";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
 // Generate static params
 export async function generateStaticParams() {
@@ -31,6 +32,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const cmsPath = `/solutions/${slug}`;
 
   // Match by checking if the page URL ends with the slug (with or without trailing slash)
   const pageData = solutionData.pages.find((page: any) => {
@@ -41,13 +43,13 @@ export async function generateMetadata({
   });
 
   if (!pageData) {
-    return {
+    return cmsMetadataOr(cmsPath, {
       title: "Solution Not Found",
       description: "The requested solution page could not be found.",
-    };
+    });
   }
 
-  return {
+  return withEditedSeo(cmsPath, {
     title: limitSeoText(pageData.meta.title, 60),
     description: limitSeoText(pageData.meta.description, 160),
     openGraph: {
@@ -64,7 +66,7 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl(pageData.url),
     },
-  };
+  });
 }
 
 // Main page component
@@ -84,7 +86,7 @@ export default async function SolutionPage({
   });
 
   if (!pageData) {
-    notFound();
+    return renderCmsPageOrNotFound(`/solutions/${slug}`);
   }
 
   // Extract FAQs from pageData

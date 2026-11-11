@@ -3,12 +3,13 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { canonicalUrl } from "@/lib/site";
 import { PROCESS_STEPS } from "@/lib/process-steps";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
 const title = "Our Application Development Process | ClickMasters";
 const description =
   "How ClickMasters delivers applications: discovery, UI/UX design, development, QA testing, deployment, and long-term maintenance — the same process for every client, wherever you are.";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title,
   description,
   alternates: {
@@ -21,6 +22,10 @@ export const metadata: Metadata = {
     type: "website",
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withEditedSeo("/process", baseMetadata);
+}
 
 const phaseDetails: Record<string, string[]> = {
   "Discovery & Planning": [

@@ -1,6 +1,5 @@
 // app/ebooks/[slug]/page.tsx
 import ebooksData from "@/content/ebooks";
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { canonicalUrl } from "@/lib/site";
 import { limitSeoText } from "@/lib/seo";
@@ -13,6 +12,8 @@ import {
 } from "@/components/shared/IndustryServicePage";
 import { extractFAQs } from "@/components/shared/IndustryServicePageUtils";
 import { HeroHeader } from "@/components/shared/HeroHeader";
+import { cmsMetadataOr, renderCmsPageOrNotFound } from "@/components/cms/CmsRoute";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
 // Generate static params
 export async function generateStaticParams() {
@@ -30,6 +31,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const cmsPath = `/ebooks/${slug}`;
 
   const pageData = ebooksData.pages.find((page: any) => {
     const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("ebooks/", "");
@@ -37,13 +39,13 @@ export async function generateMetadata({
   });
 
   if (!pageData) {
-    return {
+    return cmsMetadataOr(cmsPath, {
       title: "eBook Not Found",
       description: "The requested eBook could not be found.",
-    };
+    });
   }
 
-  return {
+  return withEditedSeo(cmsPath, {
     title: limitSeoText(pageData.meta.title, 60),
     description: limitSeoText(pageData.meta.description, 160),
     openGraph: {
@@ -60,7 +62,7 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl(pageData.url),
     },
-  };
+  });
 }
 
 // Main page component
@@ -77,7 +79,7 @@ export default async function EbookPage({
   });
 
   if (!pageData) {
-    notFound();
+    return renderCmsPageOrNotFound(`/ebooks/${slug}`);
   }
 
   // Extract FAQs directly from pageData

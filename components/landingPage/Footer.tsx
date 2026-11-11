@@ -1,8 +1,9 @@
 import Link from "next/link";
+import type { FooterColumn } from "@/lib/cms/navigation";
 
 const logo = "/images/logo-white.webp";
 
-const cols = [
+const defaultCols: FooterColumn[] = [
   {
     title: "Services",
     links: [
@@ -33,7 +34,10 @@ const cols = [
   },
 ];
 
-export function Footer() {
+export function Footer({ cmsColumns }: { cmsColumns?: FooterColumn[] } = {}) {
+  // ERP footer navigation replaces the built-in columns only when the ERP has items.
+  const cols = cmsColumns && cmsColumns.length > 0 ? cmsColumns : defaultCols;
+
   return (
     <footer className="relative border-t border-white/10 bg-[#070707]">
       {/* Animated chrome light line */}
@@ -85,6 +89,9 @@ export function Footer() {
                     <li key={l.href}>
                       <Link
                         href={l.href}
+                        {...(l.target === "_blank"
+                          ? { target: "_blank", rel: "noopener noreferrer" }
+                          : {})}
                         className="text-sm text-white/65 hover:text-white transition-colors"
                       >
                         {l.label}

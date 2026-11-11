@@ -25,8 +25,9 @@ import { CostTimelineSection } from "@/components/landingPage/CostTimelineSectio
 import { SecuritySection } from "@/components/landingPage/SecuritySection";
 import { USALocationSection } from "@/components/landingPage/USALocationSection";
 import { PostLaunchSection } from "@/components/landingPage/PostLaunchSection";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: "Application development company USA - Clickmasters",
   description:
     "ClickMasters is a US application development company building digital products, improving business systems, and supporting growth.",
@@ -49,6 +50,10 @@ export const metadata: Metadata = {
     canonical: canonicalUrl("/"),
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withEditedSeo("/", baseMetadata);
+}
 
 export default function HomePage() {
   return (

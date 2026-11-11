@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import compareData from "@/content/compare";
 import { canonicalUrl } from "@/lib/site";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: "Technology Comparisons | Clickmasters",
   description:
     "Compare technologies, platforms, and software approaches to understand the trade-offs and choose the right fit for your project.",
@@ -11,6 +12,10 @@ export const metadata: Metadata = {
     canonical: canonicalUrl("/compare"),
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withEditedSeo("/compare", baseMetadata);
+}
 
 export default function CompareIndexPage() {
   const comparisons = compareData.pages.filter(

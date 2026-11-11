@@ -1,8 +1,9 @@
 import { Metadata } from "next";
 import { About } from "@/components/landingPage/AboutUs";
 import { canonicalUrl } from "@/lib/site";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: "About Us | ClickMasters",
   description:
     "Learn more about ClickMasters, our team, and how we help businesses grow through digital marketing, SEO, web design, and AI-powered solutions.",
@@ -10,6 +11,10 @@ export const metadata: Metadata = {
     canonical: canonicalUrl("/about"),
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withEditedSeo("/about", baseMetadata);
+}
 
 export default function AboutPage() {
   return <About headingLevel="h1" />;

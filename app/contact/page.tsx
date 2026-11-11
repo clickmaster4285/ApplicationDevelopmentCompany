@@ -3,12 +3,13 @@ import { ArrowDownRight, ArrowUpRight, Clock3, Mail, MapPin, Phone } from "lucid
 import Link from "next/link";
 import { canonicalUrl } from "@/lib/site";
 import { ContactForm } from "./contact-form";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
 const pageTitle = "Contact ClickMasters | Start a Project";
 const pageDescription =
   "Tell ClickMasters about your application idea. Our team will review your requirements and get back to you about the next steps.";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: pageTitle,
   description: pageDescription,
   alternates: {
@@ -26,6 +27,10 @@ export const metadata: Metadata = {
     description: pageDescription,
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withEditedSeo("/contact", baseMetadata);
+}
 
 const steps = [
   { number: "01", title: "Tell us what you have in mind" },

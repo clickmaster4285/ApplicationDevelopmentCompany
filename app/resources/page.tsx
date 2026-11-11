@@ -2,8 +2,9 @@ import { Metadata } from "next";
 import Link from "next/link";
 import resourcesData from "@/content/resources";
 import { canonicalUrl } from "@/lib/site";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: "Resources | ClickMasters",
   description:
     "Explore ClickMasters' collection of resources, guides, insights, case studies, and digital marketing content to help grow your business online.",
@@ -11,6 +12,10 @@ export const metadata: Metadata = {
     canonical: canonicalUrl("/resources"),
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withEditedSeo("/resources", baseMetadata);
+}
 
 export default function ResourcesPage() {
   const categories = resourcesData.pages.filter((page) => {

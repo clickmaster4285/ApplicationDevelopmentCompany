@@ -1,6 +1,5 @@
 // app/about/[slug]/page.tsx
 import aboutData from "@/content/about";
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { canonicalUrl } from "@/lib/site";
 import { limitSeoText } from "@/lib/seo";
@@ -13,6 +12,8 @@ import {
 } from "@/components/shared/IndustryServicePage";
 import { extractFAQs } from "@/components/shared/IndustryServicePageUtils";
 import { HeroHeader } from "@/components/shared/HeroHeader";
+import { cmsMetadataOr, renderCmsPageOrNotFound } from "@/components/cms/CmsRoute";
+import { withEditedSeo } from "@/lib/cms/metadata";
 // Generate static params
 export async function generateStaticParams() {
   return aboutData.pages.map((page: any) => ({
@@ -29,6 +30,7 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const cmsPath = `/about/${slug}`;
 
   const pageData = aboutData.pages.find((page: any) => {
     const cleanUrl = page.url.replace(/^\/+|\/+$/g, "").replace("about/", "");
@@ -36,13 +38,13 @@ export async function generateMetadata({
   });
 
   if (!pageData) {
-    return {
+    return cmsMetadataOr(cmsPath, {
       title: "Page Not Found",
       description: "The requested page could not be found.",
-    };
+    });
   }
 
-  return {
+  return withEditedSeo(cmsPath, {
     title: limitSeoText(pageData.meta.title, 60),
     description: limitSeoText(pageData.meta.description, 160),
     openGraph: {
@@ -59,7 +61,7 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl(pageData.url),
     },
-  };
+  });
 }
 
 // Main page component
@@ -76,7 +78,7 @@ export default async function AboutPage({
   });
 
   if (!pageData) {
-    notFound();
+    return renderCmsPageOrNotFound(`/about/${slug}`);
   }
 
   // Extract FAQs directly from pageData

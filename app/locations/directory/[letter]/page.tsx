@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { canonicalUrl } from "@/lib/site";
 import { cityLinks, directoryLetters } from "@/lib/location-directory";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
 export function generateStaticParams() {
   return directoryLetters().map((letter) => ({
@@ -16,15 +17,16 @@ export async function generateMetadata({
   params: Promise<{ letter: string }>;
 }): Promise<Metadata> {
   const { letter } = await params;
+  const cmsPath = `/locations/directory/${letter.toLowerCase()}`;
   const label = letter.toUpperCase();
 
-  return {
+  return withEditedSeo(cmsPath, {
     title: `Software Development Cities — ${label} | ClickMasters`,
     description: `Application development for cities starting with ${label}.`,
     alternates: {
       canonical: canonicalUrl(`/locations/directory/${letter.toLowerCase()}`),
     },
-  };
+  });
 }
 
 export default async function LocationLetterPage({
