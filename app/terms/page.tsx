@@ -2,13 +2,18 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { canonicalUrl } from "@/lib/site";
 import { LegalPage, LEGAL_CONTACT_EMAIL } from "@/components/shared/LegalPage";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: "Terms of Use | ClickMasters",
   description:
     "The terms that apply when you use the ClickMasters website, including content use, estimates, third-party links, and limitations of liability.",
   alternates: { canonical: canonicalUrl("/terms") },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withEditedSeo("/terms", baseMetadata);
+}
 
 export default function TermsPage() {
   return (

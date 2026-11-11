@@ -2,13 +2,18 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { canonicalUrl } from "@/lib/site";
 import { LegalPage, LEGAL_CONTACT_EMAIL } from "@/components/shared/LegalPage";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: "Privacy Policy | ClickMasters",
   description:
     "How ClickMasters collects, uses, and protects the personal information you share through our website and contact forms.",
   alternates: { canonical: canonicalUrl("/privacy") },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withEditedSeo("/privacy", baseMetadata);
+}
 
 export default function PrivacyPage() {
   return (

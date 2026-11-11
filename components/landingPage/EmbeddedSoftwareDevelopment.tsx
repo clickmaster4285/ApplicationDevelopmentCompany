@@ -1314,13 +1314,13 @@ export default function EmbeddedSoftwareDevelopment() {
               </details>
             ))}
           </div>
-          <a
+          <Link
             href="/contact"
             className="mt-8 inline-flex items-center gap-2 text-sm text-white/60 transition-colors hover:text-white"
           >
             Have a specific device or system in mind? Talk to us about your embedded software requirements.
             <ArrowUpRight className="h-4 w-4" />
-          </a>
+          </Link>
         </div>
       </section>
 

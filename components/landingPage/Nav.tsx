@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { allPages } from "@/content";
+import type { NavGroup } from "@/lib/cms/navigation";
 
 const logo = "/images/logo-white.webp";
 
@@ -103,8 +104,16 @@ const getNavItems = () => {
   };
 };
 
+type MainNavItem = {
+  label: string;
+  href: string;
+  items: { label: string; href: string; target?: "_blank" }[];
+  seeAll?: string;
+  target?: "_blank";
+};
+
 // Main navigation structure
-const getMainNav = () => {
+const getMainNav = (): MainNavItem[] => {
   const navItems = getNavItems();
 
   return [
@@ -179,6 +188,9 @@ function DropdownItem({
   return (
     <Link
       href={item.href}
+      {...(item.target === "_blank"
+        ? { target: "_blank", rel: "noopener noreferrer" }
+        : {})}
       className={`
         block px-4 py-2 text-sm transition-colors rounded-lg
         ${
@@ -194,13 +206,15 @@ function DropdownItem({
   );
 }
 
-export function Nav() {
+export function Nav({ cmsItems }: { cmsItems?: NavGroup[] } = {}) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
 
-  const mainNav = getMainNav();
+  // ERP header navigation replaces the built-in menu only when the ERP has items.
+  const mainNav: MainNavItem[] =
+    cmsItems && cmsItems.length > 0 ? cmsItems : getMainNav();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);

@@ -4,7 +4,6 @@ import {
   getServicesByUrl,
   type PageData as ServicePageData,
 } from "../../../content/services";
-import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { canonicalUrl } from "@/lib/site";
 import { limitSeoText } from "@/lib/seo";
@@ -25,6 +24,8 @@ import IoTDevelopment from "@/components/landingPage/IoTDevelopment";
 import EmbeddedSoftwareDevelopment from "@/components/landingPage/EmbeddedSoftwareDevelopment";
 import ARVRDevelopment from "@/components/landingPage/ARVRDevelopment";
 import BlockchainDevelopment from "@/components/landingPage/BlockchainDevelopment";
+import { cmsMetadataOr, renderCmsPageOrNotFound } from "@/components/cms/CmsRoute";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
 export async function generateStaticParams() {
   return servicesData.pages.map((page) => ({
@@ -38,16 +39,17 @@ export async function generateMetadata({
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   const { slug } = await params;
+  const cmsPath = `/services/${slug}`;
   const pageData = getServicesByUrl(`/services/${slug}/`);
 
   if (!pageData) {
-    return {
+    return cmsMetadataOr(cmsPath, {
       title: "Service Not Found",
       description: "The requested service page could not be found.",
-    };
+    });
   }
 
-  return {
+  return withEditedSeo(cmsPath, {
     title: limitSeoText(pageData.meta.title, 60),
     description: limitSeoText(pageData.meta.description, 160),
     openGraph: {
@@ -64,7 +66,7 @@ export async function generateMetadata({
     alternates: {
       canonical: canonicalUrl(pageData.url),
     },
-  };
+  });
 }
 
 export default async function ServicePage({
@@ -76,7 +78,7 @@ export default async function ServicePage({
   const pageData = getServicesByUrl(`/services/${slug}/`);
 
   if (!pageData) {
-    notFound();
+    return renderCmsPageOrNotFound(`/services/${slug}`);
   }
 
   const siblingServices = pageData.related.siblings

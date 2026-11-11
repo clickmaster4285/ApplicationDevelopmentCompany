@@ -4,6 +4,11 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/landingPage/Nav";
 import { Footer } from "@/components/landingPage/Footer";
+import { ErpPageEdits } from "@/components/cms/ErpPageEdits";
+import { getCmsSiteInfo, getEditedPageSlugs } from "@/lib/cms/client";
+import { toFooterColumns, toHeaderNav } from "@/lib/cms/navigation";
+import { safeColor } from "@/lib/cms/sanitize";
+import { erpAntiFlickerCss, erpAntiFlickerScript } from "@/lib/cms/anti-flicker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,17 +35,50 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // ERP CMS (optional): resolves to null / [] when unconfigured or unreachable,
+  // in which case everything below renders exactly as before.
+  const [cmsSite, editedSlugs] = await Promise.all([
+    getCmsSiteInfo(),
+    getEditedPageSlugs(),
+  ]);
+  const cmsHeaderNav = toHeaderNav(cmsSite?.navigation?.header);
+  const cmsFooterColumns = toFooterColumns(cmsSite?.navigation?.footer);
+  const erpPrimary = safeColor(
+    cmsSite?.design?.colors?.primary ?? cmsSite?.website?.primaryColor,
+  );
+  const erpSecondary = safeColor(
+    cmsSite?.design?.colors?.secondary ?? cmsSite?.website?.secondaryColor,
+  );
+  const erpThemeVars = {
+    ...(erpPrimary ? { "--erp-primary": erpPrimary } : {}),
+    ...(erpSecondary ? { "--erp-secondary": erpSecondary } : {}),
+  } as React.CSSProperties;
+  const antiFlicker = process.env.CMS_ANTI_FLICKER !== "off";
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      style={erpThemeVars}
+      // The anti-flicker <head> script may set data-erp-pending before hydration.
+      suppressHydrationWarning
     >
       <head>
+        {editedSlugs.length > 0 && antiFlicker && (
+          <>
+            <style dangerouslySetInnerHTML={{ __html: erpAntiFlickerCss }} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: erpAntiFlickerScript(editedSlugs),
+              }}
+            />
+          </>
+        )}
         <link rel="icon" href="/images/logo-app.webp" sizes="any" />
         <link rel="apple-touch-icon" href="/images/logo-app.webp" />
         <meta name="theme-color" content="#000000" />
@@ -75,9 +113,11 @@ export default function RootLayout({
         </noscript>
 
         <div>
-          <Nav />
+          {/* Must stay before {children}: see ErpPageEdits for why. */}
+          <ErpPageEdits editedSlugs={editedSlugs} antiFlicker={antiFlicker} />
+          <Nav cmsItems={cmsHeaderNav} />
           {children}
-          <Footer />
+          <Footer cmsColumns={cmsFooterColumns} />
         </div>
       </body>
     </html>

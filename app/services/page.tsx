@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import AppServices from "@/components/landingPage/AppServices";
 import { canonicalUrl } from "@/lib/site";
+import { withEditedSeo } from "@/lib/cms/metadata";
 
 const SITE = "https://clickmastersapplicationdevelopment.com";
 
@@ -128,7 +129,7 @@ const faqSchema = {
   })),
 };
 
-export const metadata: Metadata = {
+const baseMetadata: Metadata = {
   title: "Application Development Services USA | clickmasters",
   description:
     "clickmasters provides application development services for web, mobile, AI, cloud and enterprise apps, from strategy and design to development and support.",
@@ -156,6 +157,10 @@ export const metadata: Metadata = {
       "clickmasters provides application development services for web, mobile, AI, cloud and enterprise apps, from strategy and design to development and support.",
   },
 };
+
+export async function generateMetadata(): Promise<Metadata> {
+  return withEditedSeo("/services", baseMetadata);
+}
 
 export default function ServicesPage() {
   return (
