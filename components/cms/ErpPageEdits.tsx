@@ -57,19 +57,18 @@ export function ErpPageEdits({ editedSlugs, antiFlicker = true }: { editedSlugs:
 
   useLayoutEffect(() => {
     const slug = normalizeSlug(pathname);
-    if (!edited.has(slug)) {
-      reveal();
-      return;
-    }
 
     let cancelled = false;
     let undo: (() => void) | null = null;
     let frame = 0;
     let retry: ReturnType<typeof setTimeout> | undefined;
 
+    // `editedSlugs` is baked into the (possibly stale, statically built) HTML,
+    // so it only drives anti-flicker. Whether edits exist is always asked of
+    // /api/cms/page-edits, which checks the live B1 list server-side.
     // Runs before paint on client navigations; on hard loads the inline
     // <head> script has already hidden <main>.
-    if (antiFlicker) hide();
+    if (antiFlicker && edited.has(slug)) hide();
     const revealTimer = setTimeout(reveal, MAX_HIDE_MS);
 
     const applyWhenReady = (instructions: PageEditInstruction[], attempt: number) => {

@@ -35,6 +35,11 @@ export const metadata: Metadata = {
   },
 };
 
+// Re-generate pages at most every 60s so ERP nav, colors, edited-page SEO and
+// the anti-flicker list pick up changes — even if the build ran without the
+// CMS env vars (then no ERP fetch happens at build to set a revalidate).
+export const revalidate = 60;
+
 export default async function RootLayout({
   children,
 }: Readonly<{
