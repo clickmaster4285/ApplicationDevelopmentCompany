@@ -111,11 +111,16 @@ function HeroSection(p: SectionProps) {
       <>
         {copy}
         {c.image ? (
-          <CmsImage src={c.image} alt={c.heading} className="mx-auto mt-14 w-full rounded-3xl border border-[var(--cms-border)] object-cover" />
+          <CmsImage
+            src={c.image}
+            alt={c.heading}
+            className="mx-auto mt-12 aspect-[16/9] w-full max-w-5xl rounded-3xl border border-[var(--cms-border)] object-cover md:aspect-[21/9]"
+          />
         ) : null}
       </>
     ),
-    { defaultPadding: [160, 120] },
+    // <main> already offsets the fixed site nav (pt-[72px]).
+    { defaultPadding: [72, 72] },
   );
 }
 
