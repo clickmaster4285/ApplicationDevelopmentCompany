@@ -576,3 +576,8 @@
   0%, 100% { opacity: 1; }
   50% { opacity: 0.5; }
 }
+/* ERP-created pages: chrome gradient text is unreadable on a light section. */
+[data-cms-bg="light"] .text-chrome {
+  background: none;
+  color: var(--cms-fg);
+}
