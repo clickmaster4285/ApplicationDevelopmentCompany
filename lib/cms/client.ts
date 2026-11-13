@@ -21,7 +21,9 @@ let consecutiveFailures = 0;
 
 type CmsResult<T> = { status: number; data: T | null };
 
-async function cmsGet<T>(path: string): Promise<CmsResult<T> | null> {
+// `fresh` bypasses the Next.js data cache — used by the live edits endpoint so
+// CRM edits show up immediately instead of after the 60s revalidate window.
+async function cmsGet<T>(path: string, fresh = false): Promise<CmsResult<T> | null> {
   const base = cmsBaseUrl();
   if (!base) return null;
   if (Date.now() < circuitOpenUntil) return null;
@@ -30,7 +32,7 @@ async function cmsGet<T>(path: string): Promise<CmsResult<T> | null> {
   const request = () =>
     fetch(url, {
       headers: { Accept: "application/json" },
-      next: { revalidate: CMS_REVALIDATE_SECONDS },
+      ...(fresh ? { cache: "no-store" as const } : { next: { revalidate: CMS_REVALIDATE_SECONDS } }),
       signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
     });
 
@@ -92,8 +94,8 @@ export const getCmsPage = cache(async (slug: string): Promise<CmsPage | null> =>
 });
 
 /** B1 — normalized slugs of every page that has published DOM edits. */
-export const getEditedPageSlugs = cache(async (): Promise<string[]> => {
-  const result = await cmsGet<{ pages?: CmsPageSummary[] }>("/edited-pages");
+export const getEditedPageSlugs = cache(async (fresh = false): Promise<string[]> => {
+  const result = await cmsGet<{ pages?: CmsPageSummary[] }>("/edited-pages", fresh);
   const pages = result?.data?.pages;
   if (!Array.isArray(pages)) return [];
   return Array.from(
@@ -102,9 +104,9 @@ export const getEditedPageSlugs = cache(async (): Promise<string[]> => {
 });
 
 /** B2 — edits for one path. Checks the B1 list first so we never request 404s. */
-export const getPageEdits = cache(async (path: string): Promise<PageEdits | null> => {
+export const getPageEdits = cache(async (path: string, fresh = false): Promise<PageEdits | null> => {
   const slug = normalizeSlug(path);
-  const editedSlugs = await getEditedPageSlugs();
+  const editedSlugs = await getEditedPageSlugs(fresh);
   if (!editedSlugs.includes(slug)) return null;
 
   const requestPath = slug === "/" ? "/" : `/${slug}`;
@@ -117,7 +119,7 @@ export const getPageEdits = cache(async (path: string): Promise<PageEdits | null
     operations?: unknown;
     version?: number | string;
     publishedAt?: string;
-  }>(`/page-edits?path=${encodeURIComponent(requestPath)}`);
+  }>(`/page-edits?path=${encodeURIComponent(requestPath)}`, fresh);
 
   if (flat?.status === 404) return null;
   if (flat?.data) {
@@ -133,6 +135,7 @@ export const getPageEdits = cache(async (path: string): Promise<PageEdits | null
   // Fallback: sections (envelope) form.
   const envelope = await cmsGet<{ page?: CmsPage & { version?: number | string } }>(
     slug === "/" ? `/edited-page?slug=${encodeURIComponent("/")}` : `/edited-pages/${encodeSlugForUrl(slug)}`,
+    fresh,
   );
   const page = envelope?.data?.page;
   if (!page) return null;
