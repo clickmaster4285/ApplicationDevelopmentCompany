@@ -22,6 +22,7 @@ import type { CmsSectionSettings } from "@/lib/cms/types";
 const WIDTH_CLASS: Record<string, string> = {
   narrow: "w-[85vw] max-w-4xl px-4 md:px-6",
   wide: "w-[85vw] px-4 md:px-6",
+  superWide: "w-[92vw] px-4 md:px-6",
   full: "w-full px-4 md:px-8",
 };
 
@@ -41,6 +42,11 @@ const BACKGROUND: Record<string, { className: string; style: CSSProperties }> = 
     style: DARK_VARS,
   },
   primary: {
+    className:
+      "bg-gradient-to-br from-[#161616] via-[#0e0e0e] to-[#0a0a0a] border-y border-white/[0.06] before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] before:from-primary/[0.1] before:via-transparent before:to-transparent",
+    style: DARK_VARS,
+  },
+  gradient: {
     className:
       "bg-gradient-to-br from-[#161616] via-[#0e0e0e] to-[#0a0a0a] border-y border-white/[0.06] before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] before:from-primary/[0.1] before:via-transparent before:to-transparent",
     style: DARK_VARS,

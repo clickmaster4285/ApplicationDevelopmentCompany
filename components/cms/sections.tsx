@@ -99,6 +99,8 @@ function FooterSection(p: SectionProps) {
 function HeroSection(p: SectionProps) {
   const c: C = p.section.content ?? {};
   const split = layoutOf(p) === "split" && !!c.image;
+  // "background": image fills the hero behind the copy instead of below it.
+  const background = layoutOf(p) === "background" && !!c.image;
   const center = !split && layoutOf(p) !== "left";
   const Heading = p.isFirst ? "h1" : "h2";
 
@@ -141,7 +143,7 @@ function HeroSection(p: SectionProps) {
     ) : (
       <>
         {copy}
-        {c.image ? (
+        {c.image && !background ? (
           <div className="relative mx-auto mt-14 max-w-5xl rounded-2xl border border-white/10 bg-white/5 p-2 shadow-2xl backdrop-blur-xl">
             <CmsImage src={c.image} alt={c.heading} className="aspect-[16/9] w-full rounded-xl object-cover md:aspect-[21/9]" />
           </div>
@@ -151,8 +153,20 @@ function HeroSection(p: SectionProps) {
     {
       // <main> already offsets the fixed site nav (pt-[72px]).
       defaultPadding: [96, 96],
-      className: p.isFirst ? "flex min-h-[80vh] items-center" : "",
-      backdrop: <HeroBackdrop />,
+      // grid (not flex): the content wrapper must stretch to full width,
+      // otherwise "full"-width content shrinks to fit and hugs the left edge.
+      className: p.isFirst ? "grid min-h-[80vh] content-center" : "",
+      backdrop: (
+        <>
+          {background && (
+            <div aria-hidden className="pointer-events-none absolute inset-0">
+              <CmsImage src={c.image} alt="" className="h-full w-full object-cover opacity-40" />
+              <div className="absolute inset-0 bg-gradient-to-b from-[#050505]/70 via-[#050505]/60 to-[#050505]" />
+            </div>
+          )}
+          <HeroBackdrop />
+        </>
+      ),
     },
   );
 }
