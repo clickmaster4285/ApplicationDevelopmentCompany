@@ -1,6 +1,10 @@
 import type { CmsPost, CmsSection } from "@/lib/cms/types";
 import { SECTION_COMPONENTS } from "./sections";
 
+// The root layout already renders the site's <Nav> and <Footer>, so CMS
+// "header"/"footer" sections would only duplicate them.
+const SITE_CHROME_TYPES = new Set(["header", "footer"]);
+
 /**
  * Renders created-page content sections (A3/A4), sorted by `order`.
  * Hidden sections are skipped unless `settings.required` is true; unknown
@@ -13,6 +17,7 @@ export function CmsSectionRenderer({ sections, posts = [] }: { sections: CmsSect
   const visible = sections
     .filter((s): s is CmsSection => !!s && typeof s === "object" && typeof s.type === "string")
     .filter((s) => s.hidden !== true || s.settings?.required === true)
+    .filter((s) => !SITE_CHROME_TYPES.has(s.type!))
     .filter((s) => Object.prototype.hasOwnProperty.call(SECTION_COMPONENTS, s.type!))
     .map((s, index) => ({ s, index }))
     .sort((a, b) => (Number(a.s.order) || 0) - (Number(b.s.order) || 0) || a.index - b.index)
