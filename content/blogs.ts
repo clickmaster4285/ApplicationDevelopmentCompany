@@ -369,7 +369,7 @@ Teams optimize cost without measuring quality impact. The result: you save money
       url: "/blog/migrating-spreadsheets-to-custom-software/",
       meta: {
         title:
-          "How to Migrate From Spreadsheets to Custom Software (Without Chaos) | Clickmasters",
+          "Spreadsheets to Custom Software Without Chaos | Clickmasters",
         description:
           "A step-by-step guide to migrating your business from spreadsheets to custom software. Avoid common pitfalls and ensure adoption.",
       },

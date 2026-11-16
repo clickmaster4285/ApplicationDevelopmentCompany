@@ -5,6 +5,11 @@ import { Check, ArrowUpRight, Sparkles, Zap, Shield, Users, TrendingUp, Award, T
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import {
+  normalizePageMarkdown,
+  omitNode,
+  repairMissingMarkdownLinkOpeners,
+} from "@/lib/markdown";
 
 const iconMap: Record<string, React.ReactNode> = {
   strategy: <Target className="h-5 w-5" />,
@@ -72,40 +77,6 @@ function sectionHasMarkdownList(text: string) {
   return /^[-*]\s+|^\d+\.\s+/m.test(text);
 }
 
-function repairMissingMarkdownLinkOpeners(text: string) {
-  return text
-    .split("\n")
-    .map((line) => {
-      const insertions: number[] = [];
-      const linkPattern = /\]\((?:\/|https?:\/\/)[^)]+\)/g;
-      let match: RegExpExecArray | null;
-
-      while ((match = linkPattern.exec(line)) !== null) {
-        const closingBracket = match.index;
-        const previousOpeningBracket = line.lastIndexOf("[", closingBracket);
-        const previousClosingBracket = line.lastIndexOf("]", closingBracket - 1);
-
-        if (previousOpeningBracket <= previousClosingBracket) {
-          const listMarker = line.match(/^\s*[-*]\s+/);
-          const labelStart = listMarker
-            ? listMarker[0].length
-            : Math.max(
-                line.lastIndexOf(" ", closingBracket - 1),
-                line.lastIndexOf("\t", closingBracket - 1),
-              ) + 1;
-          insertions.push(labelStart);
-        }
-      }
-
-      for (const index of insertions.reverse()) {
-        line = `${line.slice(0, index)}[${line.slice(index)}`;
-      }
-
-      return line;
-    })
-    .join("\n");
-}
-
 export function PageContent({
   content,
   pageData,
@@ -114,8 +85,11 @@ export function PageContent({
   pageData?: { content?: string; [key: string]: any };
 }) {
   const pageMarkdown = content || pageData?.content || "";
+  // Removes the internal "# INDUSTRY 02 — …" label and authoring notes
+  // ("[LOCAL DATA MODULE …]", "[Trust bar …]", orphaned "…required before
+  // indexing.]") — the same normalization HeroHeader applies.
   const rawContent = repairMissingMarkdownLinkOpeners(
-    pageMarkdown.replace(/^\s*\[LOCAL DATA MODULE\b[^\n]*\]\s*$/gim, ""),
+    normalizePageMarkdown(pageMarkdown),
   );
 
   const contentAfterTitle = rawContent.replace(/^# .+\n?/, "").trimStart();
@@ -202,7 +176,7 @@ export function PageContent({
         <h3
           id={id}
           className="font-display text-white text-xl md:text-2xl font-medium leading-[1.05] tracking-[-0.02em] mb-4"
-          {...props}
+          {...omitNode(props)}
         >
           {cleanText}
         </h3>
@@ -216,7 +190,7 @@ export function PageContent({
         <h3
           id={id}
           className="font-display text-white text-lg md:text-xl font-medium tracking-[-0.02em] mb-3 mt-6"
-          {...props}
+          {...omitNode(props)}
         >
           {cleanText}
         </h3>
@@ -230,7 +204,7 @@ export function PageContent({
         <h4
           id={id}
           className="font-display text-white text-base md:text-lg font-medium tracking-[-0.02em] mb-2 mt-5"
-          {...props}
+          {...omitNode(props)}
         >
           {cleanText}
         </h4>
@@ -253,7 +227,7 @@ export function PageContent({
       return (
         <p
           className="text-white/55 leading-relaxed mb-4 text-sm md:text-[15px]"
-          {...props}
+          {...omitNode(props)}
         >
           {children}
         </p>
@@ -265,14 +239,14 @@ export function PageContent({
         return (
           <span
             className="rounded bg-yellow-500/10 px-1.5 py-0.5 font-medium text-yellow-400"
-            {...props}
+            {...omitNode(props)}
           >
             {children}
           </span>
         );
       }
       return (
-        <strong className="font-semibold text-white" {...props}>
+        <strong className="font-semibold text-white" {...omitNode(props)}>
           {children}
         </strong>
       );
@@ -286,7 +260,7 @@ export function PageContent({
 
       if (href?.startsWith("#")) {
         return (
-          <a href={href} className={baseClass} {...props}>
+          <a href={href} className={baseClass} {...omitNode(props)}>
             {children}
           </a>
         );
@@ -294,7 +268,7 @@ export function PageContent({
 
       if (href?.startsWith("/")) {
         return (
-          <Link href={href} className={baseClass} {...props}>
+          <Link href={href} className={baseClass} {...omitNode(props)}>
             {children}
           </Link>
         );
@@ -310,7 +284,7 @@ export function PageContent({
           target="_blank"
           rel="noopener noreferrer"
           className={externalClass}
-          {...props}
+          {...omitNode(props)}
         >
           {children}
         </a>
@@ -324,7 +298,7 @@ export function PageContent({
         return (
           <code
             className="rounded-md bg-white/10 px-1.5 py-0.5 font-mono text-[0.9em] text-white/85"
-            {...props}
+            {...omitNode(props)}
           >
             {children}
           </code>
@@ -333,7 +307,7 @@ export function PageContent({
       return (
         <pre
           className="my-4 overflow-x-auto rounded-xl border border-white/[0.07] bg-white/[0.03] p-4"
-          {...props}
+          {...omitNode(props)}
         >
           <code className="font-mono text-sm text-white/80">{children}</code>
         </pre>
@@ -345,7 +319,7 @@ export function PageContent({
     blockquote: ({ children, ...props }: any) => (
       <blockquote
         className="my-4 rounded-r-xl border-l-2 border-primary/30 bg-primary/[0.04] px-4 py-3 text-white/70 text-sm"
-        {...props}
+        {...omitNode(props)}
       >
         {children}
       </blockquote>
@@ -468,7 +442,7 @@ export function PageContent({
                                   p: ({ children, ...props }: any) => (
                                     <p
                                       className="m-0 text-lg leading-relaxed text-white/60 md:text-xl"
-                                      {...props}
+                                      {...omitNode(props)}
                                     >
                                       {children}
                                     </p>
@@ -560,7 +534,7 @@ export function PageContent({
                               components={{
                                 ...introMarkdownComponents,
                                 p: ({ children, ...props }: any) => (
-                                  <p className="m-0 text-sm leading-relaxed text-white/60 md:text-base" {...props}>
+                                  <p className="m-0 text-sm leading-relaxed text-white/60 md:text-base" {...omitNode(props)}>
                                     {children}
                                   </p>
                                 ),

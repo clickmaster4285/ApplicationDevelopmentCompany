@@ -7,7 +7,7 @@ import { withEditedSeo } from "@/lib/cms/metadata";
 
 const title = "Our Application Development Process | ClickMasters";
 const description =
-  "How ClickMasters delivers applications: discovery, UI/UX design, development, QA testing, deployment, and long-term maintenance — the same process for every client, wherever you are.";
+  "How ClickMasters delivers applications: discovery, UI/UX design, development, QA, deployment, and long-term maintenance — the same process for every client.";
 
 const baseMetadata: Metadata = {
   title,

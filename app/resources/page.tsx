@@ -3,6 +3,7 @@ import Link from "next/link";
 import resourcesData from "@/content/resources";
 import { canonicalUrl } from "@/lib/site";
 import { withEditedSeo } from "@/lib/cms/metadata";
+import { normalizePageMarkdown } from "@/lib/markdown";
 
 const baseMetadata: Metadata = {
   title: "Resources | ClickMasters",
@@ -42,7 +43,7 @@ export default function ResourcesPage() {
         <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {categories.map((page) => {
             const title =
-              page.content.match(/^#\s+(.+)$/m)?.[1] ?? page.meta.title;
+              normalizePageMarkdown(page.content).match(/^#\s+(.+)$/m)?.[1] ?? page.meta.title;
 
             return (
               <li key={page.url}>

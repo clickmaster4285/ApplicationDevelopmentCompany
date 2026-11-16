@@ -13,14 +13,16 @@ const cmsOrigin = (() => {
 
 const contentSecurityPolicy = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com",
+  // Microsoft Clarity is loaded through Google Tag Manager.
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://www.google.com https://www.gstatic.com https://www.clarity.ms https://*.clarity.ms",
   // Google Fonts may be loaded by tags injected through Google Tag Manager.
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data: https://fonts.gstatic.com",
-  "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://stats.g.doubleclick.net",
+  // GTM tags: Clarity collection, Google consent/conversion pings (ccm/collect).
+  "connect-src 'self' https://www.google-analytics.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://stats.g.doubleclick.net https://*.clarity.ms https://www.google.com https://*.doubleclick.net",
   // YouTube / Vimeo embeds are used by CMS video sections.
-  "frame-src https://www.googletagmanager.com https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com",
+  "frame-src https://www.googletagmanager.com https://td.doubleclick.net https://www.youtube-nocookie.com https://www.youtube.com https://player.vimeo.com",
   "media-src 'self' https:",
   "object-src 'none'",
   "base-uri 'self'",

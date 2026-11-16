@@ -27,6 +27,12 @@ import {
 import { FAQAccordion } from "./FAQAccordion";
 import { PageContent } from "./PageContent";
 import { PROJECTS_LABEL } from "@/lib/company";
+import {
+  markdownToPlainText,
+  normalizeFaqs,
+  omitNode,
+  repairMissingMarkdownLinkOpeners,
+} from "@/lib/markdown";
 
 // ============================================================
 // TYPES
@@ -87,11 +93,11 @@ export function extractFAQs(contentOrPageData: string | PageData): FAQ[] {
   if (typeof contentOrPageData === "object" && contentOrPageData.structured) {
     const pageData = contentOrPageData as PageData;
     if (pageData.structured?.faqs && pageData.structured.faqs.length > 0) {
-      return pageData.structured.faqs;
+      return normalizeFaqs(pageData.structured.faqs);
     }
-    return extractFAQsFromContent(pageData.content);
+    return normalizeFaqs(extractFAQsFromContent(pageData.content));
   }
-  return extractFAQsFromContent(contentOrPageData as string);
+  return normalizeFaqs(extractFAQsFromContent(contentOrPageData as string));
 }
 
 function extractFAQsFromContent(content: string): FAQ[] {
@@ -352,7 +358,9 @@ export function PageTables({ pageData }: { pageData: PageData }) {
                         className="hover:bg-white/[0.02] transition-colors"
                       >
                         {table.headers.map((header, cellIndex) => {
-                          const cellContent = row[header] || "";
+                          const cellContent = repairMissingMarkdownLinkOpeners(
+                            row[header] || "",
+                          );
                           const containsMarkdown = /\*\*|\[.*?\]\(.*?\)/.test(
                             cellContent,
                           );
@@ -370,7 +378,7 @@ export function PageTables({ pageData }: { pageData: PageData }) {
                                       <Link
                                         href={href}
                                         className="text-primary/80 hover:text-primary hover:underline transition-colors inline-flex items-center gap-1"
-                                        {...props}
+                                        {...omitNode(props)}
                                       >
                                         {children}
                                         <ExternalLink className="h-3 w-3" />
@@ -379,7 +387,7 @@ export function PageTables({ pageData }: { pageData: PageData }) {
                                     strong: ({ children, ...props }: any) => (
                                       <strong
                                         className="font-semibold text-white"
-                                        {...props}
+                                        {...omitNode(props)}
                                       >
                                         {children}
                                       </strong>
@@ -431,7 +439,7 @@ export function FAQSection({
   faqs?: FAQ[];
   pageData?: PageData;
 }) {
-  const finalFaqs = faqs || pageData?.structured?.faqs || [];
+  const finalFaqs = normalizeFaqs(faqs || pageData?.structured?.faqs || []);
 
   if (finalFaqs.length === 0) return null;
 
@@ -921,7 +929,8 @@ export function StructuredData({ pageData }: { pageData: PageData }) {
 }
 
 export function FAQSchema({ faqs }: { faqs: FAQ[] }) {
-  if (faqs.length === 0) return null;
+  const normalizedFaqs = normalizeFaqs(faqs);
+  if (normalizedFaqs.length === 0) return null;
 
   return (
     <script
@@ -930,12 +939,12 @@ export function FAQSchema({ faqs }: { faqs: FAQ[] }) {
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "FAQPage",
-          mainEntity: faqs.map((faq) => ({
+          mainEntity: normalizedFaqs.map((faq) => ({
             "@type": "Question",
-            name: faq.question,
+            name: markdownToPlainText(faq.question),
             acceptedAnswer: {
               "@type": "Answer",
-              text: faq.answer,
+              text: markdownToPlainText(faq.answer),
             },
           })),
         }),

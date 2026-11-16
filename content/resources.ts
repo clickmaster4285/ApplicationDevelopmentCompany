@@ -4363,7 +4363,7 @@ export const resourcesData: ResourcesData = {
       url: "/resources/how-to/how-to-migrate-from-spreadsheets-to-custom-software/",
       meta: {
         title:
-          "How to Migrate From Spreadsheets to Custom Software | Clickmasters",
+          "Migrating Spreadsheets to Custom Software | Clickmasters",
         description:
           "The spreadsheet that runs your business encodes years of process truth — migrate by mining its logic, rebuilding the workflow (not the grid), and",
       },

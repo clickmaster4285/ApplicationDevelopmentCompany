@@ -93,14 +93,28 @@ export const getCmsPage = cache(async (slug: string): Promise<CmsPage | null> =>
   return page && typeof page === "object" ? page : null;
 });
 
-/** B1 — normalized slugs of every page that has published DOM edits. */
-export const getEditedPageSlugs = cache(async (fresh = false): Promise<string[]> => {
+async function loadEditedPageSlugs(fresh: boolean): Promise<string[]> {
   const result = await cmsGet<{ pages?: CmsPageSummary[] }>("/edited-pages", fresh);
   const pages = result?.data?.pages;
   if (!Array.isArray(pages)) return [];
   return Array.from(
     new Set(pages.map((p) => (typeof p?.slug === "string" ? normalizeSlug(p.slug) : null)).filter((s): s is string => !!s)),
   );
+}
+
+// Live polls (fresh = true) for many different paths all need the same B1
+// list; share one ERP round-trip per window instead of one per path.
+// Same window as the live-edits route cache, so freshness is unchanged.
+const FRESH_SLUGS_TTL_MS = 2000;
+let freshSlugs: { at: number; promise: Promise<string[]> } | null = null;
+
+/** B1 — normalized slugs of every page that has published DOM edits. */
+export const getEditedPageSlugs = cache(async (fresh = false): Promise<string[]> => {
+  if (!fresh) return loadEditedPageSlugs(false);
+  if (freshSlugs && Date.now() - freshSlugs.at < FRESH_SLUGS_TTL_MS) return freshSlugs.promise;
+  const promise = loadEditedPageSlugs(true);
+  freshSlugs = { at: Date.now(), promise };
+  return promise;
 });
 
 /** B2 — edits for one path. Checks the B1 list first so we never request 404s. */

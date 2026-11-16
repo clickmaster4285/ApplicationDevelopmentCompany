@@ -1,24 +1,27 @@
 import { NextResponse } from "next/server";
+import aboutData from "@/content/about";
+import frameworksData from "@/content/frameworks";
+import { directoryLetters } from "@/lib/location-directory";
+import { contentPagePaths } from "@/lib/sitemap";
 
 export async function GET() {
   const baseUrl =
     process.env.NEXT_PUBLIC_SITE_URL || "https://clickmastersapplicationdevelopment.com";
 
+  // Section hubs (/blog, /solutions, /industries, …) are listed in their own
+  // section sitemap, so they are not repeated here.
   const pages = [
     "",
     "about",
-    "blog",
-    "case-studies",
-    "compare",
     "contact",
-    "ebooks",
-    "industries",
-    "locations",
     "process",
     "privacy",
     "terms",
-    "resources",
-    "solutions",
+    // Indexable pages not covered by a section sitemap.
+    ...contentPagePaths(aboutData.pages).map((path) => path.slice(1)),
+    ...contentPagePaths(frameworksData.pages).map((path) => path.slice(1)),
+    "locations/directory",
+    ...directoryLetters().map((letter) => `locations/directory/${letter.toLowerCase()}`),
   ];
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
