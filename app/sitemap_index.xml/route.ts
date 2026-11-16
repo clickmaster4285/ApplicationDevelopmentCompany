@@ -41,6 +41,18 @@ export async function GET() {
     <lastmod>${lastModified}</lastmod>
   </sitemap>
   <sitemap>
+    <loc>${siteUrl}/sitemap_technologies.xml</loc>
+    <lastmod>${lastModified}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>${siteUrl}/sitemap_platforms.xml</loc>
+    <lastmod>${lastModified}</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>${siteUrl}/sitemap_cost.xml</loc>
+    <lastmod>${lastModified}</lastmod>
+  </sitemap>
+  <sitemap>
     <loc>${siteUrl}/sitemap_locations.xml</loc>
     <lastmod>${lastModified}</lastmod>
   </sitemap>

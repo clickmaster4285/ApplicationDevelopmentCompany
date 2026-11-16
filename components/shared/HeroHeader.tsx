@@ -12,6 +12,7 @@ import { MagneticButton } from "../landingPage/MagneticButton";
 import { submitLeadToCrm } from "@/lib/crm";
 import { ContactForm } from "@/app/contact/contact-form";
 import { CLIENTS_LABEL } from "@/lib/company";
+import { normalizePageMarkdown } from "@/lib/markdown";
 
 const Badge = ({ 
   children, 
@@ -221,16 +222,19 @@ export function HeroHeader({
       .replace(/\*/g, "")
       .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
       .replace(/^-\s+/gm, "")
+      .replace(/^#{1,6}\s+/, "")
       .trim();
 
-  const contentLines = (pageData.content || "")
+  // Same normalization as PageContent: drops the internal "# INDUSTRY 02 — …"
+  // label (so the real H1 becomes the title) and authoring-note lines.
+  const contentLines = normalizePageMarkdown(pageData.content || "")
     .split("\n")
     .map((line) => line.trim())
     .filter(Boolean);
   const contentTitle = contentLines[0]?.replace(/^#\s+/, "");
   const contentDescription = contentLines
     .slice(1)
-    .find((line) => !/^CTA:/i.test(line) && !/^##\s+/.test(line));
+    .find((line) => !/^CTA:/i.test(line) && !/^#{1,6}\s+/.test(line));
   const title = stripMarkdown(contentTitle || pageData.meta.title || "");
   const description = stripMarkdown(
     contentDescription || pageData.meta.description || "",

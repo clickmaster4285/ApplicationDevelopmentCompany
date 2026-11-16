@@ -1,4 +1,5 @@
 // app/components/shared/IndustryServicePageUtils.ts
+import { normalizeFaqs } from "@/lib/markdown";
 
 // ============================================================
 // TYPES
@@ -55,15 +56,17 @@ export interface FAQ {
 // HELPERS
 // ============================================================
 
+// FAQs are normalized (authoring notes removed, empty answers dropped) so the
+// FAQPage JSON-LD built from this list matches the visible FAQSection.
 export function extractFAQs(contentOrPageData: string | PageData): FAQ[] {
   if (typeof contentOrPageData === "object" && contentOrPageData.structured) {
     const pageData = contentOrPageData as PageData;
     if (pageData.structured?.faqs && pageData.structured.faqs.length > 0) {
-      return pageData.structured.faqs;
+      return normalizeFaqs(pageData.structured.faqs);
     }
-    return extractFAQsFromContent(pageData.content);
+    return normalizeFaqs(extractFAQsFromContent(pageData.content));
   }
-  return extractFAQsFromContent(contentOrPageData as string);
+  return normalizeFaqs(extractFAQsFromContent(contentOrPageData as string));
 }
 
 function extractFAQsFromContent(content: string): FAQ[] {

@@ -36,8 +36,12 @@ export function Hero() {
       "span span, [data-word] > span",
     );
     const tl = gsap.timeline({ defaults: { ease: "expo.out" } });
-    tl.to(eyebrowRef.current, { opacity: 1, y: 0, duration: 0.8 }, 0.1)
-      .to(chars, { y: 0, opacity: 1, duration: 1.2, stagger: 0.018 }, 0.2)
+    // eyebrowRef is optional (no eyebrow element is rendered at the moment);
+    // animating a null target makes GSAP log a console warning.
+    if (eyebrowRef.current) {
+      tl.to(eyebrowRef.current, { opacity: 1, y: 0, duration: 0.8 }, 0.1);
+    }
+    tl.to(chars, { y: 0, opacity: 1, duration: 1.2, stagger: 0.018 }, 0.2)
       .to(subRef.current, { opacity: 1, y: 0, duration: 1 }, 0.9)
       .to(ctaRef.current, { opacity: 1, y: 0, duration: 1 }, 1.1)
       .to(scrollRef.current, { opacity: 1, duration: 1 }, 1.3);
